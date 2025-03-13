@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="header">
+    <h1>Redefinição de senha</h1>
+  </div>
+  <div class="body">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Senha</label>
+        <input type="password" id="password" [ngModel]="model.senha" (ngModelChange)="onChangePassword($event,1)" placeholder="Digite a senha" class="form-control"
+          name="password" required />
+      </div>
+
+      <div class="form-group">
+        <label for="username">Confirme a senha</label>
+        <input type="password" id="confirmpassword" [ngModel]="model.confirmarSenha"(ngModelChange)="onChangePassword($event,2)" placeholder="Confirma a senha"
+          class="form-control" name="confirmpassword" required />
+      </div>
+
+      <div class="verify-password">
+        <app-check class="check" text="No mínimo 8 caracteres" [check]="verificarMinCaracter()"></app-check>
+        <app-check class="check" text="Pelo menos um número" [check]="verificarNumero()"></app-check>
+        <app-check class="check" text="No mínimo 1 caractere minúsculo" [check]="verificarMaiuscula()"></app-check>
+        <app-check class="check" text="No mínimo 1 caractere maiúsculo" [check]="verificarMinuscula()"></app-check>
+        <app-check class="check" text="No mínimo 1 caractere especial" [check]="verificarEspecial()"></app-check>
+        <app-check class="check" text="As senhas devem ser iguais" [check]="verificarSenhasIguais()"></app-check>
+      </div>
+
+      <button type="submit" [disabled]="btnDisabled" class="btn btn-success">Redefinir senha</button>
+    </form>
+
+  </div>
+  <app-loader *ngIf="loader"></app-loader>
+
+</div>

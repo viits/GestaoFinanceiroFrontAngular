@@ -1,0 +1,40 @@
+.header {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0 0 0;
+}
+.body{
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+form{
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form-group{
+  margin: 10px 0 0 0;
+}
+.verify-password {
+  margin: 20px 0 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.check {
+  padding: 5px 0 5px 0
+}
+
+button{
+  margin: 20px 0 0 0;
+}

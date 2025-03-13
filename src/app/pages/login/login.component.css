@@ -1,0 +1,41 @@
+
+.login{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+}
+.login-container{
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.form-login{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.form-group{
+  width: 70%;
+}
+.image-container {
+  width: 60%;
+  height: 100%;
+  /* background-color: $grey-color; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+img{
+  width: 50%;
+  height: 100%;
+}

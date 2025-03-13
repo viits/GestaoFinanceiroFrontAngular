@@ -1,0 +1,43 @@
+<app-layout>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h1>Cadastro de Fornecedor</h1>
+      </div>
+      <div class="cadastro">
+        <button class="btn btn-primary" (click)="openDialog()">Cadastrar atendente</button>
+      </div>
+    </div>
+    <div class="body">
+      <div class="table-usuario">
+        <table mat-table [dataSource]="listFornecedor" class="mat-elevation-z8">
+          <ng-container matColumnDef="nomeFornecedor">
+            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <td mat-cell *matCellDef="let element"> {{element.nomeFornecedor}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="porcentagem">
+            <th mat-header-cell *matHeaderCellDef> Porcentagem </th>
+            <td mat-cell *matCellDef="let element"> {{element.porcentagem}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef> Ações </th>
+            <td mat-cell *matCellDef="let element"><img src="assets/icons/edit.svg" (click)="editarFornecedor(element)" />
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </div>
+    </div>
+    <div class="footer">
+      <mat-paginator [pageIndex]="pagination.pageNumber - 1" [pageSize]="pagination.pageSize"
+        [pageSizeOptions]="[5, 10, 25]" [length]="pagination.qtPages" aria-label="Select page" (page)="getPage($event)">
+      </mat-paginator>
+    </div>
+    <app-loader *ngIf="loader"></app-loader>
+  </div>
+</app-layout>

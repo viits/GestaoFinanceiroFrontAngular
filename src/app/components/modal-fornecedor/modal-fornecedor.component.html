@@ -1,0 +1,23 @@
+<div class="header">
+  <h4 *ngIf="edit">Editar fornecedor</h4>
+  <h4 *ngIf="!edit">Cadastro de fornecedor</h4>
+</div>
+<div class="body">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Nome</label>
+      <input type="text" [(ngModel)]="data.nomeFornecedor" placeholder="Nome do fornecedor" class="form-control"
+        name="nomeFornecedor" required />
+    </div>
+    <div class="form-group">
+      <label for="email">Porcentagem à receber</label>
+      <input type="text" [(ngModel)]="data.porcentagem" (input)="onInput($event)"  placeholder="20" class="form-control"
+        name="porcentagem" required />
+
+    </div>
+    <div class="button-confirm">
+      <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+  </form>
+  <app-loader *ngIf="loader"></app-loader>
+</div>
