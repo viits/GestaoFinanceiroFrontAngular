@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { PagamentoAtualService } from '../../shared/pagamento-atual.service';
+import { IPagamentoTable } from '../../../interface/IPagamentoTable';
+import { IPagamento } from '../../../interface/IPagamento';
+import { PagamentoAtualService } from '../../../shared/pagamento-atual.service';
+import { AtendenteService } from '../../../shared/atendente.service';
+import { FornecedorService } from '../../../shared/fornecedor.service';
 import { ToastrService } from 'ngx-toastr';
-import { IPagamentoTable } from '../../interface/IPagamentoTable';
-import { IPagamento } from '../../interface/IPagamento';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalPagamentoAtualComponent } from '../../components/modal-pagamento-atual/modal-pagamento-atual.component';
-import { AtendenteService } from '../../shared/atendente.service';
-import { FornecedorService } from '../../shared/fornecedor.service';
-import { IDataPagamento } from '../../interface/IDataPagamento';
+import { IDataPagamento } from '../../../interface/IDataPagamento';
+import { IPaginator } from '../../../interface/IPaginator';
 
 @Component({
-  selector: 'app-pagamento-atual',
-  templateUrl: './pagamento-atual.component.html',
-  styleUrl: './pagamento-atual.component.css'
+  selector: 'app-relatorio-pagamento',
+  templateUrl: './relatorio-pagamento.component.html',
+  styleUrl: './relatorio-pagamento.component.css'
 })
-export class PagamentoAtualComponent implements OnInit {
+export class RelatorioPagamentoComponent implements OnInit {
+
+  edit: boolean = false;
   loader: boolean = false;
   listPagamentos: IPagamentoTable[] = []
 
@@ -26,45 +28,31 @@ export class PagamentoAtualComponent implements OnInit {
     idStatusPagamento: 0,
     valorBruto: 0,
   }
-  displayedColumns: string[] = ['nomeAtendente', 'nomeFornecedor', 'valorBruto', 'metodoPagamento', 'statusPagamento'];
   pagamentoModal: IDataPagamento = {
     atendenteSelect: [],
     fornecedorSelect: [],
     metodoPagamento: [],
     pagamento: this.pagamento
   }
+  pagination: IPaginator = {
+    pageNumber: 1,
+    pageSize: 5,
+    qtPages: 0
+  };
+  displayedColumns: string[] = ['nomeAtendente', 'nomeFornecedor', 'valorBruto', 'metodoPagamento', 'statusPagamento'];
+
+
   ngOnInit(): void {
-    this.getPagamentoAtual();
     this.getAllAtendentes();
     this.getAllFornecedores();
     this.getAllMetodoPagamento();
+    this.getRelatorioPagamento();
   }
   constructor(private pagamentoService: PagamentoAtualService,
     private atendenteService: AtendenteService,
     private fornecedorService: FornecedorService,
     private toast: ToastrService,
     private dialog: MatDialog) { }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ModalPagamentoAtualComponent, {
-      data: this.pagamentoModal,
-      height: '30vw',
-      width: '50vh'
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      this.pagamento = {
-        idFornecedorAtendente: 0,
-        idAtendente: 0,
-        idFornecedor: 0,
-        idMetodoPagamento: 0,
-        idStatusPagamento: 0,
-        valorBruto: 0,
-      }
-      this.getPagamentoAtual();
-    });
-  }
-
 
   getAllAtendentes() {
     this.loader = true;
@@ -146,12 +134,13 @@ export class PagamentoAtualComponent implements OnInit {
     });
   }
 
-  getPagamentoAtual() {
+  getRelatorioPagamento() {
     this.loader = true;
-    this.pagamentoService.getAllPagamentoAtual({
+    this.pagamentoService.getAllPagamentoRelatorio(this.pagination, {
 
       onSuccess: (res: any) => {
-        this.listPagamentos =  res?.data?.listPagamentos?.map((x: any) => {
+        // console.log('Res: ', res)
+        this.listPagamentos =  res?.data?.listRelatorioPagamentos?.pagamentoResponse?.map((x: any) => {
 
           return {
             idFornecedorAtendente: x.idFornecedorAtendente,
@@ -168,6 +157,11 @@ export class PagamentoAtualComponent implements OnInit {
             valorLiquidoFornecedor: x.valorLiquidoFornecedor
           }
         })
+        this.pagination = {
+          pageNumber: res.data?.listRelatorioPagamentos?.pageNumber,
+          pageSize: res.data?.listRelatorioPagamentos?.pageSize,
+          qtPages: res.data?.listRelatorioPagamentos?.qtPages
+        };
         this.loader = false;
       },
       onError: (error: any) => {
@@ -183,6 +177,14 @@ export class PagamentoAtualComponent implements OnInit {
         this.loader = false;
       },
     });
+  }
+  getPage(item: any) {
+    this.pagination = {
+      pageNumber: item.pageIndex + 1,
+      pageSize: item.pageSize,
+      qtPages: item.length
+    }
+    this.getRelatorioPagamento();
   }
 
 }

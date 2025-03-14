@@ -72,4 +72,24 @@ export class AtendenteService {
         },
       });
   }
+  getAllAtendenteSelect({ onSuccess, onError }: any): any {
+    let url = environment.apiUrl + `Atendente/Select`;
+
+    this.httpClient
+      .get(url, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
 }

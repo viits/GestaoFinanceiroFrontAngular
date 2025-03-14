@@ -9,6 +9,7 @@ import { GerenteComponent } from './pages/cadastros/gerente/gerente.component';
 import { FornecedorComponent } from './pages/cadastros/fornecedor/fornecedor.component';
 import { AtendenteComponent } from './pages/cadastros/atendente/atendente.component';
 import { PagamentoAtualComponent } from './pages/pagamento-atual/pagamento-atual.component';
+import { RelatorioPagamentoComponent } from './pages/relatorios/relatorio-pagamento/relatorio-pagamento.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'cadastro/gerente', component: GerenteComponent },
   { path: 'cadastro/fornecedor', component: FornecedorComponent },
   { path: 'cadastro/atendente', component: AtendenteComponent },
+  { path: 'relatorio/pagamento', component: RelatorioPagamentoComponent },
 ];
 
 @NgModule({

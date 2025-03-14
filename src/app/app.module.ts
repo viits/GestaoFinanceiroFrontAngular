@@ -28,6 +28,7 @@ import { ModalAtendenteComponent } from './components/modal-atendente/modal-aten
 import { MatSelectModule } from '@angular/material/select';
 import { PagamentoAtualComponent } from './pages/pagamento-atual/pagamento-atual.component';
 import { ModalPagamentoAtualComponent } from './components/modal-pagamento-atual/modal-pagamento-atual.component';
+import { RelatorioPagamentoComponent } from './pages/relatorios/relatorio-pagamento/relatorio-pagamento.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ModalPagamentoAtualComponent } from './components/modal-pagamento-atual
     ModalAtendenteComponent,
     PagamentoAtualComponent,
     ModalPagamentoAtualComponent,
+    RelatorioPagamentoComponent,
   ],
   imports: [
     BrowserModule,

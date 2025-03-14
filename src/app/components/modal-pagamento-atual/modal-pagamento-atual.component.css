@@ -1,0 +1,28 @@
+.header {
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0 0;
+}
+
+.body {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form{
+  width: 90%;
+}
+
+.form-group {
+  width: 100%;
+  margin: 20px 0 0 0;
+}
+.button-confirm{
+  width: 100%;
+  margin: 20px 0 0 0;
+  text-align: center;
+}
