@@ -27,11 +27,6 @@ export class ModalFornecedorComponent implements OnInit {
     }
   }
 
-  onInput(event: any) {
-    // Permite apenas números inteiros
-    event.target.value = event.target.value.replace(/[^0-9]/g, '');
-  }
-
   close(value: boolean = false): void {
     this.dialogRef.close(value);
   }

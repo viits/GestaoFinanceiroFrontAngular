@@ -13,7 +13,6 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { MatTableModule } from '@angular/material/table';
-import { CadastroUsuarioComponent } from './pages/cadastros/cadastro-usuario/cadastro-usuario.component';
 import { RedefinirSenhaComponent } from './pages/redefinir-senha/redefinir-senha.component';
 import { CheckComponent } from './components/check/check.component';
 import { LoaderComponent } from './components/loader/loader.component';
@@ -33,6 +32,10 @@ import { ModalRelatorioPagamentoComponent } from './components/modal-relatorio-p
 import { MatAccordion } from '@angular/material/expansion';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
+import { NgxMaskConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask'
+const maskConfig: Partial<NgxMaskConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -42,7 +45,6 @@ import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.
     LayoutComponent,
     MenuComponent,
     UsuarioComponent,
-    CadastroUsuarioComponent,
     RedefinirSenhaComponent,
     CheckComponent,
     LoaderComponent,
@@ -70,7 +72,8 @@ import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.
     MatPaginatorModule,
     MatSelectModule,
     MatAccordion,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxMaskDirective, NgxMaskPipe
   ],
   exports: [
     HomeComponent,
@@ -82,7 +85,7 @@ import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.
     ModalFornecedorComponent,
     ModalAtendenteComponent
   ],
-  providers: [],
+  providers: [provideEnvironmentNgxMask(maskConfig)],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

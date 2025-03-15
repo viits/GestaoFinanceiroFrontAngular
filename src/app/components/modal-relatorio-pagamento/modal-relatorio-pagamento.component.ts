@@ -33,7 +33,9 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
   }
 
   onSubmit() {
-    this.data.pagamento.valorBruto = Number(this.data.pagamento.valorBruto)
+
+    this.data.pagamento.valorBruto = Number(this.data.pagamento.valorBruto.replace(/\./g, '').replace(',', '.'))
+
     if (!this.verifyFields()) {
       this.toast.error('Preencha os campos obrigatórios!');
     } else {
@@ -97,6 +99,25 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
         }
       },
     });
+  }
+
+  FormatarValorExibicao(event: any): void {
+    let valor = event;
+    const v = ((valor.replace(/\D/g, '') / 100).toFixed(2) + '').split('.');
+    const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
+    if (m != null) {
+
+
+      for (let i = 0; i < m.length; i++)
+        m[i] = m[i].split('').reverse().join('') + '.';
+
+      const r = m.reverse().join('');
+      this.data.pagamento.valorBruto = [r.substring(0, r.lastIndexOf('.')), ',', v[1]].join('');
+    }
+    else {
+      this.data.pagamento.valorBruto = ''
+    }
+
   }
 
 }

@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
       <label for="email">Porcentagem à receber</label>
-      <input type="text" [(ngModel)]="data.porcentagem" (input)="onInput($event)"  placeholder="20" class="form-control"
+      <input type="text" [(ngModel)]="data.porcentagem" mask="00"  placeholder="20" class="form-control"
         name="porcentagem" required />
 
     </div>

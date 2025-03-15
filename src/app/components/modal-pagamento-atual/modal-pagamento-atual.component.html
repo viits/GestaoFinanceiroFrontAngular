@@ -29,7 +29,8 @@
     </div>
     <div class="form-group">
       <label>Valor R$</label>
-      <input type="number" [(ngModel)]="data.pagamento.valorBruto"  placeholder="20%" class="form-control"
+      <input type="text" [ngModel]="data.pagamento.valorBruto" (ngModelChange)="FormatarValorExibicao($event)"
+        placeholder="0,00" class="form-control"
         name="valorBruto" required />
     </div>
     <div class="button-confirm">

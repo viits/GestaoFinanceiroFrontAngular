@@ -26,6 +26,7 @@ export class UsuarioComponent implements OnInit {
     email: '',
     telefone: ''
   }
+  displayedColumns: string[] = ['nomeUsuario', 'email', 'telefone', 'acoes'];
 
   ngOnInit(): void {
     this.getAllUsuario();
@@ -56,7 +57,7 @@ export class UsuarioComponent implements OnInit {
         email: '',
         telefone: ''
       }
-      if(result == true){
+      if (result == true) {
         this.getAllUsuario();
       }
     });
@@ -95,11 +96,23 @@ export class UsuarioComponent implements OnInit {
     // this.toast.success('Testasso');
   }
 
-  displayedColumns: string[] = ['nomeUsuario', 'email', 'telefone', 'acoes'];
 
 
   public goTo(route: string) {
     this.router.navigate([route]);
   }
 
+  formatarTelefone(num: string) {
+    if (num != null && num != "") {
+      const codigoArea = num.slice(0, 2);
+      const parte1 = num.slice(2, 7);
+      const parte2 = num.slice(7);
+
+      const numeroFormatado = `(${codigoArea})${parte1}-${parte2}`;
+      return numeroFormatado;
+    }
+    else {
+      return "Não informado"
+    }
+  }
 }

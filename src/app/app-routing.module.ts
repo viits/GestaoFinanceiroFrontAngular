@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
-import { CadastroUsuarioComponent } from './pages/cadastros/cadastro-usuario/cadastro-usuario.component';
 import { RedefinirSenhaComponent } from './pages/redefinir-senha/redefinir-senha.component';
 import { GerenteComponent } from './pages/cadastros/gerente/gerente.component';
 import { FornecedorComponent } from './pages/cadastros/fornecedor/fornecedor.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
   { path: 'home', component: PagamentoAtualComponent },
   { path: 'usuario', component: UsuarioComponent },
   { path: 'nova-senha', component: RedefinirSenhaComponent },
-  { path: 'cadastro/usuario', component: CadastroUsuarioComponent },
   { path: 'cadastro/gerente', component: GerenteComponent },
   { path: 'cadastro/fornecedor', component: FornecedorComponent },
   { path: 'cadastro/atendente', component: AtendenteComponent },

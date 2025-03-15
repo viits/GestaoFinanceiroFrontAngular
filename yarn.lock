@@ -5073,6 +5073,13 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ngx-mask@^19.0.6:
+  version "19.0.6"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-19.0.6.tgz#d3d112e0962f95474c1a7df94ed7c04d2b5bec89"
+  integrity sha512-lJa3+gIg0XMwjRv71pqW7uYrzFPZXl7VUbdbafJ9uo7QydfHIhUe8ByPgWt5VxvSC2mp5ndE3O7jWMOtv7Kthw==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-toastr@^19.0.0:
   version "19.0.0"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-19.0.0.tgz#51ebb9cb8f8b2f43704d45b560f6d8997f556016"

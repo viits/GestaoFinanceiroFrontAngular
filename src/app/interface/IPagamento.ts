@@ -4,6 +4,6 @@ export interface IPagamento {
   idFornecedor: number,
   idMetodoPagamento: number,
   idStatusPagamento: number,
-  valorBruto: number,
+  valorBruto: any,
   dataVenda?: Date
 }
