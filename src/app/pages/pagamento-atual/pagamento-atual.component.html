@@ -1,5 +1,5 @@
 <app-layout>
-  <div class="container">
+  <div class="container-pagamento">
     <div class="header">
       <div class="title">
         <h1>Lista de Pagamentos realizados</h1>
@@ -10,9 +10,7 @@
     </div>
 
     <div class="body">
-
       <p *ngIf="listPagamentos.length == 0">Não possui pagamentos registrados hoje</p>
-
       <div class="table-usuario" *ngIf="listPagamentos.length>0">
         <table mat-table [dataSource]="listPagamentos" class="mat-elevation-z8">
           <ng-container matColumnDef="nomeAtendente">
@@ -43,10 +41,16 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
       </div>
-
     </div>
-
+    <div class="footer">
+      <div class="valor-bruto">
+        <label>Total bruto: R$ {{totalBruto}}</label>
+      </div>
+      <div class="total-valor">
+        <label>Total liq. atendente: R$ {{totalLiqAtendente}}</label>
+        <label>Total liq. fornecedor: R$ {{totalLiqFornecedor}}</label>
+      </div>
+    </div>
   </div>
 </app-layout>

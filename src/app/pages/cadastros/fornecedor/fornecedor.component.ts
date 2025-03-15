@@ -57,7 +57,9 @@ export class FornecedorComponent implements OnInit {
         nomeFornecedor: '',
         porcentagem: 0
       }
-      this.getFornecedor();
+      if (result == true) {
+        this.getFornecedor();
+      }
     });
   }
 

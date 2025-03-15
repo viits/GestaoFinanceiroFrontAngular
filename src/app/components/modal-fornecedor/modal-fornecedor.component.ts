@@ -32,8 +32,8 @@ export class ModalFornecedorComponent implements OnInit {
     event.target.value = event.target.value.replace(/[^0-9]/g, '');
   }
 
-  close(): void {
-    this.dialogRef.close();
+  close(value: boolean = false): void {
+    this.dialogRef.close(value);
   }
   verifyFields() {
     if (this.data.nomeFornecedor == '' || this.data.porcentagem == 0 || this.data.porcentagem == null) {
@@ -47,7 +47,7 @@ export class ModalFornecedorComponent implements OnInit {
       onSuccess: (res: any) => {
         this.toast.success('Fornecedor cadastrado com sucesso.');
         this.loader = false;
-        this.close();
+        this.close(true);
       },
       onError: (error: any) => {
         this.loader = false;
@@ -67,7 +67,7 @@ export class ModalFornecedorComponent implements OnInit {
       onSuccess: (res: any) => {
         this.toast.success('Fornecedor editado com sucesso.');
         this.loader = false;
-        this.close();
+        this.close(true);
       },
       onError: (error: any) => {
         this.loader = false;
@@ -81,6 +81,7 @@ export class ModalFornecedorComponent implements OnInit {
       },
     });
   }
+
   onSubmit() {
     if (!this.verifyFields()) {
       this.toast.error('Preencha os campos obrigatórios!');

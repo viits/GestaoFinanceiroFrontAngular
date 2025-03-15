@@ -8,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { IDataPagamento } from '../../../interface/IDataPagamento';
 import { IPaginator } from '../../../interface/IPaginator';
+import { ModalPagamentoAtualComponent } from '../../../components/modal-pagamento-atual/modal-pagamento-atual.component';
+import { ModalRelatorioPagamentoComponent } from '../../../components/modal-relatorio-pagamento/modal-relatorio-pagamento.component';
+import { DatePipe } from '@angular/common';
+import { StatusPagamentoService } from '../../../shared/status-pagamento.service';
 
 @Component({
   selector: 'app-relatorio-pagamento',
@@ -32,6 +36,7 @@ export class RelatorioPagamentoComponent implements OnInit {
     atendenteSelect: [],
     fornecedorSelect: [],
     metodoPagamento: [],
+    statusPagamento: [],
     pagamento: this.pagamento
   }
   pagination: IPaginator = {
@@ -39,20 +44,62 @@ export class RelatorioPagamentoComponent implements OnInit {
     pageSize: 5,
     qtPages: 0
   };
-  displayedColumns: string[] = ['nomeAtendente', 'nomeFornecedor', 'valorBruto', 'metodoPagamento', 'statusPagamento'];
+  displayedColumns: string[] = [
+    'nomeAtendente',
+    'nomeFornecedor',
+    'valorBruto',
+    'metodoPagamento',
+    'statusPagamento',
+    'valorLiquidoAtendente',
+    'valorLiquidoFornecedor',
+    'dataVenda',
+    'acoes'
+  ];
 
 
   ngOnInit(): void {
     this.getAllAtendentes();
     this.getAllFornecedores();
     this.getAllMetodoPagamento();
+    this.getAllStatusPagamento();
     this.getRelatorioPagamento();
   }
   constructor(private pagamentoService: PagamentoAtualService,
     private atendenteService: AtendenteService,
     private fornecedorService: FornecedorService,
+    private statusPagamentoService: StatusPagamentoService,
     private toast: ToastrService,
     private dialog: MatDialog) { }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalRelatorioPagamentoComponent, {
+      data: this.pagamentoModal,
+      height: '40vw',
+      width: '60vh'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.pagamentoModal.pagamento = {
+        idFornecedorAtendente: 0,
+        idAtendente: 0,
+        idFornecedor: 0,
+        idMetodoPagamento: 0,
+        idStatusPagamento: 0,
+        valorBruto: 0,
+        dataVenda: new Date()
+      }
+      if(result == true){
+        this.getRelatorioPagamento();
+      }
+    });
+  }
+
+
+    editarFornecedor(event: IPagamento) {
+      console.log(event)
+      this.pagamentoModal.pagamento = event;
+      this.openDialog();
+    }
 
   getAllAtendentes() {
     this.loader = true;
@@ -62,6 +109,33 @@ export class RelatorioPagamentoComponent implements OnInit {
           return {
             value: x.idAtendente,
             name: x.nomeAtendente
+          }
+        })
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+          // this.toast.error('Email ou senha inválidos!');
+        }
+        this.loader = false;
+      },
+    });
+  }
+
+  getAllStatusPagamento() {
+    this.loader = true;
+    this.statusPagamentoService.getAllStatusPagamentoSelect({
+      onSuccess: (res: any) => {
+        this.pagamentoModal.statusPagamento = res?.data?.listStatusPagamentos?.map((x: any) => {
+          return {
+            value: x.idStatusPagamento,
+            name: x.statusPagamento
           }
         })
         this.loader = false;
@@ -139,8 +213,7 @@ export class RelatorioPagamentoComponent implements OnInit {
     this.pagamentoService.getAllPagamentoRelatorio(this.pagination, {
 
       onSuccess: (res: any) => {
-        // console.log('Res: ', res)
-        this.listPagamentos =  res?.data?.listRelatorioPagamentos?.pagamentoResponse?.map((x: any) => {
+        this.listPagamentos = res?.data?.listRelatorioPagamentos?.pagamentoResponse?.map((x: any) => {
 
           return {
             idFornecedorAtendente: x.idFornecedorAtendente,
@@ -154,9 +227,11 @@ export class RelatorioPagamentoComponent implements OnInit {
             statusPagamento: x.statusPagamento,
             valorBruto: x.valorBruto,
             valorLiquidoAtendente: x.valorLiquidoAtendente,
-            valorLiquidoFornecedor: x.valorLiquidoFornecedor
+            valorLiquidoFornecedor: x.valorLiquidoFornecedor,
+            dataVenda: this.formatarData(x.dataVenda)
           }
         })
+
         this.pagination = {
           pageNumber: res.data?.listRelatorioPagamentos?.pageNumber,
           pageSize: res.data?.listRelatorioPagamentos?.pageSize,
@@ -177,6 +252,46 @@ export class RelatorioPagamentoComponent implements OnInit {
         this.loader = false;
       },
     });
+  }
+  formatarData(dt: any) {
+    if (dt != null) {
+      var dataFormatada;
+      const data = new Date(dt);
+
+      data.setMinutes(data.getMinutes() + data.getTimezoneOffset());
+
+      const dia = data.getDate();
+      const mes = data.getMonth() + 1;
+      const ano = data.getFullYear();
+
+      const diaFormatado = dia < 10 ? `0${dia}` : `${dia}`;
+      const mesFormatado = mes < 10 ? `0${mes}` : `${mes}`;
+
+      dataFormatada = `${ano}-${mesFormatado}-${diaFormatado}`;
+      return dataFormatada;
+    } else {
+      return "";
+    }
+  }
+  formatarDataTable(dt: any) {
+    if (dt != null) {
+      var dataFormatada;
+      const data = new Date(dt);
+
+      data.setMinutes(data.getMinutes() + data.getTimezoneOffset());
+
+      const dia = data.getDate();
+      const mes = data.getMonth() + 1;
+      const ano = data.getFullYear();
+
+      const diaFormatado = dia < 10 ? `0${dia}` : `${dia}`;
+      const mesFormatado = mes < 10 ? `0${mes}` : `${mes}`;
+
+      dataFormatada = `${diaFormatado}/${mesFormatado}/${ano}`;
+      return dataFormatada;
+    } else {
+      return "";
+    }
   }
   getPage(item: any) {
     this.pagination = {

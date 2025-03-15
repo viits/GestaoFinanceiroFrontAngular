@@ -96,5 +96,41 @@ export class PagamentoAtualService {
         },
       });
   }
+  cadastrarPagamentoRelatorio(pagamento: IPagamento, { onSuccess, onError }: any): any {
+    this.httpClient
+      .post(environment.apiUrl + `RelatorioPagamento`, pagamento, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
+  atualizarPagamentoRelatorio(pagamento: IPagamento, { onSuccess, onError }: any): any {
+    this.httpClient
+      .put(environment.apiUrl + `RelatorioPagamento`, pagamento, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
 
 }

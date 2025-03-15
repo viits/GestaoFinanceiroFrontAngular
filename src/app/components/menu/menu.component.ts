@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit{
   ngOnInit(): void {
   }
   constructor(private router: Router, private authService: AuthService){}
-
+  isMenuExpanded: boolean = false
 
   public goTo(route: string) {
     this.router.navigate([route]);

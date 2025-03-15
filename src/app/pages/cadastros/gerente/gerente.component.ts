@@ -57,8 +57,9 @@ export class GerenteComponent implements OnInit {
         nomeGerente: '',
         porcentagem: 0
       }
-      this.getGerente();
-
+      if (result == true) {
+        this.getGerente();
+      }
     });
   }
   getPage(item: any) {

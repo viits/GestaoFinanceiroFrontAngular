@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { UsuarioService } from '../../shared/usuario.service';
 import { ToastrService } from 'ngx-toastr';
+import { IUsuario } from '../../interface/IUsuario';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalUsuarioComponent } from '../../components/modal-usuario/modal-usuario.component';
 
 export interface PeriodicElement {
   name: string;
@@ -17,10 +20,47 @@ export interface PeriodicElement {
 export class UsuarioComponent implements OnInit {
   loader: boolean = false;
   listUsuario: any = [];
+  usuario: IUsuario = {
+    idUsuario: 0,
+    nomeUsuario: '',
+    email: '',
+    telefone: ''
+  }
+
   ngOnInit(): void {
     this.getAllUsuario();
   }
-  constructor(private router: Router, private usuarioService: UsuarioService, private toast: ToastrService) { }
+  constructor(
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private toast: ToastrService,
+    private dialog: MatDialog
+  ) { }
+  editarUsuario(event: IUsuario) {
+    // console.log(event)
+    this.usuario = event;
+    this.openDialog();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalUsuarioComponent, {
+      data: this.usuario,
+      height: '30vw',
+      width: '50vh'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.usuario = {
+        idUsuario: 0,
+        nomeUsuario: '',
+        email: '',
+        telefone: ''
+      }
+      if(result == true){
+        this.getAllUsuario();
+      }
+    });
+  }
 
   getAllUsuario() {
     this.loader = true;

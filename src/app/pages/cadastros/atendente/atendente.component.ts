@@ -62,7 +62,9 @@ export class AtendenteComponent implements OnInit {
         nomeAtendente: '',
         porcentagem: 0
       }
-      this.getAtendente();
+      if (result == true) {
+        this.getAtendente();
+      }
     });
   }
 

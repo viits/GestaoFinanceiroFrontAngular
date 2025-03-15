@@ -17,7 +17,9 @@ import { IDataPagamento } from '../../interface/IDataPagamento';
 export class PagamentoAtualComponent implements OnInit {
   loader: boolean = false;
   listPagamentos: IPagamentoTable[] = []
-
+  totalBruto: number = 0;
+  totalLiqAtendente: number = 0;
+  totalLiqFornecedor: number = 0;
   pagamento: IPagamento = {
     idFornecedorAtendente: 0,
     idAtendente: 0,
@@ -31,6 +33,7 @@ export class PagamentoAtualComponent implements OnInit {
     atendenteSelect: [],
     fornecedorSelect: [],
     metodoPagamento: [],
+    statusPagamento: [],
     pagamento: this.pagamento
   }
   ngOnInit(): void {
@@ -53,7 +56,7 @@ export class PagamentoAtualComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.pagamento = {
+      this.pagamentoModal.pagamento = {
         idFornecedorAtendente: 0,
         idAtendente: 0,
         idFornecedor: 0,
@@ -61,7 +64,9 @@ export class PagamentoAtualComponent implements OnInit {
         idStatusPagamento: 0,
         valorBruto: 0,
       }
-      this.getPagamentoAtual();
+      if (result == true) {
+        this.getPagamentoAtual();
+      }
     });
   }
 
@@ -147,11 +152,15 @@ export class PagamentoAtualComponent implements OnInit {
   }
 
   getPagamentoAtual() {
+    this.totalBruto = 0;
+    this.totalLiqAtendente = 0;
+    this.totalLiqFornecedor = 0;
+
     this.loader = true;
     this.pagamentoService.getAllPagamentoAtual({
 
       onSuccess: (res: any) => {
-        this.listPagamentos =  res?.data?.listPagamentos?.map((x: any) => {
+        this.listPagamentos = res?.data?.listPagamentos?.map((x: any) => {
 
           return {
             idFornecedorAtendente: x.idFornecedorAtendente,
@@ -168,6 +177,17 @@ export class PagamentoAtualComponent implements OnInit {
             valorLiquidoFornecedor: x.valorLiquidoFornecedor
           }
         })
+        if (this.listPagamentos.length > 0) {
+          this.listPagamentos?.map((x: any) => {
+            this.totalBruto += x.valorBruto;
+            this.totalLiqAtendente += x.valorLiquidoAtendente;
+            this.totalLiqFornecedor += x.valorLiquidoFornecedor;
+          })
+        } else {
+          this.totalBruto = 0;
+          this.totalLiqAtendente = 0;
+          this.totalLiqFornecedor = 0;
+        }
         this.loader = false;
       },
       onError: (error: any) => {

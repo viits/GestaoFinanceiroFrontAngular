@@ -24,8 +24,8 @@ export class ModalPagamentoAtualComponent implements OnInit {
   ) { }
 
 
-  close(): void {
-    this.dialogRef.close();
+  close(value: boolean = false): void {
+    this.dialogRef.close(value);
   }
 
   onSubmit() {
@@ -45,7 +45,7 @@ export class ModalPagamentoAtualComponent implements OnInit {
       onSuccess: (res: any) => {
         this.toast.success('Pagamento adicionado com sucesso.');
         this.loader = false;
-        this.close();
+        this.close(true);
       },
       onError: (error: any) => {
         this.loader = false;

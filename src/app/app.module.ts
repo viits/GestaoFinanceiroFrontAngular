@@ -29,6 +29,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { PagamentoAtualComponent } from './pages/pagamento-atual/pagamento-atual.component';
 import { ModalPagamentoAtualComponent } from './components/modal-pagamento-atual/modal-pagamento-atual.component';
 import { RelatorioPagamentoComponent } from './pages/relatorios/relatorio-pagamento/relatorio-pagamento.component';
+import { ModalRelatorioPagamentoComponent } from './components/modal-relatorio-pagamento/modal-relatorio-pagamento.component';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +55,8 @@ import { RelatorioPagamentoComponent } from './pages/relatorios/relatorio-pagame
     PagamentoAtualComponent,
     ModalPagamentoAtualComponent,
     RelatorioPagamentoComponent,
+    ModalRelatorioPagamentoComponent,
+    ModalUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,9 @@ import { RelatorioPagamentoComponent } from './pages/relatorios/relatorio-pagame
     HttpClientModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAccordion,
+    MatExpansionModule
   ],
   exports: [
     HomeComponent,

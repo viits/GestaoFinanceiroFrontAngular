@@ -1,0 +1,54 @@
+<div class="header">
+  <h4 *ngIf="!edit">Adicionar pagamentos</h4>
+  <h4 *ngIf="edit">Editar pagamentos</h4>
+</div>
+<div class="body">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Data da venda *</label>
+      <input type="date" [(ngModel)]="data.pagamento.dataVenda"  class="form-control"
+        name="dataVenda" required />
+    </div>
+    <div class="form-group">
+      <label>Atendente *</label>
+      <mat-select class="select" [(value)]="data.pagamento.idAtendente">
+        <mat-option *ngFor="let item of data.atendenteSelect" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label>Fornecedor *</label>
+      <mat-select class="select" [(value)]="data.pagamento.idFornecedor">
+        <mat-option *ngFor="let item of data.fornecedorSelect" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label>Método de pagamento *</label>
+      <mat-select class="select" [(value)]="data.pagamento.idMetodoPagamento">
+        <mat-option *ngFor="let item of data.metodoPagamento" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label>Status pagamento *</label>
+      <mat-select class="select" [(value)]="data.pagamento.idStatusPagamento">
+        <mat-option *ngFor="let item of data.statusPagamento" [value]="item.value">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label>Valor R$ *</label>
+      <input type="number" [(ngModel)]="data.pagamento.valorBruto"  placeholder="20%" class="form-control"
+        name="valorBruto" required />
+    </div>
+    <div class="button-confirm">
+      <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+  </form>
+  <app-loader *ngIf="loader"></app-loader>
+</div>

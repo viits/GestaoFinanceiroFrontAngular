@@ -1,0 +1,27 @@
+<div class="header">
+  <h4 *ngIf="edit">Editar usuário</h4>
+  <h4 *ngIf="!edit">Cadastro de usuário</h4>
+</div>
+<div class="body">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nomeUsuario">Nome usuário *</label>
+      <input type="text" [(ngModel)]="data.nomeUsuario" placeholder="Nome do fornecedor" class="form-control"
+        name="nomeUsuario" required />
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail*</label>
+      <input type="email" [(ngModel)]="data.email" placeholder="20" class="form-control" name="email" required
+        [readOnly]="edit ? true: false" />
+    </div>
+    <div class="form-group">
+      <label for="telefone">Telefone*</label>
+      <input type="telefone" [(ngModel)]="data.telefone" placeholder="(99)99999-9999" class="form-control"
+        name="telefone" required />
+    </div>
+    <div class="button-confirm">
+      <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+  </form>
+  <app-loader *ngIf="loader"></app-loader>
+</div>

@@ -1,38 +1,105 @@
-.menu-container{
-  width: 100%;
-  height: 10vh;
-  display: flex;
-  background-color: black;
-}
-.logo{
-  width: 40%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.menu-items{
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.item{
-  width: 100%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.logout{
-  width: 20%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-img{
+img {
   cursor: pointer;
 }
+
+/* ----------------------------------------------------------------------------------------- */
+.menu-container {
+  background-color: #37576c;
+  display: flex;
+  flex-direction: column;
+  width: 292px;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+h1 {
+  color: white;
+  cursor: pointer;
+}
+
+.menu-header {
+  /* width: calc(100% - 48px); */
+  padding: 18px 24px;
+  /* height: calc(66px - 36px); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-body {
+  height: 100%;
+  margin-top: 24px;
+}
+
+.menu-items {
+  height: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 24px;
+}
+
+.menu-items:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.item-content {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.menu-content-text {
+  margin: auto 22px;
+  font-family: "Roboto Slab";
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 30px;
+}
+.accordeon {
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+.not-selected {
+  background-color: #37576c;
+}
+.accordeon-title {
+  color: #ffffff;
+  font-family: "Roboto Slab";
+  font-size: 22px;
+  font-weight: 700;
+}
+.accordeon-content {
+  height: 28px;
+  padding: 0px 0px 0px 30px;
+  font-family: "Roboto Slab";
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  line-height: 28px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: all 0.3s ease-in-out;
+}
+.accordeon-text {
+  margin: 0px !important;
+}
+

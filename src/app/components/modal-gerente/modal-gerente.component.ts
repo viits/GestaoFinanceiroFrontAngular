@@ -21,7 +21,6 @@ export class ModalGerenteComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.data.idGerente != 0){
-      console.log('Data: ', this.data)
       this.edit = true;
     }
   }
@@ -31,8 +30,8 @@ export class ModalGerenteComponent implements OnInit {
     event.target.value = event.target.value.replace(/[^0-9]/g, '');
   }
 
-  close(): void {
-    this.dialogRef.close();
+  close(value: boolean = false): void {
+    this.dialogRef.close(value);
   }
   verifyFields() {
     if (this.data.nomeGerente == '' || this.data.porcentagem == 0 || this.data.porcentagem == null) {
@@ -46,7 +45,7 @@ export class ModalGerenteComponent implements OnInit {
       onSuccess: (res: any) => {
         this.toast.success('Gerente cadastrado com sucesso.');
         this.loader = false;
-        this.close();
+        this.close(true);
       },
       onError: (error: any) => {
         this.loader = false;
@@ -66,7 +65,7 @@ export class ModalGerenteComponent implements OnInit {
       onSuccess: (res: any) => {
         this.toast.success('Gerente editado com sucesso.');
         this.loader = false;
-        this.close();
+        this.close(true);
       },
       onError: (error: any) => {
         this.loader = false;
@@ -87,7 +86,7 @@ export class ModalGerenteComponent implements OnInit {
       return;
     }
     this.data.porcentagem = Number(this.data.porcentagem)
-    if(this.edit = true){
+    if(this.edit == true){
       this.editarGerente();
     }
     else{
