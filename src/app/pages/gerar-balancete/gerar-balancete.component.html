@@ -1,0 +1,122 @@
+<app-layout>
+  <div class="container-relatorio">
+    <div class="header">
+      <div class="title">
+        <h1>Balancete</h1>
+      </div>
+    </div>
+
+    <div class="filtro">
+      <div class="form-group-filtro">
+        <label>Fornecedor</label>
+        <mat-select class="select" [(value)]="data.idFornecedor">
+          <mat-option *ngFor="let item of listFornecedores" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group-filtro">
+        <label>Atendente</label>
+        <mat-select class="select" [(value)]="data.idAtendente">
+          <mat-option *ngFor="let item of listAtendentes" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group-filtro">
+        <label>Data inicio</label>
+        <input type="date" [(ngModel)]="data.dataInicio" class="form-control" />
+      </div>
+      <div class="form-group-filtro">
+        <label>Data fim</label>
+        <input type="date" [(ngModel)]="data.dataFim" class="form-control" />
+      </div>
+      <button type="button" [disabled]="data.dataInicio =='' || data.dataFim=='' ? true: false" class="btn btn-success"
+        (click)="getRelatorioPagamento()">Pesquisar</button>
+    </div>
+
+    <div class="body">
+      <p *ngIf="listPagamentos.length == 0">Coloque as datas para gerar o balancete</p>
+
+      <div class="table-usuario" *ngIf="listPagamentos.length > 0">
+
+        <table mat-table [dataSource]="listPagamentos" class="mat-elevation-z8">
+          <ng-container matColumnDef="nomeFornecedor">
+            <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
+            <td mat-cell *matCellDef="let element"> {{element.nomeFornecedor}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nomeAtendente">
+            <th mat-header-cell *matHeaderCellDef> Nome atendente</th>
+            <td mat-cell *matCellDef="let element"> {{element.nomeAtendente}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valorBruto">
+            <th mat-header-cell *matHeaderCellDef> Valor bruto </th>
+            <td mat-cell *matCellDef="let element">R$ {{element.valorBruto.toLocaleString(
+              'pt-BR',
+              { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+              ) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valorLiquidoAtendente">
+            <th mat-header-cell *matHeaderCellDef> Valor liquido atendente </th>
+            <td mat-cell *matCellDef="let element">R$
+              {{element.valorLiquidoAtendente.toLocaleString(
+              'pt-BR',
+              { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+              ) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valorLiquidoFornecedor">
+            <th mat-header-cell *matHeaderCellDef> Valor liquido fornecedor </th>
+            <td mat-cell *matCellDef="let element">R$ {{element.valorLiquidoFornecedor.toLocaleString(
+              'pt-BR',
+              { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+              ) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="metodoPagamento">
+            <th mat-header-cell *matHeaderCellDef> Método pagamento </th>
+            <td mat-cell *matCellDef="let element"> {{element.metodoPagamento}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="statusPagamento">
+            <th mat-header-cell *matHeaderCellDef> Status pagamento </th>
+            <td mat-cell *matCellDef="let element"> {{element.statusPagamento}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dataVenda">
+            <th mat-header-cell *matHeaderCellDef> Data venda </th>
+            <td mat-cell *matCellDef="let element"> {{formatarDataTable(element.dataVenda)}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </div>
+
+    </div>
+    <div class="footer">
+      <div class="valor-bruto">
+        <label>Total bruto: R$ {{totalBruto.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          ) }}</label>
+      </div>
+      <div class="total-valor">
+        <label>Total liq. atendente: R$ {{totalLiqAtendente.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          )}}</label>
+        <label>Total liq. fornecedor: R$ {{totalLiqFornecedor.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          )}}</label>
+      </div>
+    </div>
+    <app-loader *ngIf="loader"></app-loader>
+  </div>
+</app-layout>

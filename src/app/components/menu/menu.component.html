@@ -44,8 +44,19 @@
         <p class="accordeon-content" (click)="goTo('relatorio/pagamento')">
           Pagamentos
         </p>
+        <p class="accordeon-content" (click)="goTo('relatorio/balancete')">
+          Gerar Balancete
+        </p>
 
       </mat-expansion-panel>
     </mat-accordion>
+
+  </div>
+  <div class="menu-items margin-bottom">
+    <div class="item-content">
+      <p class="menu-content-text" (click)="logout()">
+        Sair
+      </p>
+    </div>
   </div>
 </div>

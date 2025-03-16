@@ -1,0 +1,79 @@
+.container-relatorio {
+  width: 100%;
+  height: 90%;
+}
+
+.header {
+  height: 15%;
+  width: 90%;
+  display: flex;
+  align-items: center;
+}
+
+.filtro{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  /* height: 60px; */
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.form-group-filtro{
+  margin: 0 40px 0 0
+}
+.body {
+  width: 100%;
+  height: 70%;
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  overflow-y: auto;
+}
+
+.footer{
+  width: 85%;
+  /* padding: 50px 0 0 0; */
+  height: 15%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+}
+.total-valor{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+}
+.table-usuario {
+  width: 90%;
+}
+
+img {
+  cursor: pointer;
+}
+th{
+  font-weight: 600;
+  font-size: 16px;
+}
+th, td{
+  text-align: center;
+}
+
+.valor-bruto{
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+label{
+  font-weight: 600;
+}

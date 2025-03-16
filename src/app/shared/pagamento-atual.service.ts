@@ -57,6 +57,31 @@ export class PagamentoAtualService {
         },
       });
   }
+  getBalancete(data: any, { onSuccess, onError }: any): any {
+    let url = environment.apiUrl + `GerarBalancete?dataInicio=${data.dataInicio}&dataFim=${data.dataFim}`;
+    if(data.idAtendente != 0 && data.idAtendente != undefined){
+      url+= `&idAtendente=${data.idAtendente}`
+    }
+    if(data.idFornecedor != 0 && data.idFornecedor != undefined){
+      url+= `&idFornecedor=${data.idFornecedor}`
+    }
+    this.httpClient
+      .get(url, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
 
   getAllMetodoPagamentoSelect({ onSuccess, onError }: any): any {
     let url = environment.apiUrl + `MetodoPagamento`;
