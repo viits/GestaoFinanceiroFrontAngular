@@ -8,7 +8,7 @@ import { AuthService } from '../../shared/auth.service';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent implements OnInit{
-
+  isMenuOpen = false;
   ngOnInit(): void {
   }
   constructor(private router: Router, private authService: AuthService){}
@@ -19,5 +19,9 @@ export class MenuComponent implements OnInit{
   }
   logout(){
     this.authService.logout();
+  }
+  toggleMenu() {
+    console.log('Clicou')
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }

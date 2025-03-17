@@ -68,7 +68,12 @@ const maskConfig: Partial<NgxMaskConfig> = {
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      maxOpened: 3, 
+      autoDismiss: true, 
+      preventDuplicates: true,
+      progressBar: true
+    }),
     HttpClientModule,
     MatDialogModule,
     MatPaginatorModule,

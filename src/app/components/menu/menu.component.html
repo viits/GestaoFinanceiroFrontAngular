@@ -1,4 +1,10 @@
-<div class="menu-container">
+<div class="icon-mobile-menu">
+  <img src="assets/icons/menu-black.svg" (click)="toggleMenu()" />
+</div>
+<div class="menu-container" [class.open]="isMenuOpen">
+  <div class="icon-mobile-menu">
+    <img src="assets/icons/menu-white.svg" (click)="toggleMenu()" />
+  </div>
   <div class="menu-header">
     <h1 (click)="goTo('home')">Team Work</h1>
   </div>
@@ -49,8 +55,9 @@
         </p>
 
       </mat-expansion-panel>
+     
     </mat-accordion>
-
+    
   </div>
   <div class="menu-items margin-bottom">
     <div class="item-content">

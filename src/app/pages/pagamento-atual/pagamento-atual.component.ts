@@ -36,7 +36,9 @@ export class PagamentoAtualComponent implements OnInit {
     statusPagamento: [],
     pagamento: this.pagamento
   }
+  larguraTela: number = 0;
   ngOnInit(): void {
+    this.larguraTela = window.innerWidth;
     this.getPagamentoAtual();
     this.getAllAtendentes();
     this.getAllFornecedores();
@@ -49,10 +51,17 @@ export class PagamentoAtualComponent implements OnInit {
     private dialog: MatDialog) { }
 
   openDialog(): void {
+    let larguraDialog = '50vw';
+    let alturaDialog = '30vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+
     const dialogRef = this.dialog.open(ModalPagamentoAtualComponent, {
       data: this.pagamentoModal,
-      height: '30vw',
-      width: '50vh'
+      width: larguraDialog,
+      height: alturaDialog,
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

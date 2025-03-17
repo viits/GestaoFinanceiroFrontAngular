@@ -19,3 +19,6 @@
 
 
 
+.mat-expansion-indicator::after{
+  color: white !important;
+}

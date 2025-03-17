@@ -14,3 +14,18 @@
   display: flex;
   flex-direction: column;
 }
+@media screen and (max-width: 940px) {
+  .content{
+    flex-direction: column;
+  }
+  .menu{
+    width: 10%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .content-body{
+    width: 100%;
+  }
+}

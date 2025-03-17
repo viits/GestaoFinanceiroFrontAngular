@@ -2,7 +2,6 @@ img {
   cursor: pointer;
 }
 
-/* ----------------------------------------------------------------------------------------- */
 .menu-container {
   background-color: #37576c;
   display: flex;
@@ -15,15 +14,14 @@ img {
   transition: all 0.3s ease-in-out;
 }
 
+
 h1 {
   color: white;
   cursor: pointer;
 }
 
 .menu-header {
-  /* width: calc(100% - 48px); */
   padding: 18px 24px;
-  /* height: calc(66px - 36px); */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,6 +66,7 @@ h1 {
   text-overflow: ellipsis;
   line-height: 30px;
 }
+
 .accordeon {
   border: none;
   box-shadow: none;
@@ -78,15 +77,18 @@ h1 {
   border-bottom-right-radius: 0px !important;
   border-bottom-left-radius: 0px !important;
 }
+
 .not-selected {
   background-color: #37576c;
 }
+
 .accordeon-title {
   color: #ffffff;
   font-family: "Roboto Slab";
   font-size: 22px;
   font-weight: 700;
 }
+
 .accordeon-content {
   height: 28px;
   padding: 0px 0px 0px 30px;
@@ -99,10 +101,58 @@ h1 {
   margin-bottom: 12px;
   transition: all 0.3s ease-in-out;
 }
+
 .accordeon-text {
   margin: 0px !important;
 }
 
+.mat-expansion-panel:not {
+  background-color: #37576c;
+}
+
 .margin-bottom {
   margin-bottom: 10px;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {
+  background-color: #37576c;
+}
+
+.icon-mobile-menu {
+  display: none;
+
+}
+
+@media screen and (max-width: 940px) {
+  .icon-mobile-menu {
+    display: flex;
+    width: 90%;
+    height: 10%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+  }
+
+  .menu-container {
+    background-color: #37576c;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    transform: translateX(-100%)
+  }
+
+  .open {
+    transform: translateX(0);
+    /* Menu visível em dispositivos móveis */
+  }
+  .menu-body {
+    height: 100%;
+    margin-top: 24px;
+  }
 }
