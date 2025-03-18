@@ -27,8 +27,9 @@ export class UsuarioComponent implements OnInit {
     telefone: ''
   }
   displayedColumns: string[] = ['nomeUsuario', 'email', 'telefone', 'acoes'];
-
+  larguraTela: number = 0;
   ngOnInit(): void {
+    this.larguraTela = window.innerWidth;
     this.getAllUsuario();
   }
   constructor(
@@ -44,10 +45,16 @@ export class UsuarioComponent implements OnInit {
   }
 
   openDialog(): void {
+    let larguraDialog = '50vw';
+    let alturaDialog = '30vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
     const dialogRef = this.dialog.open(ModalUsuarioComponent, {
       data: this.usuario,
-      height: '30vw',
-      width: '50vh'
+      height: alturaDialog,
+      width: larguraDialog
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -90,10 +97,6 @@ export class UsuarioComponent implements OnInit {
         this.loader = false;
       },
     });
-
-
-    // this.toast.error('Testasso');
-    // this.toast.success('Testasso');
   }
 
 

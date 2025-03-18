@@ -127,7 +127,7 @@ h1 {
   .icon-mobile-menu {
     display: flex;
     width: 90%;
-    height: 10%;
+    /* height: 10%; */
     display: flex;
     align-items: flex-end;
     justify-content: end;
@@ -149,10 +149,12 @@ h1 {
 
   .open {
     transform: translateX(0);
+    z-index: 1;
     /* Menu visível em dispositivos móveis */
   }
   .menu-body {
     height: 100%;
     margin-top: 24px;
   }
+  
 }

@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="footer">
-      <mat-paginator [pageIndex]="pagination.pageNumber - 1" [pageSize]="pagination.pageSize"
+      <mat-paginator class="paginacao" [pageIndex]="pagination.pageNumber - 1" [pageSize]="pagination.pageSize"
         [pageSizeOptions]="[5, 10, 25]" [length]="pagination.qtPages" aria-label="Select page" (page)="getPage($event)">
       </mat-paginator>
     </div>

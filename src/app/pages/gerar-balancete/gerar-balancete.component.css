@@ -77,3 +77,53 @@ th, td{
 label{
   font-weight: 600;
 }
+@media screen and (max-width: 940px) {
+  .container-relatorio {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .header {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .title {
+    width: 100%;
+  }
+  .filtro{
+    margin: 0 0 0 20px;
+    flex-direction: column;
+    width: 90%;
+    /* height: 60px; */
+  }
+  .cadastro {
+    display: flex;
+    width: 50%;
+    justify-content: end;
+    align-items: flex-end;
+    height: 60px;
+  }
+  .body{
+    overflow-y: auto;
+  }
+  .footer {
+    width: 100%;
+    /* height: 15%; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+  }
+  .valor-bruto {
+    width: 50%;
+    height: auto;
+    display: flex;
+    margin: 0 0 0 10px;
+    align-items: flex-start;
+    justify-content: start;
+  }
+  .total-valor{
+    margin: 0 0 0 10px;
+  }
+}

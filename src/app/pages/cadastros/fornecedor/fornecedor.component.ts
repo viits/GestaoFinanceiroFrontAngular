@@ -29,8 +29,9 @@ export class FornecedorComponent implements OnInit {
     nomeFornecedor: '',
     porcentagem: 0
   }
-
+  larguraTela: number = 0;
   ngOnInit(): void {
+    this.larguraTela = window.innerWidth;
     this.getFornecedor();
   }
   constructor(private router: Router,
@@ -45,10 +46,16 @@ export class FornecedorComponent implements OnInit {
   }
 
   openDialog(): void {
+    let larguraDialog = '50vw';
+    let alturaDialog = '30vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
     const dialogRef = this.dialog.open(ModalFornecedorComponent, {
       data: this.fornecedor,
-      height: '30vw',
-      width: '50vh'
+      height: alturaDialog,
+      width: larguraDialog
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

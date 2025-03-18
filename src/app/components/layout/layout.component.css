@@ -19,11 +19,12 @@
     flex-direction: column;
   }
   .menu{
-    width: 10%;
+    width: 15%;
     height: 10%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    /* position: fixed; */
   }
   .content-body{
     width: 100%;

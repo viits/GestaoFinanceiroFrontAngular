@@ -123,8 +123,4 @@ label {
   .total-valor{
     margin: 0 0 0 10px;
   }
-  .mat-dialog-container {
-    width: 90vw !important; /* Aumenta a largura */
-    height: 80vh !important; /* Aumenta a altura */
-  }
 }

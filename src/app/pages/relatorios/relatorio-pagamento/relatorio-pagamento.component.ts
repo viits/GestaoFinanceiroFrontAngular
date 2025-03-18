@@ -56,8 +56,9 @@ export class RelatorioPagamentoComponent implements OnInit {
     'acoes'
   ];
 
-
+  larguraTela: number = 0;
   ngOnInit(): void {
+    this.larguraTela = window.innerWidth;
     this.getAllAtendentes();
     this.getAllFornecedores();
     this.getAllMetodoPagamento();
@@ -69,13 +70,22 @@ export class RelatorioPagamentoComponent implements OnInit {
     private fornecedorService: FornecedorService,
     private statusPagamentoService: StatusPagamentoService,
     private toast: ToastrService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog
+  ) { }
+
+  
 
   openDialog(): void {
+    let larguraDialog = '40vw';
+    let alturaDialog = '60vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '90vh';
+    }
     const dialogRef = this.dialog.open(ModalRelatorioPagamentoComponent, {
       data: this.pagamentoModal,
-      height: '40vw',
-      width: '60vh'
+      height: alturaDialog,
+      width: larguraDialog
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -88,18 +98,18 @@ export class RelatorioPagamentoComponent implements OnInit {
         valorBruto: 0,
         dataVenda: new Date()
       }
-      if(result == true){
+      if (result == true) {
         this.getRelatorioPagamento();
       }
     });
   }
 
 
-    editarFornecedor(event: IPagamento) {
-      console.log(event)
-      this.pagamentoModal.pagamento = event;
-      this.openDialog();
-    }
+  editarFornecedor(event: IPagamento) {
+    console.log(event)
+    this.pagamentoModal.pagamento = event;
+    this.openDialog();
+  }
 
   getAllAtendentes() {
     this.loader = true;

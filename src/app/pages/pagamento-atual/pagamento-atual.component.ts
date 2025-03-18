@@ -48,7 +48,10 @@ export class PagamentoAtualComponent implements OnInit {
     private atendenteService: AtendenteService,
     private fornecedorService: FornecedorService,
     private toast: ToastrService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog
+  ) { }
+
+  
 
   openDialog(): void {
     let larguraDialog = '50vw';
