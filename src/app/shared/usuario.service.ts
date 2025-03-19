@@ -71,6 +71,60 @@ export class UsuarioService {
         },
       });
   }
+  getPermissao({ onSuccess, onError }: any): any {
+    this.httpClient
+      .get(environment.apiUrl + `Usuario/Permissao`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
+  getAllPerfilUsuario({ onSuccess, onError }: any): any {
+    this.httpClient
+      .get(environment.apiUrl + `PerfilUsuario`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
+  verificaToken(data: any, { onSuccess, onError }: any): any {
+    this.httpClient
+      .post(environment.apiUrl + `Token`, data, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
   cadastrarChave(chave: any, { onSuccess, onError }: any): any {
     this.httpClient
       .post(environment.apiUrl + `Chave`, chave, {

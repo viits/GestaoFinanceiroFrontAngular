@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IUsuario } from '../../interface/IUsuario';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalUsuarioComponent } from '../../components/modal-usuario/modal-usuario.component';
+import { IDataUsuario } from '../../interface/IDataUsuario';
 
 export interface PeriodicElement {
   name: string;
@@ -22,15 +23,24 @@ export class UsuarioComponent implements OnInit {
   listUsuario: any = [];
   usuario: IUsuario = {
     idUsuario: 0,
+    idPerfilUsuario: 0,
     nomeUsuario: '',
     email: '',
     telefone: ''
   }
+  dataUsuario: IDataUsuario = {
+    perfilUsuario: [],
+    usuario: this.usuario
+  }
   displayedColumns: string[] = ['nomeUsuario', 'email', 'telefone', 'acoes'];
   larguraTela: number = 0;
+
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
+
+    this.getPermissao();
     this.getAllUsuario();
+    this.getAllPerfilUsuario();
   }
   constructor(
     private router: Router,
@@ -39,27 +49,27 @@ export class UsuarioComponent implements OnInit {
     private dialog: MatDialog
   ) { }
   editarUsuario(event: IUsuario) {
-    // console.log(event)
-    this.usuario = event;
+    this.dataUsuario.usuario = event;
     this.openDialog();
   }
 
   openDialog(): void {
-    let larguraDialog = '50vw';
-    let alturaDialog = '30vh';
+    let larguraDialog = '40vw';
+    let alturaDialog = '60vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
     }
     const dialogRef = this.dialog.open(ModalUsuarioComponent, {
-      data: this.usuario,
+      data: this.dataUsuario,
       height: alturaDialog,
       width: larguraDialog
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.usuario = {
+      this.dataUsuario.usuario = {
         idUsuario: 0,
+        idPerfilUsuario: 0,
         nomeUsuario: '',
         email: '',
         telefone: ''
@@ -70,6 +80,52 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
+  getPermissao() {
+    this.loader = true;
+    this.usuarioService.getPermissao({
+      onSuccess: (res: any) => {
+        if (res.data.permissao != 'Administrador') {
+          this.toast.error('Você não tem permissão');
+          this.router.navigate(['/relatorio/pagamento'])
+        }
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
+  }
+  getAllPerfilUsuario() {
+    this.loader = true;
+    this.usuarioService.getAllPerfilUsuario({
+      onSuccess: (res: any) => {
+        this.dataUsuario.perfilUsuario = res?.data?.listPerfilUsuario?.map((x: any) => {
+          return {
+            name: x.nomePerfilUsuario,
+            value: x.idPerfilUsuario
+          }
+        })
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
+  }
   getAllUsuario() {
     this.loader = true;
     this.usuarioService.getAllUsuario({
@@ -79,7 +135,8 @@ export class UsuarioComponent implements OnInit {
             idUsuario: x.idUsuario,
             nomeUsuario: x.nomeUsuario,
             email: x.email,
-            telefone: x.telefone
+            telefone: x.telefone,
+            idPerfilUsuario: x.idPerfilUsuario
           }
         })
         this.loader = false;

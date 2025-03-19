@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../../shared/usuario.service';
 import { IUsuario } from '../../interface/IUsuario';
+import { IDataUsuario } from '../../interface/IDataUsuario';
 
 @Component({
   selector: 'app-modal-usuario',
@@ -14,7 +15,7 @@ export class ModalUsuarioComponent implements OnInit {
   edit: boolean = false;
 
   ngOnInit(): void {
-    if(this.data.idUsuario != 0){
+    if (this.data.usuario.idUsuario != 0) {
       this.edit = true;
     }
   }
@@ -22,20 +23,21 @@ export class ModalUsuarioComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalUsuarioComponent>,
     private toast: ToastrService,
     private usuarioService: UsuarioService,
-    @Inject(MAT_DIALOG_DATA) public data: IUsuario
+    @Inject(MAT_DIALOG_DATA) public data: IDataUsuario
   ) { }
 
-  close(value:boolean = false): void {
+  close(value: boolean = false): void {
     this.dialogRef.close(value);
   }
   verifyFields() {
-    if (this.data.nomeUsuario == '' || this.data.email == '') {
+    if (this.data.usuario.nomeUsuario == '' || this.data.usuario.email == '' || this.data.usuario.idPerfilUsuario == 0) {
       return false;
     }
     return true;
   }
-  cadastrarUsuario(){
-    this.usuarioService.cadastrarUsuario(this.data, {
+  cadastrarUsuario() {
+    this.loader = true
+    this.usuarioService.cadastrarUsuario(this.data.usuario, {
       onSuccess: (res: any) => {
         this.toast.success('Usuário cadastrado com sucesso.');
         this.loader = false;
@@ -53,8 +55,9 @@ export class ModalUsuarioComponent implements OnInit {
       },
     });
   }
-  editarUsuario(){
-    this.usuarioService.editarUsuario(this.data, {
+  editarUsuario() {
+    this.loader = true;
+    this.usuarioService.editarUsuario(this.data.usuario, {
       onSuccess: (res: any) => {
         this.toast.success('Atualizado com sucesso.');
         this.loader = false;
@@ -79,10 +82,10 @@ export class ModalUsuarioComponent implements OnInit {
       this.loader = false;
       return;
     }
-    if(this.edit == true){
+    if (this.edit == true) {
       this.editarUsuario();
     }
-    else{
+    else {
       this.cadastrarUsuario();
     }
   }

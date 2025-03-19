@@ -41,11 +41,11 @@ export class AuthService {
         next: (res: any) => {
           localStorage.setItem(
             'token',
-            JSON.stringify(res.data.token)
+            res.data.token
           );
           localStorage.setItem(
             'nmUsuario',
-            JSON.stringify(res.data.nomeUsuario)
+            res.data.nomeUsuario
           );
           localStorage.setItem('usuario', JSON.stringify(res.data));
 
