@@ -1,6 +1,6 @@
 export interface IAtendente {
   idAtendente: number,
-  idGerente: number,
+  idUsuario: number,
   nomeAtendente: string,
   porcentagem: number
 }

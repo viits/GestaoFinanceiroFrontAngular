@@ -1,5 +1,7 @@
 export interface IGerente {
-  idGerente: number,
-  nomeGerente: string,
-  porcentagem: number
+  idUsuario: number,
+  idPerfilUsuario: number,
+  nomeUsuario: string,
+  email: string,
+  telefone: string,
 }

@@ -22,7 +22,7 @@ export class ModalAtendenteComponent implements OnInit {
   edit: boolean = false;
   atendente: IAtendente = {
     idAtendente: 0,
-    idGerente: 0,
+    idUsuario: 0,
     nomeAtendente: '',
     porcentagem: 0
   }
@@ -47,8 +47,8 @@ export class ModalAtendenteComponent implements OnInit {
       onSuccess: (res: any) => {
         res.data.listGerente?.map((x: any) => {
           this.listGerente.push({
-            value: x.idGerente,
-            name: x.nomeGerente
+            value: x.idUsuario,
+            name: x.nomeUsuario
           });
         });
         this.loader = false;

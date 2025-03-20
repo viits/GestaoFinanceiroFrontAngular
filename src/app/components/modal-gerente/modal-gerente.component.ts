@@ -20,7 +20,7 @@ export class ModalGerenteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.data.idGerente != 0){
+    if(this.data.idUsuario != 0){
       this.edit = true;
     }
   }
@@ -29,7 +29,7 @@ export class ModalGerenteComponent implements OnInit {
     this.dialogRef.close(value);
   }
   verifyFields() {
-    if (this.data.nomeGerente == '' || this.data.porcentagem == 0 || this.data.porcentagem == null) {
+    if (this.data.nomeUsuario == '' || this.data.email == '') {
       return false;
     }
     return true;
@@ -80,7 +80,7 @@ export class ModalGerenteComponent implements OnInit {
       this.loader = false;
       return;
     }
-    this.data.porcentagem = Number(this.data.porcentagem)
+    
     if(this.edit == true){
       this.editarGerente();
     }

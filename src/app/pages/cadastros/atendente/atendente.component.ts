@@ -29,7 +29,7 @@ export class AtendenteComponent implements OnInit {
 
   atendente: IAtendente = {
     idAtendente: 0,
-    idGerente: 0,
+    idUsuario: 0,
     nomeAtendente: '',
     porcentagem: 0
   }
@@ -51,7 +51,7 @@ export class AtendenteComponent implements OnInit {
 
   openDialog(): void {
     let larguraDialog = '50vw';
-    let alturaDialog = '30vh';
+    let alturaDialog = '80vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
@@ -65,7 +65,7 @@ export class AtendenteComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       this.atendente = {
         idAtendente: 0,
-        idGerente: 0,
+        idUsuario: 0,
         nomeAtendente: '',
         porcentagem: 0
       }
@@ -91,7 +91,7 @@ export class AtendenteComponent implements OnInit {
         this.listAtendente = res.data?.atendente?.listAtendentes?.map((x: any) => {
           return {
             idAtendente: x.idAtendente,
-            idGerente: x.idGerente,
+            idUsuario: x.idUsuario,
             nomeAtendente: x.nomeAtendente,
             porcentagem: x.porcentagem,
           }

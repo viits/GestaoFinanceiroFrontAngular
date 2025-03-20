@@ -18,15 +18,17 @@ export class GerenteComponent implements OnInit {
     pageSize: 8,
     qtPages: 0
   };
-  displayedColumns: string[] = ['nomeGerente', 'porcentagem', 'acoes'];
+  displayedColumns: string[] = ['nomeUsuario', 'email', 'telefone', 'acoes'];
   listGerente: any = []
   loader: boolean = false;
   edit: boolean = false;
 
   gerente: IGerente = {
-    idGerente: 0,
-    nomeGerente: '',
-    porcentagem: 0
+    idUsuario: 0,
+    nomeUsuario: '',
+    email: '',
+    telefone: '',
+    idPerfilUsuario: 0
   }
   larguraTela: number = 0;
 
@@ -48,7 +50,7 @@ export class GerenteComponent implements OnInit {
 
   openDialog(): void {
     let larguraDialog = '50vw';
-    let alturaDialog = '30vh';
+    let alturaDialog = '70vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
@@ -61,9 +63,11 @@ export class GerenteComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       this.gerente = {
-        idGerente: 0,
-        nomeGerente: '',
-        porcentagem: 0
+        idUsuario: 0,
+        nomeUsuario: '',
+        email: '',
+        telefone: '',
+        idPerfilUsuario: 0
       }
       if (result == true) {
         this.getGerente();
@@ -85,9 +89,10 @@ export class GerenteComponent implements OnInit {
       onSuccess: (res: any) => {
         this.listGerente = res.data?.gerente?.listGerentes?.map((x: any) => {
           return {
-            idGerente: x.idGerente,
-            nomeGerente: x.nomeGerente,
-            porcentagem: x.porcentagem,
+            idUsuario: x.idUsuario,
+            nomeUsuario: x.nomeUsuario,
+            email: x.email,
+            telefone: x.telefone
           }
         });
 

@@ -11,14 +11,18 @@
     <div class="body">
       <div class="table-usuario">
         <table mat-table [dataSource]="listGerente" class="mat-elevation-z8">
-          <ng-container matColumnDef="nomeGerente">
+          <ng-container matColumnDef="nomeUsuario">
             <th mat-header-cell *matHeaderCellDef> Nome </th>
-            <td mat-cell *matCellDef="let element"> {{element.nomeGerente}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.nomeUsuario}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="porcentagem">
-            <th mat-header-cell *matHeaderCellDef> Porcentagem </th>
-            <td mat-cell *matCellDef="let element"> {{element.porcentagem}}% </td>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> E-mail </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+          <ng-container matColumnDef="telefone">
+            <th mat-header-cell *matHeaderCellDef> Telefone </th>
+            <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
           </ng-container>
 
           <ng-container matColumnDef="acoes">

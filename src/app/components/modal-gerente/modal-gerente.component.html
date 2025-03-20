@@ -6,14 +6,18 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="email">Nome</label>
-      <input type="text" [(ngModel)]="data.nomeGerente" placeholder="Nome do gerente" class="form-control"
+      <input type="text" [(ngModel)]="data.nomeUsuario" placeholder="Nome do gerente" class="form-control"
         name="nomeGerente" required />
     </div>
     <div class="form-group">
-      <label for="email">Porcentagem à receber</label>
-      <input type="text" [(ngModel)]="data.porcentagem" mask="00"  placeholder="20" class="form-control"
-        name="porcentagem" required />
-
+      <label for="email">E-mail*</label>
+      <input type="email" [(ngModel)]="this.data.email" placeholder="email@email.com" class="form-control" name="email"
+        required [readOnly]="edit ? true: false" />
+    </div>
+    <div class="form-group">
+      <label for="telefone">Telefone*</label>
+      <input type="telefone" [(ngModel)]="this.data.telefone" mask="(00) 00000-0000" placeholder="(99)99999-9999"
+        class="form-control" name="telefone" required />
     </div>
     <div class="button-confirm">
       <button type="submit" class="btn btn-success">Confirmar</button>

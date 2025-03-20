@@ -5,7 +5,7 @@
 <div class="body">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <mat-select [(value)]="data.idGerente" class="select">
+      <mat-select [(value)]="data.idUsuario" class="select">
         <mat-option *ngFor="let item of listGerente" [value]="item.value">
           {{ item.name }}
         </mat-option>
