@@ -145,9 +145,11 @@ export class GerarBalanceteComponent implements OnInit {
         })
         if (this.listPagamentos.length > 0) {
           this.listPagamentos?.map((x: any) => {
-            this.totalBruto += x.valorBruto;
-            this.totalLiqAtendente += x.valorLiquidoAtendente;
-            this.totalLiqFornecedor += x.valorLiquidoFornecedor;
+            if (x.idStatusPagamento == 1) {
+              this.totalBruto += x.valorBruto;
+              this.totalLiqAtendente += x.valorLiquidoAtendente;
+              this.totalLiqFornecedor += x.valorLiquidoFornecedor;
+            }
           })
         } else {
           this.totalBruto = 0;

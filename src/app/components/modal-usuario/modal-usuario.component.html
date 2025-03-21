@@ -4,13 +4,13 @@
 </div>
 <div class="body">
   <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
+    <!-- <div class="form-group">
       <mat-select [(value)]="data.usuario.idPerfilUsuario" class="select">
         <mat-option *ngFor="let item of data.perfilUsuario" [value]="item.value">
           {{ item.name }}
         </mat-option>
       </mat-select>
-    </div>
+    </div> -->
     <div class="form-group">
       <label for="nomeUsuario">Nome usuário *</label>
       <input type="text" [(ngModel)]="data.usuario.nomeUsuario" placeholder="Nome do fornecedor" class="form-control"

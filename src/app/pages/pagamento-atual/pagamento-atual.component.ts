@@ -8,6 +8,8 @@ import { ModalPagamentoAtualComponent } from '../../components/modal-pagamento-a
 import { AtendenteService } from '../../shared/atendente.service';
 import { FornecedorService } from '../../shared/fornecedor.service';
 import { IDataPagamento } from '../../interface/IDataPagamento';
+import { UsuarioService } from '../../shared/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagamento-atual',
@@ -39,23 +41,26 @@ export class PagamentoAtualComponent implements OnInit {
   larguraTela: number = 0;
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
+    this.getPermissao();
     this.getPagamentoAtual();
     this.getAllAtendentes();
     this.getAllFornecedores();
     this.getAllMetodoPagamento();
   }
-  constructor(private pagamentoService: PagamentoAtualService,
+  constructor(private router: Router,
+    private pagamentoService: PagamentoAtualService,
     private atendenteService: AtendenteService,
     private fornecedorService: FornecedorService,
+    private usuarioService: UsuarioService,
     private toast: ToastrService,
     private dialog: MatDialog
   ) { }
 
-  
+
 
   openDialog(): void {
-    let larguraDialog = '50vw';
-    let alturaDialog = '30vh';
+    let larguraDialog = '30vw';
+    let alturaDialog = '70vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
@@ -191,9 +196,11 @@ export class PagamentoAtualComponent implements OnInit {
         })
         if (this.listPagamentos.length > 0) {
           this.listPagamentos?.map((x: any) => {
-            this.totalBruto += x.valorBruto;
-            this.totalLiqAtendente += x.valorLiquidoAtendente;
-            this.totalLiqFornecedor += x.valorLiquidoFornecedor;
+            if (x.idStatusPagamento == 1) {
+              this.totalBruto += x.valorBruto;
+              this.totalLiqAtendente += x.valorLiquidoAtendente;
+              this.totalLiqFornecedor += x.valorLiquidoFornecedor;
+            }
           })
         } else {
           this.totalBruto = 0;
@@ -213,6 +220,29 @@ export class PagamentoAtualComponent implements OnInit {
           // this.toast.error('Email ou senha inválidos!');
         }
         this.loader = false;
+      },
+    });
+  }
+
+  getPermissao() {
+    this.loader = true;
+    this.usuarioService.getPermissao({
+      onSuccess: (res: any) => {
+        if (res.data.permissao != 'Administrador') {
+          this.toast.error('Você não tem permissão');
+          this.router.navigate(['/relatorio/balancete'])
+        }
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
       },
     });
   }

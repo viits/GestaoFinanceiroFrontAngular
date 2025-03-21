@@ -6,6 +6,7 @@ import { IPaginator } from '../../../interface/IPaginator';
 import { GerenteService } from '../../../shared/gerente.service';
 import { ToastrService } from 'ngx-toastr';
 import { IGerente } from '../../../interface/IGerente';
+import { UsuarioService } from '../../../shared/usuario.service';
 
 @Component({
   selector: 'app-gerente',
@@ -34,11 +35,13 @@ export class GerenteComponent implements OnInit {
 
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
+    this.getPermissao();
     this.getGerente();
   }
   constructor(private router: Router,
     private dialog: MatDialog,
     private gerenteService: GerenteService,
+    private usuarioService: UsuarioService,
     private toast: ToastrService) { }
 
   editarGerente(event: IGerente) {
@@ -49,8 +52,8 @@ export class GerenteComponent implements OnInit {
 
 
   openDialog(): void {
-    let larguraDialog = '50vw';
-    let alturaDialog = '70vh';
+    let larguraDialog = '30vw';
+    let alturaDialog = '50vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
@@ -118,6 +121,29 @@ export class GerenteComponent implements OnInit {
     });
 
 
+  }
+
+  getPermissao() {
+    this.loader = true;
+    this.usuarioService.getPermissao({
+      onSuccess: (res: any) => {
+        if (res.data.permissao != 'Administrador') {
+          this.toast.error('Você não tem permissão');
+          this.router.navigate(['/relatorio/balancete'])
+        }
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
   }
 
   public goTo(route: string) {

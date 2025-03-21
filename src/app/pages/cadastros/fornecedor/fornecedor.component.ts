@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FornecedorService } from '../../../shared/fornecedor.service';
 import { ToastrService } from 'ngx-toastr';
 import { ModalFornecedorComponent } from '../../../components/modal-fornecedor/modal-fornecedor.component';
+import { UsuarioService } from '../../../shared/usuario.service';
 
 @Component({
   selector: 'app-fornecedor',
@@ -32,22 +33,23 @@ export class FornecedorComponent implements OnInit {
   larguraTela: number = 0;
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
+    this.getPermissao();
     this.getFornecedor();
   }
   constructor(private router: Router,
     private dialog: MatDialog,
     private fornecedorService: FornecedorService,
+    private usuarioService: UsuarioService,
     private toast: ToastrService) { }
 
   editarFornecedor(event: IFornecedor) {
-    // console.log(event)
     this.fornecedor = event;
     this.openDialog();
   }
 
   openDialog(): void {
-    let larguraDialog = '50vw';
-    let alturaDialog = '30vh';
+    let larguraDialog = '30vw';
+    let alturaDialog = '50vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
@@ -114,6 +116,29 @@ export class FornecedorComponent implements OnInit {
     });
 
 
+  }
+
+  getPermissao() {
+    this.loader = true;
+    this.usuarioService.getPermissao({
+      onSuccess: (res: any) => {
+        if (res.data.permissao != 'Administrador') {
+          this.toast.error('Você não tem permissão');
+          this.router.navigate(['/relatorio/balancete'])
+        }
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
   }
 
 }

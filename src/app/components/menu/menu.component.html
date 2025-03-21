@@ -47,10 +47,10 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <p class="accordeon-content" (click)="goTo('relatorio/pagamento')">
+        <p class="accordeon-content" (click)="goTo('relatorio/pagamento')" *ngIf="permissaoUsuario == 'Administrador' ">
           Pagamentos
         </p>
-        <p class="accordeon-content" (click)="goTo('relatorio/balancete')" *ngIf="permissaoUsuario == 'Administrador' " >
+        <p class="accordeon-content" (click)="goTo('relatorio/balancete')">
           Gerar Balancete
         </p>
 

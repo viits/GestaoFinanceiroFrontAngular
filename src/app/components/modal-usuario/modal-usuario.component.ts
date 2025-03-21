@@ -30,7 +30,7 @@ export class ModalUsuarioComponent implements OnInit {
     this.dialogRef.close(value);
   }
   verifyFields() {
-    if (this.data.usuario.nomeUsuario == '' || this.data.usuario.email == '' || this.data.usuario.idPerfilUsuario == 0) {
+    if (this.data.usuario.nomeUsuario == '' || this.data.usuario.email == '') {
       return false;
     }
     return true;

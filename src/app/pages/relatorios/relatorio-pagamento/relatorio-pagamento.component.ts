@@ -73,11 +73,11 @@ export class RelatorioPagamentoComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  
+
 
   openDialog(): void {
-    let larguraDialog = '40vw';
-    let alturaDialog = '60vh';
+    let larguraDialog = '30vw';
+    let alturaDialog = '90vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '90vh';

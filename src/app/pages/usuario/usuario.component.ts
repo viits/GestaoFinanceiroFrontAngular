@@ -86,7 +86,7 @@ export class UsuarioComponent implements OnInit {
       onSuccess: (res: any) => {
         if (res.data.permissao != 'Administrador') {
           this.toast.error('Você não tem permissão');
-          this.router.navigate(['/relatorio/pagamento'])
+          this.router.navigate(['/relatorio/balancete'])
         }
         this.loader = false;
       },

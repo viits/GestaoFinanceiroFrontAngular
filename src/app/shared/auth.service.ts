@@ -50,8 +50,11 @@ export class AuthService {
           localStorage.setItem('usuario', JSON.stringify(res.data));
 
           this.setUserLoggedIn(true);
-
-          this.router.navigate(['/home']);
+          if(res.data.perfilUsuario != "Administrador"){
+            this.router.navigate(['/relatorio/balancete']);
+          }else{
+            this.router.navigate(['/home']);
+          }
 
           return onSuccess(res);
         },

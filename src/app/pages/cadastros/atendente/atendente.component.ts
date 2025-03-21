@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalAtendenteComponent } from '../../../components/modal-atendente/modal-atendente.component';
 import { IAtendente } from '../../../interface/IAtendente';
 import { AtendenteService } from '../../../shared/atendente.service';
+import { UsuarioService } from '../../../shared/usuario.service';
 
 @Component({
   selector: 'app-atendente',
@@ -36,11 +37,13 @@ export class AtendenteComponent implements OnInit {
   larguraTela: number = 0;
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
+    this.getPermissao();
     this.getAtendente();
   }
   constructor(private router: Router,
     private dialog: MatDialog,
     private atendenteService: AtendenteService,
+    private usuarioService: UsuarioService,
     private toast: ToastrService) { }
 
   editarFornecedor(event: IAtendente) {
@@ -50,8 +53,8 @@ export class AtendenteComponent implements OnInit {
   }
 
   openDialog(): void {
-    let larguraDialog = '50vw';
-    let alturaDialog = '80vh';
+    let larguraDialog = '30vw';
+    let alturaDialog = '60vh';
     if (this.larguraTela < 940) {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
@@ -119,5 +122,27 @@ export class AtendenteComponent implements OnInit {
     });
 
 
+  }
+  getPermissao() {
+    this.loader = true;
+    this.usuarioService.getPermissao({
+      onSuccess: (res: any) => {
+        if (res.data.permissao != 'Administrador') {
+          this.toast.error('Você não tem permissão');
+          this.router.navigate(['/relatorio/balancete'])
+        }
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
   }
 }
