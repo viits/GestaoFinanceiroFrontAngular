@@ -25,7 +25,7 @@ FROM nginx:alpine
 # Copie os arquivos de build do Angular para o diretório público do nginx
 COPY --from=build /app/dist/financeiro /usr/share/nginx/html
 
-# Copie o arquivo nginx.conf customizado para a configuração do Nginx
+# Copie o arquivo nginx.conf da raiz do projeto para /etc/nginx/nginx.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exponha a porta 80 (padrão do nginx)
