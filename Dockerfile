@@ -10,7 +10,6 @@ RUN npm install
 
 # Copia o restante do código e faz o build
 COPY . .
-RUN npm run build --configuration production
 
 # Usa a imagem do Nginx para servir os arquivos
 FROM nginx:alpine
@@ -18,8 +17,7 @@ FROM nginx:alpine
 # Remove a configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia a configuração personalizada do Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY dist/financeiro/browser /usr/share/nginx/html
 
 # Copia os arquivos buildados do Angular para a pasta correta do Nginx
 COPY --from=build /app/dist/financeiro /usr/share/nginx/html
