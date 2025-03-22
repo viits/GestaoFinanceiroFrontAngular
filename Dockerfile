@@ -22,6 +22,9 @@ RUN npm run build --prod
 # Etapa 2: Imagem base para servir o conteúdo estático
 FROM nginx:alpine
 
+# Remover o arquivo de configuração default do Nginx, caso exista
+RUN rm /etc/nginx/conf.d/default.conf
+
 # Copie os arquivos de build do Angular para o diretório público do nginx
 COPY --from=build /app/dist/financeiro /usr/share/nginx/html
 
