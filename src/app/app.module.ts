@@ -33,7 +33,8 @@ import { MatAccordion } from '@angular/material/expansion';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
 import { NgxMaskConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
-import { GerarBalanceteComponent } from './pages/gerar-balancete/gerar-balancete.component'
+import { GerarBalanceteComponent } from './pages/gerar-balancete/gerar-balancete.component';
+import { PdfBalanceteComponent } from './components/pdf-balancete/pdf-balancete.component'
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
 };
@@ -61,6 +62,7 @@ const maskConfig: Partial<NgxMaskConfig> = {
     ModalRelatorioPagamentoComponent,
     ModalUsuarioComponent,
     GerarBalanceteComponent,
+    PdfBalanceteComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,8 +71,8 @@ const maskConfig: Partial<NgxMaskConfig> = {
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      maxOpened: 3, 
-      autoDismiss: true, 
+      maxOpened: 3,
+      autoDismiss: true,
       preventDuplicates: true,
       progressBar: true
     }),
@@ -90,7 +92,8 @@ const maskConfig: Partial<NgxMaskConfig> = {
     LoaderComponent,
     ModalGerenteComponent,
     ModalFornecedorComponent,
-    ModalAtendenteComponent
+    ModalAtendenteComponent,
+    PdfBalanceteComponent
   ],
   providers: [provideEnvironmentNgxMask(maskConfig)],
   bootstrap: [AppComponent]

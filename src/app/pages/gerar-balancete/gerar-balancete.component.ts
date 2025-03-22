@@ -7,6 +7,7 @@ import { AtendenteService } from '../../shared/atendente.service';
 import { ISelect } from '../../interface/ISelect';
 import { FornecedorService } from '../../shared/fornecedor.service';
 
+
 @Component({
   selector: 'app-gerar-balancete',
   templateUrl: './gerar-balancete.component.html',
@@ -57,6 +58,7 @@ export class GerarBalanceteComponent implements OnInit {
     idAtendente: 0,
     idFornecedor: 0
   }
+  baixarPdf: boolean = false;
 
   constructor(private pagamentoService: PagamentoAtualService,
     private toast: ToastrService,
@@ -67,6 +69,7 @@ export class GerarBalanceteComponent implements OnInit {
     this.getAllAtendentes();
     this.getAllFornecedores();
   }
+
   getAllFornecedores() {
     this.loader = true;
     this.fornecedorService.getAllFornecedorSelect({

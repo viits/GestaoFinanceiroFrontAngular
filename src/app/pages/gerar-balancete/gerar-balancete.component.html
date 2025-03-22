@@ -31,12 +31,15 @@
         <label>Data fim</label>
         <input type="date" [(ngModel)]="data.dataFim" class="form-control" />
       </div>
+
       <button type="button" [disabled]="data.dataInicio =='' || data.dataFim=='' ? true: false" class="btn btn-success"
         (click)="getRelatorioPagamento()">Pesquisar</button>
+
+      <!-- <button class="btn btn-warning" (click)="baixarPdf = true">Pdf</button> -->
     </div>
 
     <div class="body">
-      <p *ngIf="listPagamentos.length == 0">Coloque as datas para gerar o balancete</p>
+      <p *ngIf="listPagamentos.length == 0">Tabela vazia</p>
 
       <div class="table-usuario" *ngIf="listPagamentos.length > 0">
 
@@ -117,6 +120,10 @@
           )}}</label>
       </div>
     </div>
+
     <app-loader *ngIf="loader"></app-loader>
+    <app-pdf-balancete *ngIf="baixarPdf" (baixado)="this.baixarPdf = false" [listPagamentos]="listPagamentos"
+      [totalBruto]="totalBruto" [totalLiqAtendente]="totalLiqAtendente" [totalLiqFornecedor]="totalLiqFornecedor">
+    </app-pdf-balancete>
   </div>
 </app-layout>

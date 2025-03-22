@@ -1,0 +1,80 @@
+<div class="container-pdf" id="conteudoPDF">
+  <div class="filtro">
+    <h1>Balancete</h1>
+  </div>
+  <div class="table-usuario">
+    <table mat-table [dataSource]="listPagamentos" class="mat-elevation-z8">
+      <ng-container matColumnDef="nomeFornecedor">
+        <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
+        <td mat-cell *matCellDef="let element"> {{element.nomeFornecedor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nomeAtendente">
+        <th mat-header-cell *matHeaderCellDef> Nome atendente</th>
+        <td mat-cell *matCellDef="let element"> {{element.nomeAtendente}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valorBruto">
+        <th mat-header-cell *matHeaderCellDef> Valor bruto </th>
+        <td mat-cell *matCellDef="let element">R$ {{element.valorBruto.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          ) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valorLiquidoAtendente">
+        <th mat-header-cell *matHeaderCellDef> Valor liquido atendente </th>
+        <td mat-cell *matCellDef="let element">R$
+          {{element.valorLiquidoAtendente.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          ) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valorLiquidoFornecedor">
+        <th mat-header-cell *matHeaderCellDef> Valor liquido fornecedor </th>
+        <td mat-cell *matCellDef="let element">R$ {{element.valorLiquidoFornecedor.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          ) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="metodoPagamento">
+        <th mat-header-cell *matHeaderCellDef> Método pagamento </th>
+        <td mat-cell *matCellDef="let element"> {{element.metodoPagamento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="statusPagamento">
+        <th mat-header-cell *matHeaderCellDef> Status pagamento </th>
+        <td mat-cell *matCellDef="let element"> {{element.statusPagamento}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataVenda">
+        <th mat-header-cell *matHeaderCellDef> Data venda </th>
+        <td mat-cell *matCellDef="let element"> {{formatarDataTable(element.dataVenda)}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div class="footer">
+    <div class="valor-bruto">
+      <label>Total bruto: R$ {{totalBruto.toLocaleString(
+        'pt-BR',
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+        ) }}</label>
+    </div>
+    <div class="total-valor">
+      <label>Total liq. atendente: R$ {{totalLiqAtendente.toLocaleString(
+        'pt-BR',
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+        )}}</label>
+      <label>Total liq. fornecedor: R$ {{totalLiqFornecedor.toLocaleString(
+        'pt-BR',
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+        )}}</label>
+    </div>
+  </div>
+</div>
