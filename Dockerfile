@@ -16,8 +16,8 @@ RUN npm install --legacy-peer-deps
 # Copie todo o código fonte para o container
 COPY . .
 
-# Compile o projeto Angular para produção
-RUN npm run build --prod
+# Compile o projeto Angular no modo de produção
+RUN npm run build -- --configuration production
 
 # Etapa 2: Imagem base para servir o conteúdo estático
 FROM nginx:alpine
