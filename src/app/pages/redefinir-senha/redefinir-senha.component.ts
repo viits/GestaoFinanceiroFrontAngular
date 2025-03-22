@@ -4,9 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-redefinir-senha',
-  templateUrl: './redefinir-senha.component.html',
-  styleUrl: './redefinir-senha.component.css'
+    selector: 'app-redefinir-senha',
+    templateUrl: './redefinir-senha.component.html',
+    styleUrl: './redefinir-senha.component.css',
+    standalone: false
 })
 export class RedefinirSenhaComponent implements OnInit {
 

@@ -12,9 +12,10 @@ import { UsuarioService } from '../../shared/usuario.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pagamento-atual',
-  templateUrl: './pagamento-atual.component.html',
-  styleUrl: './pagamento-atual.component.css'
+    selector: 'app-pagamento-atual',
+    templateUrl: './pagamento-atual.component.html',
+    styleUrl: './pagamento-atual.component.css',
+    standalone: false
 })
 export class PagamentoAtualComponent implements OnInit {
   loader: boolean = false;

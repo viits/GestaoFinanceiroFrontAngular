@@ -1,38 +1,31 @@
-# Etapa 1: Imagem base para construir a aplicação
-FROM node:20.13.1 AS build
+# Usa a imagem do Node.js para buildar o Angular
+FROM node:20 AS build
 
-# Defina o diretório de trabalho dentro do container
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copie os arquivos package.json e package-lock.json (ou yarn.lock) para instalar as dependências
-COPY package*.json ./
+# Copia os arquivos do projeto para dentro do container
+COPY package.json package-lock.json ./
+RUN npm install
 
-# Remova o diretório node_modules e package-lock.json, se já existirem
-RUN rm -rf node_modules package-lock.json
-
-# Instale as dependências do projeto Angular
-RUN npm install --legacy-peer-deps
-
-# Copie todo o código fonte para o container
+# Copia o restante do código e faz o build
 COPY . .
+RUN npm run build --configuration production
 
-# Compile o projeto Angular no modo de produção
-RUN npm run build -- --configuration production
-
-# Etapa 2: Imagem base para servir o conteúdo estático
+# Usa a imagem do Nginx para servir os arquivos
 FROM nginx:alpine
 
-# Remover o arquivo de configuração default do Nginx, caso exista
+# Remove a configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copie os arquivos de build do Angular para o diretório público do nginx
+# Copia a configuração personalizada do Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copia os arquivos buildados do Angular para a pasta correta do Nginx
 COPY --from=build /app/dist/financeiro /usr/share/nginx/html
 
-# Copie o arquivo nginx.conf da raiz do projeto para /etc/nginx/nginx.conf
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Exponha a porta 80 (padrão do nginx)
+# Expõe a porta 80
 EXPOSE 80
 
-# Comando para iniciar o servidor nginx
+# Inicia o Nginx
 CMD ["nginx", "-g", "daemon off;"]

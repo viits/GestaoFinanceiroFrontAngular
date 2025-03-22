@@ -4,9 +4,10 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
-  selector: 'app-pdf-balancete',
-  templateUrl: './pdf-balancete.component.html',
-  styleUrl: './pdf-balancete.component.css'
+    selector: 'app-pdf-balancete',
+    templateUrl: './pdf-balancete.component.html',
+    styleUrl: './pdf-balancete.component.css',
+    standalone: false
 })
 export class PdfBalanceteComponent implements OnInit {
 

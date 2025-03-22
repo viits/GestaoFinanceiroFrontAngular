@@ -14,9 +14,10 @@ import { DatePipe } from '@angular/common';
 import { StatusPagamentoService } from '../../../shared/status-pagamento.service';
 
 @Component({
-  selector: 'app-relatorio-pagamento',
-  templateUrl: './relatorio-pagamento.component.html',
-  styleUrl: './relatorio-pagamento.component.css'
+    selector: 'app-relatorio-pagamento',
+    templateUrl: './relatorio-pagamento.component.html',
+    styleUrl: './relatorio-pagamento.component.css',
+    standalone: false
 })
 export class RelatorioPagamentoComponent implements OnInit {
 

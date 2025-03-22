@@ -7,9 +7,10 @@ import { IFornecedor } from '../../interface/IFornecedor';
 import { FornecedorService } from '../../shared/fornecedor.service';
 
 @Component({
-  selector: 'app-modal-fornecedor',
-  templateUrl: './modal-fornecedor.component.html',
-  styleUrl: './modal-fornecedor.component.css'
+    selector: 'app-modal-fornecedor',
+    templateUrl: './modal-fornecedor.component.html',
+    styleUrl: './modal-fornecedor.component.css',
+    standalone: false
 })
 export class ModalFornecedorComponent implements OnInit {
   loader: boolean = false;

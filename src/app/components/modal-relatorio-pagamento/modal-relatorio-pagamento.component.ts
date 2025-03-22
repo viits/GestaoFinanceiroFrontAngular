@@ -6,9 +6,10 @@ import { IDataPagamento } from '../../interface/IDataPagamento';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-modal-relatorio-pagamento',
-  templateUrl: './modal-relatorio-pagamento.component.html',
-  styleUrl: './modal-relatorio-pagamento.component.css'
+    selector: 'app-modal-relatorio-pagamento',
+    templateUrl: './modal-relatorio-pagamento.component.html',
+    styleUrl: './modal-relatorio-pagamento.component.css',
+    standalone: false
 })
 export class ModalRelatorioPagamentoComponent implements OnInit {
 

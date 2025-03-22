@@ -9,9 +9,10 @@ import { FornecedorService } from '../../shared/fornecedor.service';
 
 
 @Component({
-  selector: 'app-gerar-balancete',
-  templateUrl: './gerar-balancete.component.html',
-  styleUrl: './gerar-balancete.component.css'
+    selector: 'app-gerar-balancete',
+    templateUrl: './gerar-balancete.component.html',
+    styleUrl: './gerar-balancete.component.css',
+    standalone: false
 })
 export class GerarBalanceteComponent implements OnInit {
   totalBruto: number = 0;

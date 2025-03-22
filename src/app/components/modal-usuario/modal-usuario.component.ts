@@ -6,9 +6,10 @@ import { IUsuario } from '../../interface/IUsuario';
 import { IDataUsuario } from '../../interface/IDataUsuario';
 
 @Component({
-  selector: 'app-modal-usuario',
-  templateUrl: './modal-usuario.component.html',
-  styleUrl: './modal-usuario.component.css'
+    selector: 'app-modal-usuario',
+    templateUrl: './modal-usuario.component.html',
+    styleUrl: './modal-usuario.component.css',
+    standalone: false
 })
 export class ModalUsuarioComponent implements OnInit {
   loader: boolean = false;

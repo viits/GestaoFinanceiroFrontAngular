@@ -14,9 +14,10 @@ export interface PeriodicElement {
   symbol: string;
 }
 @Component({
-  selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
-  styleUrl: './usuario.component.css'
+    selector: 'app-usuario',
+    templateUrl: './usuario.component.html',
+    styleUrl: './usuario.component.css',
+    standalone: false
 })
 export class UsuarioComponent implements OnInit {
   loader: boolean = false;

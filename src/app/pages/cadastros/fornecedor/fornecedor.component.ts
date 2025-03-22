@@ -9,9 +9,10 @@ import { ModalFornecedorComponent } from '../../../components/modal-fornecedor/m
 import { UsuarioService } from '../../../shared/usuario.service';
 
 @Component({
-  selector: 'app-fornecedor',
-  templateUrl: './fornecedor.component.html',
-  styleUrl: './fornecedor.component.css'
+    selector: 'app-fornecedor',
+    templateUrl: './fornecedor.component.html',
+    styleUrl: './fornecedor.component.css',
+    standalone: false
 })
 export class FornecedorComponent implements OnInit {
 

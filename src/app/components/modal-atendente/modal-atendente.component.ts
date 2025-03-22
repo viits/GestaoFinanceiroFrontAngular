@@ -9,9 +9,10 @@ import { IAtendente } from '../../interface/IAtendente';
 import { AtendenteService } from '../../shared/atendente.service';
 
 @Component({
-  selector: 'app-modal-atendente',
-  templateUrl: './modal-atendente.component.html',
-  styleUrl: './modal-atendente.component.css'
+    selector: 'app-modal-atendente',
+    templateUrl: './modal-atendente.component.html',
+    styleUrl: './modal-atendente.component.css',
+    standalone: false
 })
 export class ModalAtendenteComponent implements OnInit {
   listGerente: ISelect[] = [{

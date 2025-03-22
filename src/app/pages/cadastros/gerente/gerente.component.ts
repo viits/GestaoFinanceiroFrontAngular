@@ -9,9 +9,10 @@ import { IGerente } from '../../../interface/IGerente';
 import { UsuarioService } from '../../../shared/usuario.service';
 
 @Component({
-  selector: 'app-gerente',
-  templateUrl: './gerente.component.html',
-  styleUrl: './gerente.component.css'
+    selector: 'app-gerente',
+    templateUrl: './gerente.component.html',
+    styleUrl: './gerente.component.css',
+    standalone: false
 })
 export class GerenteComponent implements OnInit {
   pagination: IPaginator = {

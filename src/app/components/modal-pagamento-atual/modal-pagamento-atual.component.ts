@@ -6,9 +6,10 @@ import { IPagamento } from '../../interface/IPagamento';
 import { IDataPagamento } from '../../interface/IDataPagamento';
 
 @Component({
-  selector: 'app-modal-pagamento-atual',
-  templateUrl: './modal-pagamento-atual.component.html',
-  styleUrl: './modal-pagamento-atual.component.css'
+    selector: 'app-modal-pagamento-atual',
+    templateUrl: './modal-pagamento-atual.component.html',
+    styleUrl: './modal-pagamento-atual.component.css',
+    standalone: false
 })
 export class ModalPagamentoAtualComponent implements OnInit {
 

@@ -11,9 +11,10 @@ import { AtendenteService } from '../../../shared/atendente.service';
 import { UsuarioService } from '../../../shared/usuario.service';
 
 @Component({
-  selector: 'app-atendente',
-  templateUrl: './atendente.component.html',
-  styleUrl: './atendente.component.css'
+    selector: 'app-atendente',
+    templateUrl: './atendente.component.html',
+    styleUrl: './atendente.component.css',
+    standalone: false
 })
 export class AtendenteComponent implements OnInit {
 

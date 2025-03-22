@@ -5,9 +5,10 @@ import { GerenteService } from '../../shared/gerente.service';
 import { IGerente } from '../../interface/IGerente';
 
 @Component({
-  selector: 'app-modal-gerente',
-  templateUrl: './modal-gerente.component.html',
-  styleUrl: './modal-gerente.component.css'
+    selector: 'app-modal-gerente',
+    templateUrl: './modal-gerente.component.html',
+    styleUrl: './modal-gerente.component.css',
+    standalone: false
 })
 export class ModalGerenteComponent implements OnInit {
   loader: boolean = false;
