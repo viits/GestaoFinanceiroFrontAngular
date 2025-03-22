@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instale as dependências do projeto Angular
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copie todo o código fonte para o container
 COPY . .
