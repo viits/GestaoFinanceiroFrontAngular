@@ -7,7 +7,7 @@ WORKDIR /app
 # Copie os arquivos package.json e package-lock.json (ou yarn.lock) para instalar as dependências
 COPY package*.json ./
 
-# Instale as dependências do projeto Angular (sem --legacy-peer-deps se possível)
+# Instale as dependências do projeto Angular
 RUN npm install --legacy-peer-deps
 
 # Copie todo o código fonte para o container
@@ -22,11 +22,11 @@ FROM nginx:alpine
 # Copie os arquivos de build do Angular para o diretório público do nginx
 COPY --from=build /app/dist/financeiro /usr/share/nginx/html
 
+# Copie o arquivo nginx.conf customizado para a configuração do Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Exponha a porta 80 (padrão do nginx)
 EXPOSE 80
-
-# Copie o arquivo nginx.conf customizado, se necessário
-# COPY nginx.conf /etc/nginx/nginx.conf
 
 # Comando para iniciar o servidor nginx
 CMD ["nginx", "-g", "daemon off;"]
