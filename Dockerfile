@@ -7,6 +7,9 @@ WORKDIR /app
 # Copie os arquivos package.json e package-lock.json (ou yarn.lock) para instalar as dependências
 COPY package*.json ./
 
+# Remova o diretório node_modules e package-lock.json, se já existirem
+RUN rm -rf node_modules package-lock.json
+
 # Instale as dependências do projeto Angular
 RUN npm install --legacy-peer-deps
 
