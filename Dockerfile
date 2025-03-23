@@ -17,10 +17,12 @@ FROM nginx:alpine
 # Remove a configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY dist/financeiro/browser /usr/share/nginx/html
+# COPY dist/financeiro/browser /usr/share/nginx/html
 
 # Copia os arquivos buildados do Angular para a pasta correta do Nginx
-COPY --from=build /app/dist/financeiro /usr/share/nginx/html
+COPY --from=build /app/dist/financeiro/browser /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expõe a porta 80
 EXPOSE 80
