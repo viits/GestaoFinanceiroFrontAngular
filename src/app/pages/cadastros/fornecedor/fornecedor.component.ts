@@ -9,6 +9,7 @@ import { ModalFornecedorComponent } from '../../../components/modal-fornecedor/m
 import { UsuarioService } from '../../../shared/usuario.service';
 import { IHistoricoFornecedor } from '../../../interface/IHistoricoFornecedor';
 import { ModalHistoricoFornecedorComponent } from '../../../components/modal-historico-fornecedor/modal-historico-fornecedor.component';
+import { ModalConfirmacaoComponent } from '../../../components/modal-confirmacao/modal-confirmacao.component';
 
 @Component({
   selector: 'app-fornecedor',
@@ -97,6 +98,29 @@ export class FornecedorComponent implements OnInit {
       this.listHistorico = []
     });
   }
+  openDialogConfirmacao(idFornecedorAtendente: number): void {
+      let larguraDialog = '30vw';
+      let alturaDialog = '30vh';
+      if (this.larguraTela < 940) {
+        larguraDialog = '90vw';
+        alturaDialog = '80vh';
+      }
+      const dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
+        data: idFornecedorAtendente,
+        height: alturaDialog,
+        width: larguraDialog
+      });
+
+      dialogRef.afterClosed().subscribe((result: number) => {
+        if (result != 0 && result != undefined) {
+          this.getDeleteFornecedor(result)
+        }
+      });
+    }
+
+    deletar(event: IFornecedor) {
+      this.openDialogConfirmacao(event.idFornecedor)
+    }
 
 
   getPage(item: any) {
@@ -189,4 +213,31 @@ export class FornecedorComponent implements OnInit {
       },
     });
   }
+
+  getDeleteFornecedor(idFornecedor: number) {
+    this.loader = true;
+    this.fornecedorService.deletarFornecedor(idFornecedor, {
+      onSuccess: (res: any) => {
+        this.toast.success('Deletado com sucesso.');
+        this.loader = false;
+        this.pagination = {
+          pageNumber: 1,
+          pageSize: 5,
+          qtPages: 0
+        };
+        this.getFornecedor();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
+  }
+
 }

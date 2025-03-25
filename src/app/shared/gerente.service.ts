@@ -93,4 +93,23 @@ export class GerenteService {
         },
       });
   }
+
+  deletarGerente(idGerente: number, { onSuccess, onError }: any): any {
+    this.httpClient
+      .delete(environment.apiUrl + `Gerente?idGerente=${idGerente}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
 }

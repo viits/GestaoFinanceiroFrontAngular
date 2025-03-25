@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 import { StatusPagamentoService } from '../../../shared/status-pagamento.service';
 import { IHistoricoBalancete } from '../../../interface/IHistoricoBalancete';
 import { ModalHistoricoBalanceteComponent } from '../../../components/modal-historico-balancete/modal-historico-balancete.component';
+import { ModalConfirmacaoComponent } from '../../../components/modal-confirmacao/modal-confirmacao.component';
 
 @Component({
   selector: 'app-relatorio-pagamento',
@@ -56,6 +57,7 @@ export class RelatorioPagamentoComponent implements OnInit {
     'statusPagamento',
     'valorLiquidoAtendente',
     'valorLiquidoFornecedor',
+    'valorLiquidoTime',
     'dataVenda',
     'acoes'
   ];
@@ -123,14 +125,37 @@ export class RelatorioPagamentoComponent implements OnInit {
     });
   }
 
+  openDialogConfirmacao(idFornecedorAtendente: number): void {
+    let larguraDialog = '30vw';
+    let alturaDialog = '30vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+    const dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
+      data: idFornecedorAtendente,
+      height: alturaDialog,
+      width: larguraDialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: number) => {
+      if (result != 0 && result != undefined) {
+        this.getDeletePagamento(result)
+      }
+    });
+  }
+  deletarPagamento(event: IPagamento) {
+    this.openDialogConfirmacao(event.idFornecedorAtendente)
+  }
   editarFornecedor(event: IPagamento) {
-    console.log(event)
+    // console.log(event)
     this.pagamentoModal.pagamento = event;
     this.openDialog();
   }
   verHistorico(event: IPagamento) {
     this.getHistoricoBalancete(event.idFornecedorAtendente)
   }
+
   getAllAtendentes() {
     this.loader = true;
     this.atendenteService.getAllAtendenteSelect({
@@ -258,10 +283,10 @@ export class RelatorioPagamentoComponent implements OnInit {
             valorBruto: x.valorBruto,
             valorLiquidoAtendente: x.valorLiquidoAtendente,
             valorLiquidoFornecedor: x.valorLiquidoFornecedor,
+            valorLiquidoTime: x.valorLiquidoTime,
             dataVenda: this.formatarData(x.dataVenda)
           }
         })
-
         this.pagination = {
           pageNumber: res.data?.listRelatorioPagamentos?.pageNumber,
           pageSize: res.data?.listRelatorioPagamentos?.pageSize,
@@ -288,13 +313,36 @@ export class RelatorioPagamentoComponent implements OnInit {
     this.pagamentoService.getHistoricoBalancete(idFornecedorAtendente, {
       onSuccess: (res: any) => {
         this.listHistorico = res.data.listHistoricoBalancete?.map((x: IHistoricoBalancete) => {
-          console.log('X: ', x)
           return x;
         })
-        console.log('X: ', this.listHistorico)
 
         this.loader = false;
         this.openDialogHistorico();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
+  }
+  getDeletePagamento(idFornecedorAtendente: number) {
+    this.loader = true;
+    this.pagamentoService.deletarPagamentoRelatorio(idFornecedorAtendente, {
+      onSuccess: (res: any) => {
+        this.toast.success('Deletado com sucesso.');
+        this.loader = false;
+        this.pagination = {
+          pageNumber: 1,
+          pageSize: 5,
+          qtPages: 0
+        };
+        this.getRelatorioPagamento();
       },
       onError: (error: any) => {
         this.loader = false;

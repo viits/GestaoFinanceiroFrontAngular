@@ -7,12 +7,13 @@ import { GerenteService } from '../../../shared/gerente.service';
 import { ToastrService } from 'ngx-toastr';
 import { IGerente } from '../../../interface/IGerente';
 import { UsuarioService } from '../../../shared/usuario.service';
+import { ModalConfirmacaoComponent } from '../../../components/modal-confirmacao/modal-confirmacao.component';
 
 @Component({
-    selector: 'app-gerente',
-    templateUrl: './gerente.component.html',
-    styleUrl: './gerente.component.css',
-    standalone: false
+  selector: 'app-gerente',
+  templateUrl: './gerente.component.html',
+  styleUrl: './gerente.component.css',
+  standalone: false
 })
 export class GerenteComponent implements OnInit {
   pagination: IPaginator = {
@@ -78,6 +79,32 @@ export class GerenteComponent implements OnInit {
       }
     });
   }
+
+  openDialogConfirmacao(idFornecedorAtendente: number): void {
+    let larguraDialog = '30vw';
+    let alturaDialog = '30vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+    const dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
+      data: idFornecedorAtendente,
+      height: alturaDialog,
+      width: larguraDialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: number) => {
+      if (result != 0 && result != undefined) {
+        this.deleteGerente(result)
+      }
+    });
+  }
+
+  deletar(event: IGerente) {
+    this.openDialogConfirmacao(event.idUsuario)
+  }
+
+
   getPage(item: any) {
     this.pagination = {
       pageNumber: item.pageIndex + 1,
@@ -151,5 +178,30 @@ export class GerenteComponent implements OnInit {
     this.router.navigate([route]);
   }
 
+  deleteGerente(idGerente: number) {
+    this.loader = true;
+    this.gerenteService.deletarGerente(idGerente, {
+      onSuccess: (res: any) => {
+        this.toast.success('Deletado com sucesso.');
+        this.loader = false;
+        this.pagination = {
+          pageNumber: 1,
+          pageSize: 5,
+          qtPages: 0
+        };
+        this.getGerente();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
+  }
 
 }

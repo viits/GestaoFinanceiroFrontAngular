@@ -14,6 +14,7 @@ export interface IHistoricoBalancete {
   valorBruto: number,
   valorLiquidoAtendente: number,
   valorLiquidoFornecedor: number,
+  valorLiquidoTime: number,
   dataVenda: Date
   dataCriacao: Date
 }

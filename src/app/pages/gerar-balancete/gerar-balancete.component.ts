@@ -9,13 +9,14 @@ import { FornecedorService } from '../../shared/fornecedor.service';
 
 
 @Component({
-    selector: 'app-gerar-balancete',
-    templateUrl: './gerar-balancete.component.html',
-    styleUrl: './gerar-balancete.component.css',
-    standalone: false
+  selector: 'app-gerar-balancete',
+  templateUrl: './gerar-balancete.component.html',
+  styleUrl: './gerar-balancete.component.css',
+  standalone: false
 })
 export class GerarBalanceteComponent implements OnInit {
   totalBruto: number = 0;
+  totalTime: number = 0;
   totalLiqAtendente: number = 0;
   totalLiqFornecedor: number = 0;
   edit: boolean = false;
@@ -51,6 +52,7 @@ export class GerarBalanceteComponent implements OnInit {
     'statusPagamento',
     'valorLiquidoAtendente',
     'valorLiquidoFornecedor',
+    'valorLiquidoTime',
     'dataVenda'
   ];
   data: any = {
@@ -144,6 +146,7 @@ export class GerarBalanceteComponent implements OnInit {
             valorBruto: x.valorBruto,
             valorLiquidoAtendente: x.valorLiquidoAtendente,
             valorLiquidoFornecedor: x.valorLiquidoFornecedor,
+            valorLiquidoTime: x.valorLiquidoTime,
             dataVenda: this.formatarData(x.dataVenda)
           }
         })
@@ -153,6 +156,7 @@ export class GerarBalanceteComponent implements OnInit {
               this.totalBruto += x.valorBruto;
               this.totalLiqAtendente += x.valorLiquidoAtendente;
               this.totalLiqFornecedor += x.valorLiquidoFornecedor;
+              this.totalTime += x.valorLiquidoTime;
             }
           })
         } else {

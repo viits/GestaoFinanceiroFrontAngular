@@ -112,4 +112,22 @@ export class AtendenteService {
         },
       });
   }
+  deletarAtendente(idAtendente: number, { onSuccess, onError }: any): any {
+    this.httpClient
+      .delete(environment.apiUrl + `Atendente?idAtendente=${idAtendente}`, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
 }

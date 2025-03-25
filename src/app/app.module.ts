@@ -37,7 +37,8 @@ import { GerarBalanceteComponent } from './pages/gerar-balancete/gerar-balancete
 import { PdfBalanceteComponent } from './components/pdf-balancete/pdf-balancete.component';
 import { ModalHistoricoAtendenteComponent } from './components/modal-historico-atendente/modal-historico-atendente.component';
 import { ModalHistoricoFornecedorComponent } from './components/modal-historico-fornecedor/modal-historico-fornecedor.component';
-import { ModalHistoricoBalanceteComponent } from './components/modal-historico-balancete/modal-historico-balancete.component'
+import { ModalHistoricoBalanceteComponent } from './components/modal-historico-balancete/modal-historico-balancete.component';
+import { ModalConfirmacaoComponent } from './components/modal-confirmacao/modal-confirmacao.component'
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
 };
@@ -69,6 +70,7 @@ const maskConfig: Partial<NgxMaskConfig> = {
     ModalHistoricoAtendenteComponent,
     ModalHistoricoFornecedorComponent,
     ModalHistoricoBalanceteComponent,
+    ModalConfirmacaoComponent,
   ],
   imports: [
     BrowserModule,

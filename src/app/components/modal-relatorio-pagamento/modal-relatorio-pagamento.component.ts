@@ -6,10 +6,10 @@ import { IDataPagamento } from '../../interface/IDataPagamento';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-modal-relatorio-pagamento',
-    templateUrl: './modal-relatorio-pagamento.component.html',
-    styleUrl: './modal-relatorio-pagamento.component.css',
-    standalone: false
+  selector: 'app-modal-relatorio-pagamento',
+  templateUrl: './modal-relatorio-pagamento.component.html',
+  styleUrl: './modal-relatorio-pagamento.component.css',
+  standalone: false
 })
 export class ModalRelatorioPagamentoComponent implements OnInit {
 
@@ -18,6 +18,7 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
   edit: boolean = false;
 
   ngOnInit(): void {
+    this.FormatarValorExibicao(this.data.pagamento.valorBruto)
     if (this.data.pagamento.idFornecedorAtendente != 0) {
       this.edit = true;
     }
@@ -103,7 +104,14 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
   }
 
   FormatarValorExibicao(event: any): void {
+
     let valor = event;
+    if (typeof valor == 'number') {
+      valor = valor.toLocaleString(
+        'pt-BR',
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+      )
+    }
     const v = ((valor.replace(/\D/g, '') / 100).toFixed(2) + '').split('.');
     const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
     if (m != null) {

@@ -58,6 +58,12 @@ th{
 th, td{
   text-align: center;
 }
+.acoes{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
 @media screen and (max-width: 940px) {
   .container-relatorio {
     height: 100%;
@@ -110,5 +116,5 @@ th, td{
     align-items: flex-start;
     justify-content: start;
   }
-  
+
 }

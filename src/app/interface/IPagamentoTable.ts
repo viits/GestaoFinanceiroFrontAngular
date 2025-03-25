@@ -11,4 +11,5 @@ export interface IPagamentoTable {
   valorBruto: number,
   valorLiquidoAtendente: number,
   valorLiquidoFornecedor: number,
+  valorLiquidoTime: number,
 }

@@ -49,6 +49,12 @@ th, td{
 img{
   cursor: pointer;
 }
+.acoes{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
 @media screen and (max-width: 940px) {
   .container-atendente {
     height: 100%;

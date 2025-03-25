@@ -63,7 +63,7 @@
           </ng-container>
 
           <ng-container matColumnDef="valorLiquidoAtendente">
-            <th mat-header-cell *matHeaderCellDef> Valor liquido atendente </th>
+            <th mat-header-cell *matHeaderCellDef> Valor liq. atendente </th>
             <td mat-cell *matCellDef="let element">R$
               {{element.valorLiquidoAtendente.toLocaleString(
               'pt-BR',
@@ -73,8 +73,15 @@
           </ng-container>
 
           <ng-container matColumnDef="valorLiquidoFornecedor">
-            <th mat-header-cell *matHeaderCellDef> Valor liquido fornecedor </th>
+            <th mat-header-cell *matHeaderCellDef> Valor liq. fornecedor </th>
             <td mat-cell *matCellDef="let element">R$ {{element.valorLiquidoFornecedor.toLocaleString(
+              'pt-BR',
+              { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+              ) }} </td>
+          </ng-container>
+          <ng-container matColumnDef="valorLiquidoTime">
+            <th mat-header-cell *matHeaderCellDef> Valor liq. timework </th>
+            <td mat-cell *matCellDef="let element">R$ {{element.valorLiquidoTime.toLocaleString(
               'pt-BR',
               { minimumFractionDigits: 2, maximumFractionDigits: 2 }
               ) }} </td>
@@ -103,8 +110,12 @@
 
     </div>
     <div class="footer">
-      <div class="valor-bruto">
+      <div class="total-valor">
         <label>Total bruto: R$ {{totalBruto.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          ) }}</label>
+        <label>Total teamwork: R$ {{totalTime.toLocaleString(
           'pt-BR',
           { minimumFractionDigits: 2, maximumFractionDigits: 2 }
           ) }}</label>

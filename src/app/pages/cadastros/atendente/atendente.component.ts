@@ -11,6 +11,7 @@ import { AtendenteService } from '../../../shared/atendente.service';
 import { UsuarioService } from '../../../shared/usuario.service';
 import { ModalHistoricoAtendenteComponent } from '../../../components/modal-historico-atendente/modal-historico-atendente.component';
 import { IHistoricoAtendente } from '../../../interface/IHistoricoAtendente';
+import { ModalConfirmacaoComponent } from '../../../components/modal-confirmacao/modal-confirmacao.component';
 
 @Component({
   selector: 'app-atendente',
@@ -104,6 +105,29 @@ export class AtendenteComponent implements OnInit {
     });
   }
 
+  openDialogConfirmacao(idFornecedorAtendente: number): void {
+    let larguraDialog = '30vw';
+    let alturaDialog = '30vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+    const dialogRef = this.dialog.open(ModalConfirmacaoComponent, {
+      data: idFornecedorAtendente,
+      height: alturaDialog,
+      width: larguraDialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: number) => {
+      if (result != 0 && result != undefined) {
+        this.getDeleteAtendente(result)
+      }
+    });
+  }
+
+  deletar(event: IAtendente) {
+    this.openDialogConfirmacao(event.idAtendente)
+  }
 
   getPage(item: any) {
     this.pagination = {
@@ -200,6 +224,32 @@ export class AtendenteComponent implements OnInit {
     });
 
 
+  }
+
+  getDeleteAtendente(idFornecedorAtendente: number) {
+    this.loader = true;
+    this.atendenteService.deletarAtendente(idFornecedorAtendente, {
+      onSuccess: (res: any) => {
+        this.toast.success('Deletado com sucesso.');
+        this.loader = false;
+        this.pagination = {
+          pageNumber: 1,
+          pageSize: 5,
+          qtPages: 0
+        };
+        this.getAtendente();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
   }
 
 }
