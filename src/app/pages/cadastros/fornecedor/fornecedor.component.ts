@@ -7,12 +7,14 @@ import { FornecedorService } from '../../../shared/fornecedor.service';
 import { ToastrService } from 'ngx-toastr';
 import { ModalFornecedorComponent } from '../../../components/modal-fornecedor/modal-fornecedor.component';
 import { UsuarioService } from '../../../shared/usuario.service';
+import { IHistoricoFornecedor } from '../../../interface/IHistoricoFornecedor';
+import { ModalHistoricoFornecedorComponent } from '../../../components/modal-historico-fornecedor/modal-historico-fornecedor.component';
 
 @Component({
-    selector: 'app-fornecedor',
-    templateUrl: './fornecedor.component.html',
-    styleUrl: './fornecedor.component.css',
-    standalone: false
+  selector: 'app-fornecedor',
+  templateUrl: './fornecedor.component.html',
+  styleUrl: './fornecedor.component.css',
+  standalone: false
 })
 export class FornecedorComponent implements OnInit {
 
@@ -23,6 +25,8 @@ export class FornecedorComponent implements OnInit {
   };
   displayedColumns: string[] = ['nomeFornecedor', 'porcentagem', 'acoes'];
   listFornecedor: any = []
+  listHistorico: IHistoricoFornecedor[] = []
+
   loader: boolean = false;
   edit: boolean = false;
 
@@ -32,6 +36,7 @@ export class FornecedorComponent implements OnInit {
     porcentagem: 0
   }
   larguraTela: number = 0;
+
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
     this.getPermissao();
@@ -47,7 +52,9 @@ export class FornecedorComponent implements OnInit {
     this.fornecedor = event;
     this.openDialog();
   }
-
+  verHistorico(event: IFornecedor) {
+    this.getHistoricoFornecedor(event.idFornecedor)
+  }
   openDialog(): void {
     let larguraDialog = '30vw';
     let alturaDialog = '50vh';
@@ -72,6 +79,25 @@ export class FornecedorComponent implements OnInit {
       }
     });
   }
+
+  openDialogHistorico(): void {
+    let larguraDialog = '70vw';
+    let alturaDialog = '80vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+    const dialogRef = this.dialog.open(ModalHistoricoFornecedorComponent, {
+      data: this.listHistorico,
+      height: alturaDialog,
+      width: larguraDialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.listHistorico = []
+    });
+  }
+
 
   getPage(item: any) {
     this.pagination = {
@@ -141,5 +167,26 @@ export class FornecedorComponent implements OnInit {
       },
     });
   }
-
+  getHistoricoFornecedor(idFornecedor: number) {
+    this.loader = true;
+    this.fornecedorService.getHistoricoFornecedor(idFornecedor, {
+      onSuccess: (res: any) => {
+        this.listHistorico = res.data.listHistoricoFornecedor?.map((x: IHistoricoFornecedor) => {
+          return x;
+        })
+        this.loader = false;
+        this.openDialogHistorico();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+      },
+    });
+  }
 }

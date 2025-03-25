@@ -34,7 +34,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario.component';
 import { NgxMaskConfig, NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { GerarBalanceteComponent } from './pages/gerar-balancete/gerar-balancete.component';
-import { PdfBalanceteComponent } from './components/pdf-balancete/pdf-balancete.component'
+import { PdfBalanceteComponent } from './components/pdf-balancete/pdf-balancete.component';
+import { ModalHistoricoAtendenteComponent } from './components/modal-historico-atendente/modal-historico-atendente.component';
+import { ModalHistoricoFornecedorComponent } from './components/modal-historico-fornecedor/modal-historico-fornecedor.component';
+import { ModalHistoricoBalanceteComponent } from './components/modal-historico-balancete/modal-historico-balancete.component'
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
 };
@@ -63,6 +66,9 @@ const maskConfig: Partial<NgxMaskConfig> = {
     ModalUsuarioComponent,
     GerarBalanceteComponent,
     PdfBalanceteComponent,
+    ModalHistoricoAtendenteComponent,
+    ModalHistoricoFornecedorComponent,
+    ModalHistoricoBalanceteComponent,
   ],
   imports: [
     BrowserModule,

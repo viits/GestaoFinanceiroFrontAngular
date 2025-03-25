@@ -37,7 +37,7 @@
 }
 .table-usuario{
   width: 80%;
-  overflow-y: auto;
+  overflow: auto;
 }
 th{
   font-weight: 600;

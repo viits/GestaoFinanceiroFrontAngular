@@ -12,18 +12,21 @@ import { ModalPagamentoAtualComponent } from '../../../components/modal-pagament
 import { ModalRelatorioPagamentoComponent } from '../../../components/modal-relatorio-pagamento/modal-relatorio-pagamento.component';
 import { DatePipe } from '@angular/common';
 import { StatusPagamentoService } from '../../../shared/status-pagamento.service';
+import { IHistoricoBalancete } from '../../../interface/IHistoricoBalancete';
+import { ModalHistoricoBalanceteComponent } from '../../../components/modal-historico-balancete/modal-historico-balancete.component';
 
 @Component({
-    selector: 'app-relatorio-pagamento',
-    templateUrl: './relatorio-pagamento.component.html',
-    styleUrl: './relatorio-pagamento.component.css',
-    standalone: false
+  selector: 'app-relatorio-pagamento',
+  templateUrl: './relatorio-pagamento.component.html',
+  styleUrl: './relatorio-pagamento.component.css',
+  standalone: false
 })
 export class RelatorioPagamentoComponent implements OnInit {
 
   edit: boolean = false;
   loader: boolean = false;
   listPagamentos: IPagamentoTable[] = []
+  listHistorico: IHistoricoBalancete[] = []
 
   pagamento: IPagamento = {
     idFornecedorAtendente: 0,
@@ -74,8 +77,6 @@ export class RelatorioPagamentoComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-
-
   openDialog(): void {
     let larguraDialog = '30vw';
     let alturaDialog = '90vh';
@@ -104,14 +105,32 @@ export class RelatorioPagamentoComponent implements OnInit {
       }
     });
   }
+  openDialogHistorico(): void {
+    let larguraDialog = '70vw';
+    let alturaDialog = '80vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+    const dialogRef = this.dialog.open(ModalHistoricoBalanceteComponent, {
+      data: this.listHistorico,
+      height: alturaDialog,
+      width: larguraDialog
+    });
 
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.listHistorico = []
+    });
+  }
 
   editarFornecedor(event: IPagamento) {
     console.log(event)
     this.pagamentoModal.pagamento = event;
     this.openDialog();
   }
-
+  verHistorico(event: IPagamento) {
+    this.getHistoricoBalancete(event.idFornecedorAtendente)
+  }
   getAllAtendentes() {
     this.loader = true;
     this.atendenteService.getAllAtendenteSelect({
@@ -261,6 +280,31 @@ export class RelatorioPagamentoComponent implements OnInit {
           // this.toast.error('Email ou senha inválidos!');
         }
         this.loader = false;
+      },
+    });
+  }
+  getHistoricoBalancete(idFornecedorAtendente: number) {
+    this.loader = true;
+    this.pagamentoService.getHistoricoBalancete(idFornecedorAtendente, {
+      onSuccess: (res: any) => {
+        this.listHistorico = res.data.listHistoricoBalancete?.map((x: IHistoricoBalancete) => {
+          console.log('X: ', x)
+          return x;
+        })
+        console.log('X: ', this.listHistorico)
+
+        this.loader = false;
+        this.openDialogHistorico();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
       },
     });
   }

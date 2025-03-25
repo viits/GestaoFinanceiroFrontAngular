@@ -9,12 +9,14 @@ import { ModalAtendenteComponent } from '../../../components/modal-atendente/mod
 import { IAtendente } from '../../../interface/IAtendente';
 import { AtendenteService } from '../../../shared/atendente.service';
 import { UsuarioService } from '../../../shared/usuario.service';
+import { ModalHistoricoAtendenteComponent } from '../../../components/modal-historico-atendente/modal-historico-atendente.component';
+import { IHistoricoAtendente } from '../../../interface/IHistoricoAtendente';
 
 @Component({
-    selector: 'app-atendente',
-    templateUrl: './atendente.component.html',
-    styleUrl: './atendente.component.css',
-    standalone: false
+  selector: 'app-atendente',
+  templateUrl: './atendente.component.html',
+  styleUrl: './atendente.component.css',
+  standalone: false
 })
 export class AtendenteComponent implements OnInit {
 
@@ -26,6 +28,7 @@ export class AtendenteComponent implements OnInit {
   };
   displayedColumns: string[] = ['nomeAtendente', 'porcentagem', 'acoes'];
   listAtendente: IAtendente[] = []
+  listHistorico: IHistoricoAtendente[] = []
   loader: boolean = false;
   edit: boolean = false;
 
@@ -36,6 +39,7 @@ export class AtendenteComponent implements OnInit {
     porcentagem: 0
   }
   larguraTela: number = 0;
+
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
     this.getPermissao();
@@ -52,7 +56,10 @@ export class AtendenteComponent implements OnInit {
     this.atendente = event;
     this.openDialog();
   }
+  verHistorico(event: IAtendente) {
+    this.getHistoricoAtendente(event.idAtendente)
 
+  }
   openDialog(): void {
     let larguraDialog = '30vw';
     let alturaDialog = '60vh';
@@ -78,6 +85,25 @@ export class AtendenteComponent implements OnInit {
       }
     });
   }
+
+  openDialogHistorico(): void {
+    let larguraDialog = '70vw';
+    let alturaDialog = '80vh';
+    if (this.larguraTela < 940) {
+      larguraDialog = '90vw';
+      alturaDialog = '80vh';
+    }
+    const dialogRef = this.dialog.open(ModalHistoricoAtendenteComponent, {
+      data: this.listHistorico,
+      height: alturaDialog,
+      width: larguraDialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.listHistorico = []
+    });
+  }
+
 
   getPage(item: any) {
     this.pagination = {
@@ -146,4 +172,34 @@ export class AtendenteComponent implements OnInit {
       },
     });
   }
+
+  getHistoricoAtendente(idAtendente: number) {
+    this.loader = true;
+    this.atendenteService.getHistoricoAtendente(idAtendente, {
+      onSuccess: (res: any) => {
+        this.listHistorico = res.data.listHistoricoAtendente?.map((x: IHistoricoAtendente) => {
+          return x
+        })
+        this.loader = false;
+        this.openDialogHistorico();
+      },
+      onError: (error: any) => {
+        this.loader = false;
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+          // this.toast.error('Email ou senha inválidos!');
+        }
+        this.loader = false;
+        this.openDialogHistorico();
+      },
+
+    });
+
+
+  }
+
 }

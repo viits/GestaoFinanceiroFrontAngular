@@ -23,7 +23,9 @@
 
           <ng-container matColumnDef="acoes">
             <th mat-header-cell *matHeaderCellDef> Ações </th>
-            <td mat-cell *matCellDef="let element"><img src="assets/icons/edit.svg" (click)="editarFornecedor(element)" />
+            <td mat-cell *matCellDef="let element">
+              <img src="assets/icons/edit.svg" (click)="editarFornecedor(element)" />
+              <img src="assets/icons/view.svg" (click)="verHistorico(element)" />
             </td>
           </ng-container>
 
