@@ -8,6 +8,14 @@
 
     <div class="filtro">
       <div class="form-group-filtro">
+        <label>Gerente</label>
+        <mat-select class="select" [(value)]="data.idGerente">
+          <mat-option *ngFor="let item of listGerente" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group-filtro">
         <label>Fornecedor</label>
         <mat-select class="select" [(value)]="data.idFornecedor">
           <mat-option *ngFor="let item of listFornecedores" [value]="item.value">

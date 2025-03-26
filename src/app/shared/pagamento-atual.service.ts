@@ -65,6 +65,9 @@ export class PagamentoAtualService {
     if(data.idFornecedor != 0 && data.idFornecedor != undefined){
       url+= `&idFornecedor=${data.idFornecedor}`
     }
+    if(data.idGerente != 0 && data.idGerente != undefined){
+      url+= `&idGerente=${data.idGerente}`
+    }
     this.httpClient
       .get(url, {
         headers: {

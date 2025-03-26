@@ -6,6 +6,7 @@ import { PagamentoAtualService } from '../../shared/pagamento-atual.service';
 import { AtendenteService } from '../../shared/atendente.service';
 import { ISelect } from '../../interface/ISelect';
 import { FornecedorService } from '../../shared/fornecedor.service';
+import { GerenteService } from '../../shared/gerente.service';
 
 
 @Component({
@@ -29,6 +30,12 @@ export class GerarBalanceteComponent implements OnInit {
     }
   ]
   listFornecedores: ISelect[] = [
+    {
+      name: 'Todos',
+      value: 0
+    }
+  ]
+  listGerente: ISelect[] = [
     {
       name: 'Todos',
       value: 0
@@ -59,18 +66,56 @@ export class GerarBalanceteComponent implements OnInit {
     dataInicio: '',
     dataFim: '',
     idAtendente: 0,
-    idFornecedor: 0
+    idFornecedor: 0,
+    idGerente: 0,
   }
   baixarPdf: boolean = false;
+  desabilitaAtendente: boolean = false;
 
   constructor(private pagamentoService: PagamentoAtualService,
     private toast: ToastrService,
     private atendenteService: AtendenteService,
-    private fornecedorService: FornecedorService
+    private fornecedorService: FornecedorService,
+    private gerenteService: GerenteService
   ) { }
   ngOnInit(): void {
     this.getAllAtendentes();
     this.getAllFornecedores();
+    this.getGeretente();
+  }
+  onChangeGerente(event: any){
+    console.log('E: ', event)
+    if(event != 0 && event != undefined){
+      this.desabilitaAtendente = true;
+      this.data.idAtendente = 0
+    }else{
+      this.desabilitaAtendente = false;
+    }
+    this.data.idGerente = event
+  }
+  getGeretente() {
+    this.loader = true;
+    this.gerenteService.getAllGerenteSelect({
+      onSuccess: (res: any) => {
+        res.data.listGerente?.map((x: any) => {
+          this.listGerente.push({
+            value: x.idUsuario,
+            name: x.nomeUsuario
+          });
+        });
+        this.loader = false;
+      },
+      onError: (error: any) => {
+        if (error.status != 400) {
+          this.toast.error('Ocorreu um erro, tente novamente mais tarde!');
+        } else {
+          error.error.errors?.map((x: any) => {
+            this.toast.error(x);
+          });
+        }
+        this.loader = false;
+      },
+    });
   }
 
   getAllFornecedores() {
