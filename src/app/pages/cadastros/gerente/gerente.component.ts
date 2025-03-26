@@ -104,7 +104,19 @@ export class GerenteComponent implements OnInit {
     this.openDialogConfirmacao(event.idUsuario)
   }
 
+  formatarTelefone(num: string) {
+    if (num != null && num != "") {
+      const codigoArea = num.slice(0, 2);
+      const parte1 = num.slice(2, 7);
+      const parte2 = num.slice(7);
 
+      const numeroFormatado = `(${codigoArea})${parte1}-${parte2}`;
+      return numeroFormatado;
+    }
+    else {
+      return "Não informado"
+    }
+  }
   getPage(item: any) {
     this.pagination = {
       pageNumber: item.pageIndex + 1,

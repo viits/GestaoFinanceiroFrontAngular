@@ -45,6 +45,9 @@ img{
 button{
   width: 100%;
 }
+.forgot-password{
+  cursor: pointer;
+}
 @media screen and (max-width: 940px) {
   .login {
     flex-direction: column;
@@ -59,5 +62,5 @@ button{
   .form-group{
     width: 100%;
   }
- 
+
 }

@@ -18,7 +18,7 @@
               class="form-control" name="password" required />
           </div>
           <div class="checkbox-container">
-            <label class="forgot-password" (click)="goTo('/esqueci')">Esqueceu a senha?</label>
+            <label class="forgot-password" (click)="openDialog()">Esqueceu a senha?</label>
           </div>
           <button type="submit" class="btn btn-success"
             [disabled]="model.email == '' || model.senha == '' ? true : false">

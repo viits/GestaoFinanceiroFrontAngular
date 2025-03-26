@@ -143,4 +143,23 @@ export class UsuarioService {
         },
       });
   }
+  enviarEmail(value: any, { onSuccess, onError }: any) {
+
+    this.httpClient
+      .post(environment.apiUrl + `Usuario/RedefinirSenha`, value, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          type: 'application/json',
+          Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+      })
+      .subscribe({
+        next: (res: any) => {
+          return onSuccess(res);
+        },
+        error: (error: any) => {
+          return onError(error);
+        },
+      });
+  }
 }

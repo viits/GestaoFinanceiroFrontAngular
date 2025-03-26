@@ -7,7 +7,8 @@ import { AtendenteService } from '../../shared/atendente.service';
 import { ISelect } from '../../interface/ISelect';
 import { FornecedorService } from '../../shared/fornecedor.service';
 import { GerenteService } from '../../shared/gerente.service';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-gerar-balancete',
@@ -83,15 +84,8 @@ export class GerarBalanceteComponent implements OnInit {
     this.getAllFornecedores();
     this.getGeretente();
   }
-  onChangeGerente(event: any){
-    console.log('E: ', event)
-    if(event != 0 && event != undefined){
-      this.desabilitaAtendente = true;
-      this.data.idAtendente = 0
-    }else{
-      this.desabilitaAtendente = false;
-    }
-    this.data.idGerente = event
+  baixaPDF(){
+    this.baixarPdf = true;
   }
   getGeretente() {
     this.loader = true;
@@ -267,4 +261,26 @@ export class GerarBalanceteComponent implements OnInit {
       return "";
     }
   }
+
+  gerarPDF() {
+    const element = document.getElementById('conteudoPDF');
+    if (!element) {
+      console.error('Elemento não encontrado!');
+      return;
+    }
+
+    html2canvas(element, { scale: 2 }).then((canvas: any) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 190;
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let position = 10;
+
+      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+      pdf.save('Balancete');
+    });
+  }
+
 }

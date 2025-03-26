@@ -28,7 +28,7 @@
 }
 .body {
   width: 100%;
-  height: 70%;
+  max-height: 70%;
   margin: 20px 0 0 0;
   display: flex;
   flex-direction: column;
@@ -78,7 +78,11 @@ th, td{
 label{
   font-weight: 600;
 }
-
+.pdf{
+  width: 50px;
+  height: 50px;
+  margin: 0 0 0 10px;
+}
 @media screen and (max-width: 940px) {
   .container-relatorio {
     height: 100%;
@@ -116,7 +120,7 @@ label{
     flex-direction: column;
     align-items: flex-start;
     justify-content: start;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 30px 0;
   }
   .valor-bruto {
     width: 50%;
@@ -128,5 +132,8 @@ label{
   }
   .total-valor{
     margin: 0 0 0 10px;
+  }
+  button{
+    margin: 20px 0 10px 0;
   }
 }

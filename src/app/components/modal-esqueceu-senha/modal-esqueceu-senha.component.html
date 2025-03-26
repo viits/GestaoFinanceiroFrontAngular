@@ -1,0 +1,16 @@
+<div class="header">
+  <h4>Redefina a senha</h4>
+</div>
+<div class="body">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="text" [(ngModel)]="email" placeholder="email@email.com" class="form-control"
+        name="email" required />
+    </div>
+    <div class="button-confirm">
+      <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+  </form>
+  <app-loader *ngIf="loader"></app-loader>
+</div>

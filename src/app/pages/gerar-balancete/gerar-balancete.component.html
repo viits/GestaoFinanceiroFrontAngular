@@ -43,7 +43,7 @@
       <button type="button" [disabled]="data.dataInicio =='' || data.dataFim=='' ? true: false" class="btn btn-success"
         (click)="getRelatorioPagamento()">Pesquisar</button>
 
-      <!-- <button class="btn btn-warning" (click)="baixarPdf = true">Pdf</button> -->
+      <img class="pdf" *ngIf="listPagamentos.length > 0" src="assets/icons/pdf.svg" (click)="baixaPDF()"  />
     </div>
 
     <div class="body">
@@ -51,7 +51,7 @@
 
       <div class="table-usuario" *ngIf="listPagamentos.length > 0">
 
-        <table mat-table [dataSource]="listPagamentos" class="mat-elevation-z8">
+        <table mat-table [dataSource]="listPagamentos" class="mat-elevation-z8" id="conteudoPDF">
           <ng-container matColumnDef="nomeFornecedor">
             <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
             <td mat-cell *matCellDef="let element"> {{element.nomeFornecedor}} </td>
