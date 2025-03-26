@@ -126,6 +126,7 @@ export class GerarBalanceteComponent implements OnInit {
   }
 
   getRelatorioPagamento() {
+    this.totalTime = 0;
     this.totalBruto = 0;
     this.totalLiqAtendente = 0;
     this.totalLiqFornecedor = 0;
@@ -160,6 +161,7 @@ export class GerarBalanceteComponent implements OnInit {
             }
           })
         } else {
+          this.totalTime = 0;
           this.totalBruto = 0;
           this.totalLiqAtendente = 0;
           this.totalLiqFornecedor = 0;
