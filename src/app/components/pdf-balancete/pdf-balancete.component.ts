@@ -70,8 +70,9 @@ export class PdfBalanceteComponent implements OnInit, OnChanges {
 
     autoTable(doc, {
       head: [this.displayedColumns.map(col => columnLabels[col] || col)],
-      body: this.listPagamentos.map(item =>
-        this.displayedColumns.map(col => item[col as keyof IPagamentoTable])
+      body: this.listPagamentos.map(item =>{
+        item.dataVenda = this.formatarDataTable(item.dataVenda)
+        return this.displayedColumns.map(col => item[col as keyof IPagamentoTable])}
       ),
       startY: 20, // Define onde começa a tabela para evitar sobreposição com o título
       margin: { bottom: 20, right: 10 }, // Evita cortes no final da página
@@ -85,30 +86,30 @@ export class PdfBalanceteComponent implements OnInit, OnChanges {
       tableWidth: 'auto',
       pageBreak: 'auto',
     });
+    
+    // const messages = [
+    //   `Total Bruto R$ ${this.totalBruto.toLocaleString(
+    //     'pt-BR',
+    //     { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+    //   )}`,
+    //   `Total liq. atendente R$ ${this.totalLiqAtendente.toLocaleString(
+    //     'pt-BR',
+    //     { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+    //   )}`,
+    //   `Total liq. fornecedor R$ ${this.totalLiqFornecedor.toLocaleString(
+    //     'pt-BR',
+    //     { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+    //   )} `,
+    // ];
 
-    const messages = [
-      `Total Bruto R$ ${this.totalBruto.toLocaleString(
-        'pt-BR',
-        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-      )}`,
-      `Total liq. atendente R$ ${this.totalLiqAtendente.toLocaleString(
-        'pt-BR',
-        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-      )}`,
-      `Total liq. fornecedor R$ ${this.totalLiqFornecedor.toLocaleString(
-        'pt-BR',
-        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-      )} `,
-    ];
+    // let messageY = doc.internal.pageSize.height - 60;
 
-    let messageY = doc.internal.pageSize.height - 60;
+    // messages.forEach((message, index) => {
+    //   const messageWidth = doc.getTextWidth(message); // Calcula a largura da mensagem
+    //   const messageX = 10; // Centraliza a mensagem
 
-    messages.forEach((message, index) => {
-      const messageWidth = doc.getTextWidth(message); // Calcula a largura da mensagem
-      const messageX = 10; // Centraliza a mensagem
-
-      doc.text(message, messageX, messageY + (index * 10)); // Adiciona a mensagem com espaçamento entre elas
-    });
+    //   doc.text(message, messageX, messageY + (index * 10)); // Adiciona a mensagem com espaçamento entre elas
+    // });
 
     doc.save('balancete.pdf');
     this.baixado.emit(false);

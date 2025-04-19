@@ -12,4 +12,5 @@ export interface IPagamentoTable {
   valorLiquidoAtendente: number,
   valorLiquidoFornecedor: number,
   valorLiquidoTime: number,
+  dataVenda: string
 }
