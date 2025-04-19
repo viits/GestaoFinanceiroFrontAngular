@@ -5,5 +5,6 @@ export interface IPagamento {
   idMetodoPagamento: number,
   idStatusPagamento: number,
   valorBruto: any,
-  dataVenda?: Date
+  dataVenda?: Date,
+  nomeAtendente?: string
 }

@@ -60,8 +60,10 @@ export class GerenteComponent implements OnInit {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
     }
+    const gerenteModal = JSON.stringify(this.gerente)
+
     const dialogRef = this.dialog.open(ModalGerenteComponent, {
-      data: this.gerente,
+      data: JSON.parse(gerenteModal),
       height: alturaDialog,
       width: larguraDialog
     });

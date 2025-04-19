@@ -40,6 +40,7 @@ import { ModalHistoricoFornecedorComponent } from './components/modal-historico-
 import { ModalHistoricoBalanceteComponent } from './components/modal-historico-balancete/modal-historico-balancete.component';
 import { ModalConfirmacaoComponent } from './components/modal-confirmacao/modal-confirmacao.component';
 import { ModalEsqueceuSenhaComponent } from './components/modal-esqueceu-senha/modal-esqueceu-senha.component'
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
 };
@@ -90,6 +91,7 @@ const maskConfig: Partial<NgxMaskConfig> = {
     MatDialogModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatAccordion,
     MatExpansionModule,
     NgxMaskDirective, NgxMaskPipe

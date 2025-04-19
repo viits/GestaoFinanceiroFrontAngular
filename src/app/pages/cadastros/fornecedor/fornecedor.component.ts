@@ -63,8 +63,9 @@ export class FornecedorComponent implements OnInit {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
     }
+    const fornecedorModal = JSON.stringify(this.fornecedor)
     const dialogRef = this.dialog.open(ModalFornecedorComponent, {
-      data: this.fornecedor,
+      data: JSON.parse(fornecedorModal),
       height: alturaDialog,
       width: larguraDialog
     });

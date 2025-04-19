@@ -5,12 +5,23 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>Atendente</label>
+      <input class="select" [matAutocomplete]="auto" [(ngModel)]="data.pagamento.nomeAtendente"
+        (ngModelChange)="onChangeAtendente($event)" [ngModelOptions]="{standalone: true}" />
+
+      <mat-autocomplete class="select" #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let item of atendenteSelectFiltrado" [value]="item">
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <!-- <div class="form-group">
+      <label>Atendente</label>
       <mat-select class="select" [(value)]="data.pagamento.idAtendente">
         <mat-option *ngFor="let item of data.atendenteSelect" [value]="item.value">
           {{ item.name }}
         </mat-option>
       </mat-select>
-    </div>
+    </div> -->
     <div class="form-group">
       <label>Fornecedor</label>
       <mat-select class="select" [(value)]="data.pagamento.idFornecedor">
@@ -30,8 +41,7 @@
     <div class="form-group">
       <label>Valor R$</label>
       <input type="text" [ngModel]="data.pagamento.valorBruto" (ngModelChange)="FormatarValorExibicao($event)"
-        placeholder="0,00" class="form-control"
-        name="valorBruto" required />
+        placeholder="0,00" class="form-control" name="valorBruto" required />
     </div>
     <div class="button-confirm">
       <button type="submit" class="btn btn-success">Confirmar</button>

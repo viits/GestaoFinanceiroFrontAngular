@@ -66,9 +66,9 @@ export class PagamentoAtualComponent implements OnInit {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
     }
-
+    const pagamentosModal = JSON.stringify(this.pagamentoModal)
     const dialogRef = this.dialog.open(ModalPagamentoAtualComponent, {
-      data: this.pagamentoModal,
+      data: JSON.parse(pagamentosModal),
       width: larguraDialog,
       height: alturaDialog,
     });

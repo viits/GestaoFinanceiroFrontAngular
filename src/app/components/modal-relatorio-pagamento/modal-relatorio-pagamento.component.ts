@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PagamentoAtualService } from '../../shared/pagamento-atual.service';
 import { IDataPagamento } from '../../interface/IDataPagamento';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ISelect } from '../../interface/ISelect';
 
 @Component({
   selector: 'app-modal-relatorio-pagamento',
@@ -12,15 +13,22 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   standalone: false
 })
 export class ModalRelatorioPagamentoComponent implements OnInit {
-
-
   loader: boolean = false;
   edit: boolean = false;
+  atendenteSelectFiltrado: ISelect[] = []
 
   ngOnInit(): void {
     this.FormatarValorExibicao(this.data.pagamento.valorBruto)
+    let list = JSON.stringify(this.data.atendenteSelect)
+    this.atendenteSelectFiltrado = JSON.parse(list)
     if (this.data.pagamento.idFornecedorAtendente != 0) {
       this.edit = true;
+      const atendente = this.atendenteSelectFiltrado.filter((x: any) => x.value == this.data.pagamento.idAtendente)
+      if (atendente.length > 0) {
+        this.data.pagamento.nomeAtendente = atendente[0].name
+      } else {
+        this.data.pagamento.nomeAtendente = ''
+      }
     }
   }
   constructor(
@@ -34,8 +42,30 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
     this.dialogRef.close(value);
   }
 
-  onSubmit() {
+  verificaAtendente() {
+    if (this.data.pagamento.nomeAtendente != '') {
+      const nome = this.data.pagamento.nomeAtendente == undefined ? '' : this.data.pagamento.nomeAtendente.toLowerCase()
+      const listAux = this.data.atendenteSelect.filter(item =>
+        item.name.toLowerCase().includes(nome)
+      );
+      if (listAux.length > 0) {
+        this.data.pagamento.idAtendente = listAux[0].value
+        return true;
+      } else {
+        this.data.pagamento.idAtendente = 0
+        return false;
+      }
+    }
+    this.data.pagamento.idAtendente = 0
+    return false
+  }
 
+  onSubmit() {
+    if (!this.verificaAtendente()) {
+      this.toast.error('Atendente inválido.');
+      this.loader = false;
+      return;
+    }
     this.data.pagamento.valorBruto = Number(this.data.pagamento.valorBruto.replace(/\./g, '').replace(',', '.'))
 
     if (!this.verifyFields()) {
@@ -47,6 +77,21 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
         this.cadastrarPagamento();
       }
     }
+  }
+  onChangeAtendente(value: any) {
+    let filterValue = ''
+    if (typeof value == 'string') {
+      filterValue = value.toLowerCase();
+    } else {
+      filterValue = value.name.toLowerCase();
+    }
+    this.atendenteSelectFiltrado = this.data.atendenteSelect.filter(item =>
+      item.name.toLowerCase().includes(filterValue)
+    );
+  }
+  onOptionSelected(event: any) {
+    this.data.pagamento.idAtendente = event.option.value.value;
+    this.data.pagamento.nomeAtendente = event.option.value.name;
   }
 
   verifyFields() {

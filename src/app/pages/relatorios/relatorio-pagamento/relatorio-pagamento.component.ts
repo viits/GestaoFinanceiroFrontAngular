@@ -86,8 +86,9 @@ export class RelatorioPagamentoComponent implements OnInit {
       larguraDialog = '90vw';
       alturaDialog = '90vh';
     }
+    const pagamentosModal = JSON.stringify(this.pagamentoModal)
     const dialogRef = this.dialog.open(ModalRelatorioPagamentoComponent, {
-      data: this.pagamentoModal,
+      data: JSON.parse(pagamentosModal),
       height: alturaDialog,
       width: larguraDialog
     });

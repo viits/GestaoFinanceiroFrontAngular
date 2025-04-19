@@ -68,8 +68,9 @@ export class AtendenteComponent implements OnInit {
       larguraDialog = '90vw';
       alturaDialog = '80vh';
     }
+    const atendenteModal = JSON.stringify(this.atendente)
     const dialogRef = this.dialog.open(ModalAtendenteComponent, {
-      data: this.atendente,
+      data: JSON.parse(atendenteModal),
       height: alturaDialog,
       width: larguraDialog
     });
