@@ -51,7 +51,7 @@ export class GerarBalanceteComponent implements OnInit {
     idStatusPagamento: 0,
     valorBruto: 0,
   }
-
+  atendenteSelectFiltrado: ISelect[] = []
   displayedColumns: string[] = [
     'nomeFornecedor',
     'nomeAtendente',
@@ -69,6 +69,7 @@ export class GerarBalanceteComponent implements OnInit {
     idAtendente: 0,
     idFornecedor: 0,
     idGerente: 0,
+    nomeAtendente: 'Todos'
   }
   baixarPdf: boolean = false;
   desabilitaAtendente: boolean = false;
@@ -84,7 +85,7 @@ export class GerarBalanceteComponent implements OnInit {
     this.getAllFornecedores();
     this.getGeretente();
   }
-  baixaPDF(){
+  baixaPDF() {
     this.baixarPdf = true;
   }
   getGeretente() {
@@ -148,6 +149,8 @@ export class GerarBalanceteComponent implements OnInit {
             name: x.nomeAtendente
           })
         })
+        let list = JSON.stringify(this.listAtendentes)
+        this.atendenteSelectFiltrado = JSON.parse(list)
         this.loader = false;
       },
       onError: (error: any) => {
@@ -260,6 +263,26 @@ export class GerarBalanceteComponent implements OnInit {
     } else {
       return "";
     }
+  }
+
+  onChangeAtendente(value: any) {
+    let filterValue = ''
+    if (typeof value == 'string') {
+      filterValue = value.toLowerCase();
+    } else {
+      filterValue = value.name.toLowerCase();
+    }
+
+    this.atendenteSelectFiltrado = this.listAtendentes.filter(item =>
+      item.name.toLowerCase().includes(filterValue)
+    );
+  }
+  onOptionSelected(event: any) {
+    this.data.idAtendente = event.option.value.value;
+    this.data.nomeAtendente = event.option.value.name;
+  }
+  displayFn(option: any): string {
+    return option && option.name ? option.name : option;
   }
 
   gerarPDF() {

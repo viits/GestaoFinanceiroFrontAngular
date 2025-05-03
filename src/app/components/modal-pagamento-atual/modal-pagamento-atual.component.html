@@ -8,7 +8,7 @@
       <input class="select" [matAutocomplete]="auto" [(ngModel)]="data.pagamento.nomeAtendente"
         (ngModelChange)="onChangeAtendente($event)" [ngModelOptions]="{standalone: true}" />
 
-      <mat-autocomplete class="select" #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      <mat-autocomplete class="select" #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
         <mat-option *ngFor="let item of atendenteSelectFiltrado" [value]="item">
           {{ item.name }}
         </mat-option>

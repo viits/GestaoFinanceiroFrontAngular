@@ -93,7 +93,9 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
     this.data.pagamento.idAtendente = event.option.value.value;
     this.data.pagamento.nomeAtendente = event.option.value.name;
   }
-
+  displayFn(option: any): string {
+    return option && option.name ? option.name : option;
+  }
   verifyFields() {
     if (this.data.pagamento.dataVenda == undefined ||
       this.data.pagamento.idAtendente == 0 ||

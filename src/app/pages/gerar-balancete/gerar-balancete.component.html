@@ -23,14 +23,26 @@
           </mat-option>
         </mat-select>
       </div>
-      <div class="form-group-filtro">
+      <!-- <div class="form-group-filtro">
         <label>Atendente</label>
         <mat-select class="select" [(value)]="data.idAtendente">
           <mat-option *ngFor="let item of listAtendentes" [value]="item.value">
             {{ item.name }}
           </mat-option>
         </mat-select>
+      </div> -->
+      <div class="form-group-filtro">
+        <label>Atendente</label>
+        <input class="select" [matAutocomplete]="auto" [(ngModel)]="data.nomeAtendente"
+          (ngModelChange)="onChangeAtendente($event)" [ngModelOptions]="{standalone: true}" />
+
+        <mat-autocomplete class="select" #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+          <mat-option *ngFor="let item of atendenteSelectFiltrado" [value]="item">
+            {{ item.name }}
+          </mat-option>
+        </mat-autocomplete>
       </div>
+
       <div class="form-group-filtro">
         <label>Data inicio</label>
         <input type="date" [(ngModel)]="data.dataInicio" class="form-control" />
