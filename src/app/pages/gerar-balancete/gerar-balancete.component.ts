@@ -46,6 +46,7 @@ export class GerarBalanceteComponent implements OnInit {
   pagamento: IPagamento = {
     idFornecedorAtendente: 0,
     idAtendente: 0,
+    idAtendente2: 0,
     idFornecedor: 0,
     idMetodoPagamento: 0,
     idStatusPagamento: 0,
@@ -55,10 +56,12 @@ export class GerarBalanceteComponent implements OnInit {
   displayedColumns: string[] = [
     'nomeFornecedor',
     'nomeAtendente',
+    'nomeAtendente2',
     'valorBruto',
     'metodoPagamento',
     'statusPagamento',
     'valorLiquidoAtendente',
+    'valorLiquidoAtendente2',
     'valorLiquidoFornecedor',
     'valorLiquidoTime',
     'dataVenda'
@@ -179,15 +182,18 @@ export class GerarBalanceteComponent implements OnInit {
           return {
             idFornecedorAtendente: x.idFornecedorAtendente,
             idAtendente: x.idAtendente,
+            idAtendente2: x.idAtendente2,
             idFornecedor: x.idFornecedor,
             idMetodoPagamento: x.idMetodoPagamento,
             idStatusPagamento: x.idStatusPagamento,
             nomeAtendente: x.nomeAtendente,
+            nomeAtendente2: x.nomeAtendente2 != '' ? x.nomeAtendente2 : '-',
             nomeFornecedor: x.nomeFornecedor,
             metodoPagamento: x.metodoPagamento,
             statusPagamento: x.statusPagamento,
             valorBruto: x.valorBruto,
             valorLiquidoAtendente: x.valorLiquidoAtendente,
+            valorLiquidoAtendente2: x.valorLiquidoAtendente2,
             valorLiquidoFornecedor: x.valorLiquidoFornecedor,
             valorLiquidoTime: x.valorLiquidoTime,
             dataVenda: this.formatarData(x.dataVenda)
@@ -197,7 +203,7 @@ export class GerarBalanceteComponent implements OnInit {
           this.listPagamentos?.map((x: any) => {
             if (x.idStatusPagamento == 1) {
               this.totalBruto += x.valorBruto;
-              this.totalLiqAtendente += x.valorLiquidoAtendente;
+              this.totalLiqAtendente += x.valorLiquidoAtendente + x.valorLiquidoAtendente2;
               this.totalLiqFornecedor += x.valorLiquidoFornecedor;
               this.totalTime += x.valorLiquidoTime;
             }

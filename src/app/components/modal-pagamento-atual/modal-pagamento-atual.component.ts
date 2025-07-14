@@ -16,9 +16,11 @@ export class ModalPagamentoAtualComponent implements OnInit {
 
   loader: boolean = false;
   atendenteSelectFiltrado: ISelect[] = []
+  atendenteSelectFiltrado2: ISelect[] = []
   ngOnInit(): void {
     let list = JSON.stringify(this.data.atendenteSelect)
     this.atendenteSelectFiltrado = JSON.parse(list)
+    this.atendenteSelectFiltrado2 = JSON.parse(list)
   }
   constructor(
     public dialogRef: MatDialogRef<ModalPagamentoAtualComponent>,
@@ -47,12 +49,14 @@ export class ModalPagamentoAtualComponent implements OnInit {
     }
 
   }
+  
   verifyFields() {
     if (this.data.pagamento.idFornecedor == 0 || this.data.pagamento.idMetodoPagamento == 0 || this.data.pagamento.valorBruto == 0) {
       return false
     }
     return true
   }
+
   verificaAtendente() {
     if (this.data.pagamento.nomeAtendente != '') {
       const nome = this.data.pagamento.nomeAtendente == undefined ? '' : this.data.pagamento.nomeAtendente.toLowerCase()
@@ -70,6 +74,7 @@ export class ModalPagamentoAtualComponent implements OnInit {
     this.data.pagamento.idAtendente = 0
     return false
   }
+
   onSubmit() {
     if (!this.verificaAtendente()) {
       this.toast.error('Atendente inválido.');
@@ -85,6 +90,7 @@ export class ModalPagamentoAtualComponent implements OnInit {
 
     this.cadastrarPagamento();
   }
+
   onChangeAtendente(value: any) {
     let filterValue = ''
     if (typeof value == 'string') {
@@ -96,13 +102,33 @@ export class ModalPagamentoAtualComponent implements OnInit {
       item.name.toLowerCase().includes(filterValue)
     );
   }
+
+  onChangeAtendente2(value: any) {
+    let filterValue = ''
+    if (typeof value == 'string') {
+      filterValue = value.toLowerCase();
+    } else {
+      filterValue = value.name.toLowerCase();
+    }
+    this.atendenteSelectFiltrado2 = this.data.atendenteSelect.filter(item =>
+      item.name.toLowerCase().includes(filterValue)
+    );
+  }
+
   onOptionSelected(event: any) {
     this.data.pagamento.idAtendente = event.option.value.value;
     this.data.pagamento.nomeAtendente = event.option.value.name;
   }
+
+  onOptionSelectedAtendente2(event: any) {
+    this.data.pagamento.idAtendente2 = event.option.value.value;
+    this.data.pagamento.nomeAtendente2 = event.option.value.name;
+  }
+
   displayFn(option: any): string {
     return option && option.name ? option.name : option;
   }
+
   cadastrarPagamento() {
     this.loader = true;
     this.pagamentoService.cadastrarPagamento(this.data.pagamento, {
@@ -123,4 +149,5 @@ export class ModalPagamentoAtualComponent implements OnInit {
       },
     });
   }
+
 }

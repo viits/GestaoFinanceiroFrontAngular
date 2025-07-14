@@ -12,10 +12,12 @@ export class PdfBalanceteComponent implements OnInit, OnChanges {
   displayedColumns: string[] = [
     'nomeFornecedor',
     'nomeAtendente',
+    'nomeAtendente2',
     'valorBruto',
     'metodoPagamento',
     'statusPagamento',
     'valorLiquidoAtendente',
+    'valorLiquidoAtendente2',
     'valorLiquidoFornecedor',
     'dataVenda'
   ];
@@ -39,6 +41,10 @@ export class PdfBalanceteComponent implements OnInit, OnChanges {
           'pt-BR',
           { minimumFractionDigits: 2, maximumFractionDigits: 2 }
         )
+         x.valorLiquidoAtendente2 = x.valorLiquidoAtendente2.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+        )
         x.valorLiquidoFornecedor = x.valorLiquidoFornecedor.toLocaleString(
           'pt-BR',
           { minimumFractionDigits: 2, maximumFractionDigits: 2 }
@@ -53,13 +59,15 @@ export class PdfBalanceteComponent implements OnInit, OnChanges {
 
   gerarPDF() {
     const columnLabels: { [key: string]: string } = {
-      nomeFornecedor: "Fornecedor",
-      nomeAtendente: "Atendente",
+      nomeFornecedor: "For.",
+      nomeAtendente: "Aten.",
+      nomeAtendente2: "2ºAten.",
       valorBruto: "Valor Bruto",
-      metodoPagamento: "Método de Pagamento",
-      statusPagamento: "Status do Pagamento",
-      valorLiquidoAtendente: "Valor Líq. Atendente",
-      valorLiquidoFornecedor: "Valor Líq. Fornecedor",
+      metodoPagamento: "Mét. Pagamento",
+      statusPagamento: "Status Pagamento",
+      valorLiquidoAtendente: "Vl Líq. Atendente",
+      valorLiquidoAtendente2: "Vl Líq. 2ºAtendente",
+      valorLiquidoFornecedor: "Vl Líq. Fornecedor",
       dataVenda: "Data da Venda"
     };
     const doc = new jsPDF();

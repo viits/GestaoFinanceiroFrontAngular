@@ -10,7 +10,7 @@
     </div>
 
     <div class="body">
-      <p *ngIf="listPagamentos.length == 0">Não possui relatorios de pagamentos</p>
+      <p *ngIf="listPagamentos.length == 0">Não possui relatórios de pagamentos</p>
 
       <div class="table-usuario" *ngIf="listPagamentos.length > 0">
 
@@ -18,6 +18,11 @@
           <ng-container matColumnDef="nomeAtendente">
             <th mat-header-cell *matHeaderCellDef> Nome atendente</th>
             <td mat-cell *matCellDef="let element"> {{element.nomeAtendente}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nomeAtendente2">
+            <th mat-header-cell *matHeaderCellDef> Nome 2º atendente</th>
+            <td mat-cell *matCellDef="let element"> {{element.nomeAtendente2 != '' ? element.nomeAtendente2 : '-' }} </td>
           </ng-container>
 
           <ng-container matColumnDef="nomeFornecedor">
@@ -37,6 +42,16 @@
             <th mat-header-cell *matHeaderCellDef> Valor liq. atendente </th>
             <td mat-cell *matCellDef="let element">R$
               {{element.valorLiquidoAtendente.toLocaleString(
+              'pt-BR',
+              { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+              ) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valorLiquidoAtendente2">
+            <th mat-header-cell *matHeaderCellDef> Valor liq. 2º atendente </th>
+            <td mat-cell *matCellDef="let element">R$
+              {{element.valorLiquidoAtendente2.toLocaleString(
               'pt-BR',
               { minimumFractionDigits: 2, maximumFractionDigits: 2 }
               ) }}

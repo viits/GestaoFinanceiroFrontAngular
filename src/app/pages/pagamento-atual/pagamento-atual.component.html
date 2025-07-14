@@ -18,6 +18,11 @@
             <td mat-cell *matCellDef="let element"> {{element.nomeAtendente}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="nomeSegundoAtendente">
+            <th mat-header-cell *matHeaderCellDef> Nome 2ºatendente </th>
+            <td mat-cell *matCellDef="let element"> {{element.nomeAtendente2 == '' ? '-' : element.nomeAtendente2}} </td>
+          </ng-container>
+
           <ng-container matColumnDef="nomeFornecedor">
             <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
             <td mat-cell *matCellDef="let element"> {{element.nomeFornecedor}} </td>
@@ -28,7 +33,7 @@
             <td mat-cell *matCellDef="let element">R$ {{element.valorBruto.toLocaleString(
               'pt-BR',
               { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-              ) }}  </td>
+              ) }} </td>
           </ng-container>
 
           <ng-container matColumnDef="metodoPagamento">

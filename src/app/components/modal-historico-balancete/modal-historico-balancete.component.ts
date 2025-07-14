@@ -11,11 +11,13 @@ import { IHistoricoBalancete } from '../../interface/IHistoricoBalancete';
 export class ModalHistoricoBalanceteComponent implements OnInit {
   displayedColumns: string[] = [
     'nomeAtendente',
+    'nomeAtendente2',
     'nomeFornecedor',
     'metodoPagamento',
     'statusPagamento',
     'valorBruto',
     'valorLiquidoAtendente',
+    'valorLiquidoAtendente2',
     'valorLiquidoFornecedor',
     'dataVenda',
     'dataCriacao',

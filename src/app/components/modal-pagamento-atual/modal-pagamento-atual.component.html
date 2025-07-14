@@ -14,6 +14,17 @@
         </mat-option>
       </mat-autocomplete>
     </div>
+    <div class="form-group">
+      <label>Segundo atendente</label>
+      <input class="select" [matAutocomplete]="auto1" [(ngModel)]="data.pagamento.nomeAtendente2"
+        (ngModelChange)="onChangeAtendente2($event)" [ngModelOptions]="{standalone: true}" />
+
+      <mat-autocomplete class="select" #auto1="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelectedAtendente2($event)">
+        <mat-option *ngFor="let item of atendenteSelectFiltrado2" [value]="item">
+          {{ item.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
     <!-- <div class="form-group">
       <label>Atendente</label>
       <mat-select class="select" [(value)]="data.pagamento.idAtendente">

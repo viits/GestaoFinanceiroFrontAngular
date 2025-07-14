@@ -32,6 +32,7 @@ export class RelatorioPagamentoComponent implements OnInit {
   pagamento: IPagamento = {
     idFornecedorAtendente: 0,
     idAtendente: 0,
+    idAtendente2: 0,
     idFornecedor: 0,
     idMetodoPagamento: 0,
     idStatusPagamento: 0,
@@ -51,11 +52,13 @@ export class RelatorioPagamentoComponent implements OnInit {
   };
   displayedColumns: string[] = [
     'nomeAtendente',
+    'nomeAtendente2',
     'nomeFornecedor',
     'valorBruto',
     'metodoPagamento',
     'statusPagamento',
     'valorLiquidoAtendente',
+    'valorLiquidoAtendente2',
     'valorLiquidoFornecedor',
     'valorLiquidoTime',
     'dataVenda',
@@ -97,6 +100,7 @@ export class RelatorioPagamentoComponent implements OnInit {
       this.pagamentoModal.pagamento = {
         idFornecedorAtendente: 0,
         idAtendente: 0,
+        idAtendente2: 0,
         idFornecedor: 0,
         idMetodoPagamento: 0,
         idStatusPagamento: 0,
@@ -274,15 +278,18 @@ export class RelatorioPagamentoComponent implements OnInit {
           return {
             idFornecedorAtendente: x.idFornecedorAtendente,
             idAtendente: x.idAtendente,
+            idAtendente2: x.idAtendente2,
             idFornecedor: x.idFornecedor,
             idMetodoPagamento: x.idMetodoPagamento,
             idStatusPagamento: x.idStatusPagamento,
             nomeAtendente: x.nomeAtendente,
+            nomeAtendente2: x.nomeAtendente2,
             nomeFornecedor: x.nomeFornecedor,
             metodoPagamento: x.metodoPagamento,
             statusPagamento: x.statusPagamento,
             valorBruto: x.valorBruto,
             valorLiquidoAtendente: x.valorLiquidoAtendente,
+            valorLiquidoAtendente2: x.valorLiquidoAtendente2,
             valorLiquidoFornecedor: x.valorLiquidoFornecedor,
             valorLiquidoTime: x.valorLiquidoTime,
             dataVenda: this.formatarData(x.dataVenda)

@@ -12,10 +12,10 @@ import { UsuarioService } from '../../shared/usuario.service';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-pagamento-atual',
-    templateUrl: './pagamento-atual.component.html',
-    styleUrl: './pagamento-atual.component.css',
-    standalone: false
+  selector: 'app-pagamento-atual',
+  templateUrl: './pagamento-atual.component.html',
+  styleUrl: './pagamento-atual.component.css',
+  standalone: false
 })
 export class PagamentoAtualComponent implements OnInit {
   loader: boolean = false;
@@ -26,12 +26,13 @@ export class PagamentoAtualComponent implements OnInit {
   pagamento: IPagamento = {
     idFornecedorAtendente: 0,
     idAtendente: 0,
+    idAtendente2: 0,
     idFornecedor: 0,
     idMetodoPagamento: 0,
     idStatusPagamento: 0,
     valorBruto: 0,
   }
-  displayedColumns: string[] = ['nomeAtendente', 'nomeFornecedor', 'valorBruto', 'metodoPagamento', 'statusPagamento'];
+  displayedColumns: string[] = ['nomeAtendente' ,'nomeSegundoAtendente', 'nomeFornecedor', 'valorBruto', 'metodoPagamento', 'statusPagamento'];
   pagamentoModal: IDataPagamento = {
     atendenteSelect: [],
     fornecedorSelect: [],
@@ -77,6 +78,7 @@ export class PagamentoAtualComponent implements OnInit {
       this.pagamentoModal.pagamento = {
         idFornecedorAtendente: 0,
         idAtendente: 0,
+        idAtendente2: 0,
         idFornecedor: 0,
         idMetodoPagamento: 0,
         idStatusPagamento: 0,
@@ -183,15 +185,18 @@ export class PagamentoAtualComponent implements OnInit {
           return {
             idFornecedorAtendente: x.idFornecedorAtendente,
             idAtendente: x.idAtendente,
+            idAtendente2: x.idAtendente2,
             idFornecedor: x.idFornecedor,
             idMetodoPagamento: x.idMetodoPagamento,
             idStatusPagamento: x.idStatusPagamento,
             nomeAtendente: x.nomeAtendente,
+            nomeAtendente2: x.nomeAtendente2,
             nomeFornecedor: x.nomeFornecedor,
             metodoPagamento: x.metodoPagamento,
             statusPagamento: x.statusPagamento,
             valorBruto: x.valorBruto,
             valorLiquidoAtendente: x.valorLiquidoAtendente,
+            valorLiquidoAtendente2: x.valorLiquidoAtendente2,
             valorLiquidoFornecedor: x.valorLiquidoFornecedor
           }
         })
@@ -199,7 +204,7 @@ export class PagamentoAtualComponent implements OnInit {
           this.listPagamentos?.map((x: any) => {
             if (x.idStatusPagamento == 1) {
               this.totalBruto += x.valorBruto;
-              this.totalLiqAtendente += x.valorLiquidoAtendente;
+              this.totalLiqAtendente += x.valorLiquidoAtendente + x.valorLiquidoAtendente2;
               this.totalLiqFornecedor += x.valorLiquidoFornecedor;
             }
           })
@@ -208,6 +213,7 @@ export class PagamentoAtualComponent implements OnInit {
           this.totalLiqAtendente = 0;
           this.totalLiqFornecedor = 0;
         }
+        console.log(this.listPagamentos);
         this.loader = false;
       },
       onError: (error: any) => {

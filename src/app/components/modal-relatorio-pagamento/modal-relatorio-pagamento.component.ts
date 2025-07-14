@@ -16,11 +16,13 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
   loader: boolean = false;
   edit: boolean = false;
   atendenteSelectFiltrado: ISelect[] = []
+  atendenteSelectFiltrado2: ISelect[] = []
 
   ngOnInit(): void {
     this.FormatarValorExibicao(this.data.pagamento.valorBruto)
     let list = JSON.stringify(this.data.atendenteSelect)
     this.atendenteSelectFiltrado = JSON.parse(list)
+    this.atendenteSelectFiltrado2 = JSON.parse(list)
     if (this.data.pagamento.idFornecedorAtendente != 0) {
       this.edit = true;
       const atendente = this.atendenteSelectFiltrado.filter((x: any) => x.value == this.data.pagamento.idAtendente)
@@ -89,9 +91,24 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
       item.name.toLowerCase().includes(filterValue)
     );
   }
+  onChangeAtendente2(value: any) {
+    let filterValue = ''
+    if (typeof value == 'string') {
+      filterValue = value.toLowerCase();
+    } else {
+      filterValue = value.name.toLowerCase();
+    }
+    this.atendenteSelectFiltrado2 = this.data.atendenteSelect.filter(item =>
+      item.name.toLowerCase().includes(filterValue)
+    );
+  }
   onOptionSelected(event: any) {
     this.data.pagamento.idAtendente = event.option.value.value;
     this.data.pagamento.nomeAtendente = event.option.value.name;
+  }
+  onOptionSelectedAtendente2(event: any) {
+    this.data.pagamento.idAtendente2 = event.option.value.value;
+    this.data.pagamento.nomeAtendente2 = event.option.value.name;
   }
   displayFn(option: any): string {
     return option && option.name ? option.name : option;

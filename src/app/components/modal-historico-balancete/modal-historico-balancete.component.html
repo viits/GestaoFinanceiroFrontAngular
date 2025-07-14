@@ -12,6 +12,11 @@
         <td mat-cell *matCellDef="let element"> {{element.nomeAtendente}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="nomeAtendente2">
+        <th mat-header-cell *matHeaderCellDef> 2º Atendente </th>
+        <td mat-cell *matCellDef="let element"> {{element.nomeAtendente2 != '' ? element.nomeAtendente2 : '-'}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="nomeFornecedor">
         <th mat-header-cell *matHeaderCellDef> Fornecedor</th>
         <td mat-cell *matCellDef="let element"> {{element.nomeFornecedor}} </td>
@@ -38,6 +43,14 @@
       <ng-container matColumnDef="valorLiquidoAtendente">
         <th mat-header-cell *matHeaderCellDef> Valor liq. atendente </th>
         <td mat-cell *matCellDef="let element">R${{element.valorLiquidoAtendente.toLocaleString(
+          'pt-BR',
+          { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          ) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="valorLiquidoAtendente2">
+        <th mat-header-cell *matHeaderCellDef> Valor liq. 2º atendente </th>
+        <td mat-cell *matCellDef="let element">R${{element.valorLiquidoAtendente2.toLocaleString(
           'pt-BR',
           { minimumFractionDigits: 2, maximumFractionDigits: 2 }
           ) }}</td>
