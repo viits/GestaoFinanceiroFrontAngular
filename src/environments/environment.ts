@@ -1,9 +1,7 @@
 
 
 
-//Dev
-// const link = 'https://portal-dev-api.gdllogistica.com.br/';
-// const link = 'https://portal-dev-api.gdllogistica.com.br/';
+
 //LocalHost
 //const link = 'https://localhost:7091/';
  const link = 'https://gestaofinanceiroapi.onrender.com/';
