@@ -94,30 +94,30 @@ export class PdfBalanceteComponent implements OnInit, OnChanges {
       tableWidth: 'auto',
       pageBreak: 'auto',
     });
-    
-    // const messages = [
-    //   `Total Bruto R$ ${this.totalBruto.toLocaleString(
-    //     'pt-BR',
-    //     { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-    //   )}`,
-    //   `Total liq. atendente R$ ${this.totalLiqAtendente.toLocaleString(
-    //     'pt-BR',
-    //     { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-    //   )}`,
-    //   `Total liq. fornecedor R$ ${this.totalLiqFornecedor.toLocaleString(
-    //     'pt-BR',
-    //     { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-    //   )} `,
-    // ];
 
-    // let messageY = doc.internal.pageSize.height - 60;
+    const messages = [
+      `Total Bruto: R$ ${this.totalBruto.toLocaleString(
+        'pt-BR',
+        { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+      )}`,
+      // `Total liq. atendente R$ ${this.totalLiqAtendente.toLocaleString(
+      //   'pt-BR',
+      //   { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+      // )}`,
+      // `Total liq. fornecedor R$ ${this.totalLiqFornecedor.toLocaleString(
+      //   'pt-BR',
+      //   { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+      // )} `,
+    ];
 
-    // messages.forEach((message, index) => {
-    //   const messageWidth = doc.getTextWidth(message); // Calcula a largura da mensagem
-    //   const messageX = 10; // Centraliza a mensagem
+    let messageY = doc.internal.pageSize.height - 10;
 
-    //   doc.text(message, messageX, messageY + (index * 10)); // Adiciona a mensagem com espaçamento entre elas
-    // });
+    messages.forEach((message, index) => {
+      const messageWidth = doc.getTextWidth(message); // Calcula a largura da mensagem
+      const messageX = 10; // Centraliza a mensagem
+
+      doc.text(message, messageX, messageY + (index * 10)); // Adiciona a mensagem com espaçamento entre elas
+    });
 
     doc.save('balancete.pdf');
     this.baixado.emit(false);

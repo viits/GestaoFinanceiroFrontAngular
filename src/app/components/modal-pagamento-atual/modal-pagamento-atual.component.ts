@@ -49,7 +49,7 @@ export class ModalPagamentoAtualComponent implements OnInit {
     }
 
   }
-  
+
   verifyFields() {
     if (this.data.pagamento.idFornecedor == 0 || this.data.pagamento.idMetodoPagamento == 0 || this.data.pagamento.valorBruto == 0) {
       return false
@@ -58,6 +58,9 @@ export class ModalPagamentoAtualComponent implements OnInit {
   }
 
   verificaAtendente() {
+    if (this.data.pagamento.nomeAtendente2 == '') {
+      this.data.pagamento.idAtendente2 = 0;
+    }
     if (this.data.pagamento.nomeAtendente != '') {
       const nome = this.data.pagamento.nomeAtendente == undefined ? '' : this.data.pagamento.nomeAtendente.toLowerCase()
       const listAux = this.data.atendenteSelect.filter(item =>
@@ -71,6 +74,7 @@ export class ModalPagamentoAtualComponent implements OnInit {
         return false;
       }
     }
+
     this.data.pagamento.idAtendente = 0
     return false
   }

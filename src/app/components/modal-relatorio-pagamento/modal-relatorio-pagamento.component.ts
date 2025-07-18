@@ -45,11 +45,15 @@ export class ModalRelatorioPagamentoComponent implements OnInit {
   }
 
   verificaAtendente() {
+    if (this.data.pagamento.nomeAtendente2 == '') {
+      this.data.pagamento.idAtendente2 = 0;
+    }
     if (this.data.pagamento.nomeAtendente != '') {
       const nome = this.data.pagamento.nomeAtendente == undefined ? '' : this.data.pagamento.nomeAtendente.toLowerCase()
       const listAux = this.data.atendenteSelect.filter(item =>
         item.name.toLowerCase().includes(nome)
       );
+
       if (listAux.length > 0) {
         this.data.pagamento.idAtendente = listAux[0].value
         return true;

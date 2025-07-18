@@ -5,12 +5,8 @@
 // const link = 'https://portal-dev-api.gdllogistica.com.br/';
 // const link = 'https://portal-dev-api.gdllogistica.com.br/';
 //LocalHost
-const link = 'https://localhost:7091/';
-// const link = 'https://gestaofinanceiroapi.onrender.com/';
-
-
-//NGronk
-// const link = 'http://localhost:5106/';
+//const link = 'https://localhost:7091/';
+ const link = 'https://gestaofinanceiroapi.onrender.com/';
 
 // export const environment = {
 //   url: link,
