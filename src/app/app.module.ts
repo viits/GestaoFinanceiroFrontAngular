@@ -41,6 +41,9 @@ import { ModalHistoricoBalanceteComponent } from './components/modal-historico-b
 import { ModalConfirmacaoComponent } from './components/modal-confirmacao/modal-confirmacao.component';
 import { ModalEsqueceuSenhaComponent } from './components/modal-esqueceu-senha/modal-esqueceu-senha.component'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { GraficoAtualComponent } from './pages/grafico/grafico-atual/grafico-atual.component';
+import { BaseChartDirective } from 'ng2-charts';
+
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
 };
@@ -74,6 +77,8 @@ const maskConfig: Partial<NgxMaskConfig> = {
     ModalHistoricoBalanceteComponent,
     ModalConfirmacaoComponent,
     ModalEsqueceuSenhaComponent,
+    GraficoAtualComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -94,7 +99,9 @@ const maskConfig: Partial<NgxMaskConfig> = {
     MatAutocompleteModule,
     MatAccordion,
     MatExpansionModule,
-    NgxMaskDirective, NgxMaskPipe
+    NgxMaskDirective,
+    NgxMaskPipe,
+    BaseChartDirective
   ],
   exports: [
     HomeComponent,

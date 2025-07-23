@@ -41,6 +41,7 @@ export class PagamentoAtualComponent implements OnInit {
     pagamento: this.pagamento
   }
   larguraTela: number = 0;
+
   ngOnInit(): void {
     this.larguraTela = window.innerWidth;
     this.getPermissao();
@@ -49,6 +50,7 @@ export class PagamentoAtualComponent implements OnInit {
     this.getAllFornecedores();
     this.getAllMetodoPagamento();
   }
+
   constructor(private router: Router,
     private pagamentoService: PagamentoAtualService,
     private atendenteService: AtendenteService,
@@ -57,8 +59,6 @@ export class PagamentoAtualComponent implements OnInit {
     private toast: ToastrService,
     private dialog: MatDialog
   ) { }
-
-
 
   openDialog(): void {
     let larguraDialog = '30vw';
