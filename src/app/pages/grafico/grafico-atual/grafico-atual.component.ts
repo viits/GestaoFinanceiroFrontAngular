@@ -74,8 +74,6 @@ export class GraficoAtualComponent implements OnInit {
   }
 
   filtrar() {
-    console.log('Data: ', this.data.dataInicio)
-    console.log('Data: ', this.data.dataFim)
     this.getGraficoMetodoPagemento(this.data);
   }
 

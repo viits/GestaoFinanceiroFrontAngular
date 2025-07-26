@@ -11,6 +11,7 @@ import { PagamentoAtualComponent } from './pages/pagamento-atual/pagamento-atual
 import { RelatorioPagamentoComponent } from './pages/relatorios/relatorio-pagamento/relatorio-pagamento.component';
 import { GerarBalanceteComponent } from './pages/gerar-balancete/gerar-balancete.component';
 import { GraficoAtualComponent } from './pages/grafico/grafico-atual/grafico-atual.component';
+import { GraficoMensalComponent } from './pages/grafico/grafico-mensal/grafico-mensal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'relatorio/pagamento', component: RelatorioPagamentoComponent },
   { path: 'relatorio/balancete', component: GerarBalanceteComponent },
   { path: 'grafico', component: GraficoAtualComponent },
+  { path: 'grafico-mensal', component: GraficoMensalComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,30 @@
+<app-layout>
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center mt-4">
+      <h1>Gráfico Mensal</h1>
+    </div>
+    <div class="row d-flex justify-content-center mb-5 mt-4">
+      <div class="col-md-2">
+        <label>Data inicio</label>
+        <input type="date" [(ngModel)]="data.dataInicio" class="form-control" />
+      </div>
+      <div class="col-md-2">
+        <label>Data fim</label>
+        <input type="date" [(ngModel)]="data.dataFim" class="form-control" />
+      </div>
+      <div class="col-2 d-flex align-items-center justify-content-center pt-3">
+        <button type="button" class="btn btn-success" (click)="filtrar()">Pesquisar</button>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12 col md-6 d-flex justify-content-center">
+        <canvas
+              baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="'bar'">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</app-layout>
