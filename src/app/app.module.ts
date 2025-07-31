@@ -44,6 +44,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { GraficoAtualComponent } from './pages/grafico/grafico-atual/grafico-atual.component';
 import { BaseChartDirective } from 'ng2-charts';
 import { GraficoMensalComponent } from './pages/grafico/grafico-mensal/grafico-mensal.component';
+import { RankingComponent } from './pages/ranking/ranking.component';
 
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
@@ -80,6 +81,7 @@ const maskConfig: Partial<NgxMaskConfig> = {
     ModalEsqueceuSenhaComponent,
     GraficoAtualComponent,
     GraficoMensalComponent,
+    RankingComponent,
 
   ],
   imports: [
