@@ -1,6 +1,6 @@
 canvas{
   /* width: 90% !important; */
-  max-height: 600px !important;
+  max-height: 400px !important;
 }
 
 @media screen and (max-width: 940px) {
