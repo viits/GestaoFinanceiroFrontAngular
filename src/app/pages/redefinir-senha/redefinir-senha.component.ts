@@ -21,7 +21,6 @@ export class RedefinirSenhaComponent implements OnInit {
   token:string = "";
   ngOnInit(): void {
     this.token = this.route.snapshot.queryParamMap.get('Token') || "";
-    console.log('Token: ', this.token)
   }
 
   constructor(
@@ -36,7 +35,6 @@ export class RedefinirSenhaComponent implements OnInit {
     this.model.token = this.token;
     this.usuarioService.cadastrarChave(this.model, {
       onSuccess: (res: any) => {
-        console.log('Success: ', res)
         this.toast.success("Senha alterada com sucesso.");
         this.router.navigate(['/login'])
       },

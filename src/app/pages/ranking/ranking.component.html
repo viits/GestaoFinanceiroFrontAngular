@@ -3,7 +3,12 @@
     <div class="d-flex justify-content-center align-items-center mt-4">
       <h1>Ranking atendente</h1>
     </div>
-    <div class="col d-flex flex-column justify-content-center align-items-center conteiner">
+     <div class="col d-flex justify-content-center align-items-center min-vh-100"
+          *ngIf="cards.length == 0">
+        <h2 class="text-center">Não possui vendas realizada neste mês</h2>
+     </div>
+    <div  class="col d-flex flex-column justify-content-center align-items-center conteiner"
+          *ngIf="cards.length > 0" >
       <ol class="olcards">
         <li *ngFor="let card of cards" [style.--cardColor]="card.color">
           <div class="content">

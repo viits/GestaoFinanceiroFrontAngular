@@ -213,7 +213,6 @@ export class PagamentoAtualComponent implements OnInit {
           this.totalLiqAtendente = 0;
           this.totalLiqFornecedor = 0;
         }
-        console.log(this.listPagamentos);
         this.loader = false;
       },
       onError: (error: any) => {

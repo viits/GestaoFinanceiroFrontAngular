@@ -24,7 +24,7 @@ export class GraficoAtualComponent implements OnInit {
     labels: [],
     datasets: [{
       data: [],
-      backgroundColor: ['#01e733ff', '#36A2EB', '#dd1717ff', '#05e369ff', '#3117ddff', '#60b7d6ff']
+      backgroundColor: ['#01e733ff', '#36A2EB', '#dd1717ff', '#e3c205ff', '#3117ddff', '#60b7d6ff']
     }],
   };
   pieChartOptions: ChartConfiguration['options'] = {

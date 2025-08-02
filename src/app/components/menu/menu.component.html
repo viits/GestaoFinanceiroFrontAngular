@@ -10,34 +10,60 @@
   </div>
   <div class="menu-body">
     <mat-accordion>
-      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' " >
+      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' ">
         <div class="item-content">
           <p class="menu-content-text" (click)="goTo('usuario')">
             Usuário
           </p>
         </div>
       </div>
-      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' " >
+      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' ">
         <div class="item-content">
           <p class="menu-content-text" (click)="goTo('cadastro/fornecedor')">
             Fornecedor
           </p>
         </div>
       </div>
-      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' " >
+      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' ">
         <div class="item-content">
           <p class="menu-content-text" (click)="goTo('cadastro/gerente')">
             Gerente
           </p>
         </div>
       </div>
-      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' " >
+      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' ">
         <div class="item-content">
           <p class="menu-content-text" (click)="goTo('cadastro/atendente')">
             Atendente
           </p>
         </div>
       </div>
+      <div class="menu-items margin-bottom" *ngIf="permissaoUsuario == 'Administrador' ">
+        <div class="item-content">
+          <p class="menu-content-text" (click)="goTo('ranking')">
+            Ranking
+          </p>
+        </div>
+      </div>
+      <mat-expansion-panel class="accordeon not-selected margin-bottom">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="accordeon-title">
+            <p class="accordeon-text">
+              Gráficos
+            </p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p class="accordeon-content" (click)="goTo('grafico')" *ngIf="permissaoUsuario == 'Administrador' ">
+          Gráfico diário
+        </p>
+        <p class="accordeon-content" (click)="goTo('grafico-mensal-dia')">
+          Gráfico mensal dia
+        </p>
+        <p class="accordeon-content" (click)="goTo('grafico-mensal')">
+          Gráfico mensal
+        </p>
+      </mat-expansion-panel>
       <mat-expansion-panel class="accordeon not-selected margin-bottom">
         <mat-expansion-panel-header>
           <mat-panel-title class="accordeon-title">
@@ -57,7 +83,6 @@
       </mat-expansion-panel>
 
     </mat-accordion>
-
   </div>
   <div class="menu-items margin-bottom">
     <div class="item-content">

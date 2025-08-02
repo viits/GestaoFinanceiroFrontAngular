@@ -10,17 +10,21 @@
       </div>
       <div class="col-md-2">
         <label>Data fim</label>
-        <input type="date" [(ngModel)]="data.dataFim"  class="form-control" />
+        <input type="date" [(ngModel)]="data.dataFim" class="form-control" />
       </div>
       <div class="col-2 d-flex align-items-center justify-content-center pt-3">
         <button type="button" class="btn btn-success" (click)="filtrar()">Pesquisar</button>
       </div>
     </div>
-    <div class="row d-flex justify-content-center align-items-center">
+    <div class="col d-flex justify-content-center align-items-center" *ngIf="pieChartData.datasets[0].data.length == 0">
+      <h2 class="text-center">Não possui vendas realizada neste hoje</h2>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center" *ngIf="pieChartData.datasets[0].data.length > 0">
       <div class="col-12 col md-6 d-flex justify-content-center">
         <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
         </canvas>
       </div>
     </div>
+    <app-loader *ngIf="loader"></app-loader>
   </div>
 </app-layout>

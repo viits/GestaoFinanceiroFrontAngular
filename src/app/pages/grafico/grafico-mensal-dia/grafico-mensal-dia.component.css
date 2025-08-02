@@ -1,0 +1,15 @@
+canvas{
+  /* width: 90% !important; */
+  max-height: 600px !important;
+}
+
+@media screen and (max-width: 940px) {
+    .container-fluid{
+      overflow-y: auto;
+    }
+    canvas{
+      /* width: 90% !important; */
+      /* height: 350px !important; */
+      margin: 20px 0 20px 0;
+    }
+}
