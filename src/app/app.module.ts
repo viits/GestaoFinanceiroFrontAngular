@@ -46,6 +46,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { GraficoMensalComponent } from './pages/grafico/grafico-mensal/grafico-mensal.component';
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { GraficoMensalDiaComponent } from './pages/grafico/grafico-mensal-dia/grafico-mensal-dia.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
@@ -106,7 +107,8 @@ const maskConfig: Partial<NgxMaskConfig> = {
     MatExpansionModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    BaseChartDirective
+    BaseChartDirective,
+    MatRadioModule
   ],
   exports: [
     HomeComponent,
