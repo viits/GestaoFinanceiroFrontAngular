@@ -52,8 +52,8 @@ export class AtendenteService {
         },
       });
   }
-  getAllAtendente(pagination: IPaginator, { onSuccess, onError }: any): any {
-    let url = environment.apiUrl + `Atendente?PageNumber=` + (pagination.pageNumber) + `&PageSize=` + (pagination.pageSize || "10");
+  getAllAtendente(pagination: IPaginator, filtro: string = '', { onSuccess, onError }: any): any {
+    let url = environment.apiUrl + `Atendente?Filtro=${filtro}&PageNumber=` + (pagination.pageNumber) + `&PageSize=` + (pagination.pageSize || "10");
 
     this.httpClient
       .get(url, {

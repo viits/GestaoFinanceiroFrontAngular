@@ -8,6 +8,10 @@
         <button class="btn btn-primary" (click)="openDialog()">Cadastrar atendente</button>
       </div>
     </div>
+    <div class="filtro">
+      <input type="text" (input)="filterAtendente()" [(ngModel)]="filtroAtendente"
+        placeholder="Digite o nome do atendente" class="form-control input-filtro" name="filtro" />
+    </div>
     <div class="body">
       <div class="table-usuario">
         <table mat-table [dataSource]="listAtendente" class="mat-elevation-z8">
@@ -15,7 +19,10 @@
             <th mat-header-cell *matHeaderCellDef> Nome </th>
             <td mat-cell *matCellDef="let element"> {{element.nomeAtendente}} </td>
           </ng-container>
-
+          <ng-container matColumnDef="nomeGerente">
+            <th mat-header-cell *matHeaderCellDef> Nome gerente </th>
+            <td mat-cell *matCellDef="let element"> {{element.nomeGerente == '' ? '-' : element.nomeGerente}} </td>
+          </ng-container>
           <ng-container matColumnDef="porcentagem">
             <th mat-header-cell *matHeaderCellDef> Porcentagem </th>
             <td mat-cell *matCellDef="let element"> {{element.porcentagem}}% </td>

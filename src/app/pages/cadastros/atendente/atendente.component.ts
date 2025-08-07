@@ -20,19 +20,18 @@ import { ModalConfirmacaoComponent } from '../../../components/modal-confirmacao
   standalone: false
 })
 export class AtendenteComponent implements OnInit {
-
-
   pagination: IPaginator = {
     pageNumber: 1,
     pageSize: 5,
-    qtPages: 0
+    qtPages: 0,
   };
-  displayedColumns: string[] = ['nomeAtendente', 'porcentagem', 'acoes'];
+  filtroAtendente: string = ''
+  displayedColumns: string[] = ['nomeAtendente', 'nomeGerente' ,'porcentagem', 'acoes'];
   listAtendente: IAtendente[] = []
   listHistorico: IHistoricoAtendente[] = []
   loader: boolean = false;
   edit: boolean = false;
-
+  timeout: any;
   atendente: IAtendente = {
     idAtendente: 0,
     idUsuario: 0,
@@ -53,7 +52,6 @@ export class AtendenteComponent implements OnInit {
     private toast: ToastrService) { }
 
   editarFornecedor(event: IAtendente) {
-    // console.log(event)
     this.atendente = event;
     this.openDialog();
   }
@@ -61,6 +59,14 @@ export class AtendenteComponent implements OnInit {
     this.getHistoricoAtendente(event.idAtendente)
 
   }
+
+  filterAtendente() {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.getAtendente()
+    }, 500);
+  }
+
   openDialog(): void {
     let larguraDialog = '30vw';
     let alturaDialog = '60vh';
@@ -141,7 +147,7 @@ export class AtendenteComponent implements OnInit {
 
   getAtendente() {
     this.loader = true;
-    this.atendenteService.getAllAtendente(this.pagination, {
+    this.atendenteService.getAllAtendente(this.pagination, this.filtroAtendente, {
       onSuccess: (res: any) => {
         this.listAtendente = res.data?.atendente?.listAtendentes?.map((x: any) => {
           return {
@@ -149,6 +155,7 @@ export class AtendenteComponent implements OnInit {
             idUsuario: x.idUsuario,
             nomeAtendente: x.nomeAtendente,
             porcentagem: x.porcentagem,
+            nomeGerente: x.nomeGerente
           }
         });
 
