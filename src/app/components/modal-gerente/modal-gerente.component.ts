@@ -5,14 +5,15 @@ import { GerenteService } from '../../shared/gerente.service';
 import { IGerente } from '../../interface/IGerente';
 
 @Component({
-    selector: 'app-modal-gerente',
-    templateUrl: './modal-gerente.component.html',
-    styleUrl: './modal-gerente.component.css',
-    standalone: false
+  selector: 'app-modal-gerente',
+  templateUrl: './modal-gerente.component.html',
+  styleUrl: './modal-gerente.component.css',
+  standalone: false
 })
 export class ModalGerenteComponent implements OnInit {
   loader: boolean = false;
   edit: boolean = false;
+
   constructor(
     public dialogRef: MatDialogRef<ModalGerenteComponent>,
     private toast: ToastrService,
@@ -21,7 +22,7 @@ export class ModalGerenteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.data.idUsuario != 0){
+    if (this.data.idUsuario != 0) {
       this.edit = true;
     }
   }
@@ -33,9 +34,19 @@ export class ModalGerenteComponent implements OnInit {
     if (this.data.nomeUsuario == '' || this.data.email == '') {
       return false;
     }
+
     return true;
   }
-  cadastrarGerente(){
+  verifyPassword(){
+    if ((this.data.senha != '' && this.data.senha != undefined) || (this.data.confirmarSenha != '' && this.data.confirmarSenha != undefined)) {
+      if (this.data.senha == this.data.confirmarSenha) {
+        return true
+      }
+      return false
+    }
+    return true;
+  }
+  cadastrarGerente() {
     this.loader = true;
     this.gerenteService.cadastrarGerente(this.data, {
       onSuccess: (res: any) => {
@@ -55,7 +66,7 @@ export class ModalGerenteComponent implements OnInit {
       },
     });
   }
-  editarGerente(){
+  editarGerente() {
     this.loader = true;
     this.gerenteService.editarGerente(this.data, {
       onSuccess: (res: any) => {
@@ -81,11 +92,16 @@ export class ModalGerenteComponent implements OnInit {
       this.loader = false;
       return;
     }
-    
-    if(this.edit == true){
+    if(!this.verifyPassword()){
+      this.toast.error('As senhas não são iguais!');
+      this.loader = false;
+      return;
+    }
+
+    if (this.edit == true) {
       this.editarGerente();
     }
-    else{
+    else {
       this.cadastrarGerente();
     }
   }
