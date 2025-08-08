@@ -204,7 +204,7 @@ export class PagamentoAtualComponent implements OnInit {
           this.listPagamentos?.map((x: any) => {
             if (x.idStatusPagamento == 1) {
               this.totalBruto += x.valorBruto;
-              this.totalLiqAtendente += x.valorLiquidoAtendente + x.valorLiquidoAtendente2;
+              this.totalLiqAtendente += x.valorLiquidoAtendente;
               this.totalLiqFornecedor += x.valorLiquidoFornecedor;
             }
           })
