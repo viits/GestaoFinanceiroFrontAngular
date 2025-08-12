@@ -14,6 +14,7 @@ import { GraficoAtualComponent } from './pages/grafico/grafico-atual/grafico-atu
 import { GraficoMensalComponent } from './pages/grafico/grafico-mensal/grafico-mensal.component';
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { GraficoMensalDiaComponent } from './pages/grafico/grafico-mensal-dia/grafico-mensal-dia.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'grafico-mensal', component: GraficoMensalComponent },
   { path: 'grafico-mensal-dia', component: GraficoMensalDiaComponent },
   { path: 'ranking', component: RankingComponent },
+  { path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({

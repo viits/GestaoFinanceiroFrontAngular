@@ -47,6 +47,7 @@ import { GraficoMensalComponent } from './pages/grafico/grafico-mensal/grafico-m
 import { RankingComponent } from './pages/ranking/ranking.component';
 import { GraficoMensalDiaComponent } from './pages/grafico/grafico-mensal-dia/grafico-mensal-dia.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const maskConfig: Partial<NgxMaskConfig> = {
   validation: false,
@@ -84,7 +85,8 @@ const maskConfig: Partial<NgxMaskConfig> = {
     GraficoAtualComponent,
     GraficoMensalComponent,
     RankingComponent,
-    GraficoMensalDiaComponent
+    GraficoMensalDiaComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
