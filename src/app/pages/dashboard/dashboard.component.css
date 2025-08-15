@@ -1,10 +1,25 @@
-.div-grafico{
-  height: 300px;
-  width: 300px;
+.div-grafico {
+  height: 400px;
+  width: 350px;
 }
 
-canvas{
-  width: 250px !important;
-  height: 250px !important;
+.div-grafico-barras {
+  height: 400px;
+  width: 700px;
+}
+
+canvas {
+  /* width: 80%; */
+  max-height: 90% !important;
   /* padding: 20px 10px 20px 10px; */
+}
+
+@media screen and (max-width: 940px) {
+  .container{
+    overflow: auto;
+  }
+
+  .div-grafico-barras{
+    width: 100%;
+  }
 }

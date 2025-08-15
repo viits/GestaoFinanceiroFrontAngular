@@ -6,26 +6,32 @@
     <div class="row d-flex justify-content-center mb-5 mt-2">
       <div class="col-md-2">
         <label>Data inicio</label>
-        <input type="date" class="form-control" />
+        <input type="date" [(ngModel)]="data.dataInicio" class="form-control" />
       </div>
       <div class="col-md-2">
         <label>Data fim</label>
-        <input type="date" class="form-control" />
+        <input type="date" [(ngModel)]="data.dataFim" class="form-control" />
       </div>
       <div class="col-2 d-flex align-items-center justify-content-center pt-3">
-        <button type="button" class="btn btn-success">Pesquisar</button>
+        <button type="button" class="btn btn-success" (click)="filter()">Pesquisar</button>
       </div>
     </div>
 
-    <div class="d-flex gap-3 cols-auto align-items-center justify-content-center">
-      <div class="col col-lg-5 align-items-center justify-content-center d-flex flex-column shadow mb-5 bg-body rounded div-grafico">
-        <h4>Gráfico diário</h4>
-        <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+    <div class="d-flex flex-column flex-lg-row gap-3 cols-auto align-items-center justify-content-center">
+      <div
+        class="col col-lg-5 align-items-center justify-content-center d-flex flex-column shadow mb-5 bg-body rounded div-grafico">
+        <h4>Gráfico método pagamento</h4>
+        <p *ngIf="this.pieChartData.datasets[0].data.length == 0">Não possui pagamentos realizados hoje</p>
+        <canvas *ngIf="this.pieChartData.datasets[0].data.length > 0" baseChart [data]="pieChartData"
+          [type]="pieChartType" [options]="pieChartOptions">
         </canvas>
       </div>
-      <div class="col col-lg-5 align-items-center justify-content-center d-flex flex-column shadow  mb-5 bg-body rounded div-grafico">
-        <h4>Gráfico diário</h4>
-        <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+      <div
+        class="col align-items-center justify-content-center d-flex flex-column shadow  mb-5 bg-body rounded div-grafico-barras">
+        <h4>Gráfico mensal</h4>
+        <p *ngIf="this.barChartData.datasets[0].data.length == 0">Não possui pagamentos realizados hoje</p>
+        <canvas *ngIf="this.barChartData.datasets[0].data.length > 0" baseChart [data]="barChartData"
+          [options]="barChartOptions" [type]="'bar'">
         </canvas>
       </div>
     </div>
