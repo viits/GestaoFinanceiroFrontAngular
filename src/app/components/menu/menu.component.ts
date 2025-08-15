@@ -5,10 +5,10 @@ import { UsuarioService } from '../../shared/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './menu.component.html',
-    styleUrl: './menu.component.css',
-    standalone: false
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.css',
+  standalone: false
 })
 export class MenuComponent implements OnInit {
   isMenuOpen = false;
@@ -52,8 +52,8 @@ export class MenuComponent implements OnInit {
           error.error.errors?.map((x: any) => {
             this.toast.error(x);
           });
-          this.logout();
         }
+        this.logout();
       },
     });
   }
@@ -75,8 +75,8 @@ export class MenuComponent implements OnInit {
           error.error.errors?.map((x: any) => {
             this.toast.error(x);
           });
-          this.logout();
         }
+        this.logout();
       },
     });
   }
